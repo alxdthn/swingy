@@ -1,7 +1,9 @@
 package com.nalexand.swingy;
 
-import com.nalexand.swingy.view.TerminalView;
-import com.nalexand.swingy.view.View;
+import com.nalexand.swingy.controller.Controller;
+import com.nalexand.swingy.controller.ControllerType;
+import com.nalexand.swingy.controller.console.ConsoleController;
+import com.nalexand.swingy.model.Model;
 import com.nalexand.swingy.view.ViewType;
 
 import java.util.HashMap;
@@ -9,19 +11,21 @@ import java.util.Map;
 
 public class Swingy {
 
-    static Map<ViewType, View> view = new HashMap<>();
+    static Map<ControllerType, Controller> controller = new HashMap<>();
 
-    static ViewType currentView;
+    static ControllerType currentController;
+
+    static Model model;
 
     public static void main(String[] args) {
 
         System.out.println("Swingy!");
 
-        view.put(ViewType.CONSOLE, new TerminalView());
-
         validateArgs(args);
 
-        view.get(currentView).process();
+        controller.put(ControllerType.CONSOLE, new ConsoleController(model));
+
+        controller.get(currentController).start();
     }
 
     static void validateArgs(String[] args) {
@@ -33,10 +37,12 @@ public class Swingy {
         }
         switch (args[0]) {
             case "gui":
-                currentView = ViewType.GUI;
+                currentController = ControllerType.GUI;
+                model = new Model(ViewType.GUI);
                 break;
             case "console":
-                currentView = ViewType.CONSOLE;
+                currentController = ControllerType.CONSOLE;
+                model = new Model(ViewType.CONSOLE);
                 break;
         }
     }
