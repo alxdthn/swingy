@@ -21,6 +21,7 @@ public class CreateHero implements Step {
     public void resolve(Command command) {
         switch (command) {
             case OPTION_1:
+
         }
     }
 }

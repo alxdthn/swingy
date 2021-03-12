@@ -39,7 +39,7 @@ public class Model {
     }
 
     public void nextStep() {
-        scenarioIterator++;
+        scenario.get(++scenarioIterator).render(getView());
     }
 
     private View getView() {

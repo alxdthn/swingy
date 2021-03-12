@@ -10,4 +10,9 @@ public class ConsoleView implements View {
         System.out.println("1: Create a hero");
         System.out.println("2: Select a previously created hero");
     }
+
+    @Override
+    public void showCreateHero() {
+        System.out.println("Create hero");
+    }
 }
