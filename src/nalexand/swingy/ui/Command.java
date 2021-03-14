@@ -1,4 +1,4 @@
-package com.nalexand.swingy.controller;
+package nalexand.swingy.ui;
 
 public enum Command {
     UNKNOWN,

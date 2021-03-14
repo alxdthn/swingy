@@ -1,10 +1,8 @@
-package com.nalexand.swingy.controller;
+package nalexand.swingy.ui;
 
 public interface Controller {
 
     void start();
-
-    void waitCommand();
 
     void close();
 }

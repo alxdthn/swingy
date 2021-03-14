@@ -1,8 +1,8 @@
-package com.nalexand.swingy.controller.console;
+package nalexand.swingy.ui.console;
 
-import com.nalexand.swingy.controller.Command;
-import com.nalexand.swingy.controller.Controller;
-import com.nalexand.swingy.model.Model;
+import nalexand.swingy.model.Model;
+import nalexand.swingy.ui.Command;
+import nalexand.swingy.ui.Controller;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -19,12 +19,9 @@ public class ConsoleController implements Controller {
 
     @Override
     public void start() {
-        waitCommand();
-    }
-
-    @Override
-    public void waitCommand() {
         String line;
+
+        model.start();
 
         while ((line = getLine()) != null) {
             Command command = getCommand(line);
