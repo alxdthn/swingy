@@ -2,9 +2,13 @@ package com.nalexand.swingy.ui;
 
 public enum Command {
     UNKNOWN,
-    OPTION_1,
-    OPTION_2,
-    OPTION_3,
-    OPTION_4,
-    OPTION_5,
+    KEY_1,
+    KEY_2,
+    KEY_3,
+    KEY_4,
+    KEY_5,
+    KEY_W,
+    KEY_A,
+    KEY_S,
+    KEY_D,
 }

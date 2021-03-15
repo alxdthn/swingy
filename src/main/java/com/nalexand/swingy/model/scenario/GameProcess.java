@@ -1,29 +1,65 @@
 package com.nalexand.swingy.model.scenario;
 
-import com.nalexand.swingy.model.WorldMap;
+import com.nalexand.swingy.model.*;
 import com.nalexand.swingy.model.base.BaseScenarioStep;
-import com.nalexand.swingy.model.base.ScenarioStep;
-import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.ui.Command;
-import com.nalexand.swingy.utils.Utils;
 
-public class GameProcess extends BaseScenarioStep<CreateHero> implements ScenarioStep.Data {
-
-    private final Hero hero;
+public class GameProcess extends BaseScenarioStep {
 
     protected GameProcess(ModelFacade model) {
         super(model);
-        hero = model.getGameState().getSelectedHero();
-        hero.prepareToGame();
-        Utils.saveGameState(model.getGameState());
+        if (model.getSelectedHero().worldMap == null) {
+            model.calculateWorldMap();
+        }
+    }
+
+    @Override
+    public void onRendered() {
+        Battle battle = model.getBattle();
+        if (battle != null && battle.isConfirmed) {
+            model.nextStep(new BattleProcess(model));
+        } else if (battle != null) {
+            model.nextStep(new BattleProcess.Confirmation(model));
+        }
     }
 
     @Override
     public void resolve(Command command) {
-
+        Hero hero = model.getSelectedHero();
+        switch (command) {
+            case KEY_W:
+                moveHero(hero.posX,hero.posY - 1);
+                break;
+            case KEY_A:
+                moveHero(hero.posX - 1, hero.posY);
+                break;
+            case KEY_S:
+                moveHero(hero.posX, hero.posY + 1);
+                break;
+            case KEY_D:
+                moveHero(hero.posX + 1, hero.posY);
+        }
     }
 
-    public Hero getHero() {
-        return hero;
+    private void moveHero(int toPosX, int toPosY) {
+        Hero hero = model.getSelectedHero();
+        WorldMap worldMap = hero.worldMap;
+
+        boolean isMapEdge = toPosX < 0 || toPosX >= worldMap.getSize() ||
+                toPosY < 0 || toPosY >= worldMap.getSize();
+        if (isMapEdge) {
+            model.calculateWorldMap();
+        } else  {
+            Cell destinationCell = worldMap.getCells().get(toPosY).get(toPosX);
+            if (destinationCell.isFree()) {
+                model.moveHero(toPosX, toPosY);
+            } else if (destinationCell.withMob) {
+                Hero mob = model.getMobWithPosition(toPosX, toPosY);
+                model.startBattle(new Battle(mob));
+                model.nextStep(new BattleProcess.Confirmation(model));
+                return;
+            }
+        }
+        model.render();
     }
 }

@@ -1,6 +1,6 @@
 package com.nalexand.swingy.ui.gui;
 
-import com.nalexand.swingy.model.scenario.ModelFacade;
+import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.Command;
 import com.nalexand.swingy.ui.base.Controller;
 
@@ -28,6 +28,6 @@ public final class GuiController implements Controller {
     }
 
     public void createNewHeroButton() {
-        model.resolveCommand(Command.OPTION_1);
+        model.resolveCommand(Command.KEY_1);
     }
 }

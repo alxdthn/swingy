@@ -1,6 +1,6 @@
 package com.nalexand.swingy.ui.base;
 
-import com.nalexand.swingy.model.scenario.ModelFacade;
+import com.nalexand.swingy.model.ModelFacade;
 
 public abstract class BaseUserInterface<C extends Controller, V extends View> {
 

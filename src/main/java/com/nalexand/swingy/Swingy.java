@@ -1,6 +1,6 @@
 package com.nalexand.swingy;
 
-import com.nalexand.swingy.model.scenario.ModelFacade;
+import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.console.ConsoleUserInterface;
 import com.nalexand.swingy.ui.gui.GuiUserInterface;
 import com.nalexand.swingy.ui.gui.GuiView;
@@ -9,7 +9,7 @@ public class Swingy {
 
     public static final String GAME_DATA_FILE = "./game_data.json";
 
-    public static final boolean IGNORE_SAVED = true;
+    public static final boolean IGNORE_SAVED = false;
 
     static final ModelFacade model = new ModelFacade();
 

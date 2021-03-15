@@ -1,8 +1,6 @@
 package com.nalexand.swingy.ui.gui;
 
-import com.nalexand.swingy.model.scenario.CreateHero;
-import com.nalexand.swingy.model.scenario.GameProcess;
-import com.nalexand.swingy.model.scenario.Welcome;
+import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.base.BaseView;
 
 import javax.swing.*;
@@ -10,7 +8,7 @@ import java.awt.*;
 
 public final class GuiView extends BaseView {
 
-    private final JFrame frame = new JFrame("com.nalexand.swingy.Swingy");
+    private JFrame frame = null;
 
     private JPanel currentPane = null;
 
@@ -21,25 +19,46 @@ public final class GuiView extends BaseView {
     }
 
     public void initGui() {
+        frame = new JFrame("com.nalexand.swingy.Swingy");
         SwingUtilities.invokeLater(this::initGuiInternal);
     }
 
     @Override
-    protected void showWelcome(Welcome welcome) {
-        SwingUtilities.invokeLater(() -> renderWelcome(welcome));
+    protected void showWelcome(ModelFacade model) {
+        SwingUtilities.invokeLater(() -> renderWelcome(model));
     }
 
     @Override
-    protected void showCreateHero(CreateHero createHero) {
-        SwingUtilities.invokeLater(() -> renderCreateNewHero(createHero));
+    protected void showCreateHero(ModelFacade model) {
+        SwingUtilities.invokeLater(() -> renderCreateNewHero(model));
     }
 
     @Override
-    protected void showGameProcess(GameProcess gameProcess) {
+    protected void showGameProcess(ModelFacade model) {
         throw new IllegalStateException();
     }
 
-    private void renderWelcome(Welcome welcome) {
+    @Override
+    protected void showBattleConfirmation(ModelFacade model) {
+
+    }
+
+    @Override
+    protected void showBattle(ModelFacade model) {
+
+    }
+
+    @Override
+    protected void showBattleWin(ModelFacade model) {
+
+    }
+
+    @Override
+    protected void showBattleLose(ModelFacade model) {
+
+    }
+
+    private void renderWelcome(ModelFacade model) {
         JPanel contents = new JPanel();
         contents.setLayout(new BoxLayout(contents, BoxLayout.Y_AXIS));
 
@@ -49,14 +68,14 @@ public final class GuiView extends BaseView {
         createNewHeroButton.addActionListener(e -> guiController.createNewHeroButton());
         contents.add(createNewHeroButton);
 
-        if (welcome.createdHeroes != null) {
+        if (!model.getCreatedHeroes().isEmpty()) {
             JButton selectPrevHeroButton = new JButton("Select a previously created hero");
             contents.add(selectPrevHeroButton);
         }
         render(contents);
     }
 
-    private void renderCreateNewHero(CreateHero createHero) {
+    private void renderCreateNewHero(ModelFacade model) {
         JPanel contents = new JPanel();
         contents.setLayout(new BoxLayout(contents, BoxLayout.PAGE_AXIS));
 

@@ -1,7 +1,5 @@
 package com.nalexand.swingy.model;
 
-import java.util.Objects;
-
 public class Hero {
 
     public String name;
@@ -10,9 +8,9 @@ public class Hero {
 
     public boolean created = false;
 
-    private WorldMap worldMap = new WorldMap();
+    public WorldMap worldMap = null;
 
-    private int level = 1;
+    public int level = 0;
 
     private int xp = 0;
 
@@ -23,6 +21,10 @@ public class Hero {
     private int defence = 0;
 
     private int hitPoints = 0;
+
+    public int posX = 0;
+
+    public int posY = 0;
 
     public Hero(Type type) {
         this.type = type;
@@ -39,33 +41,24 @@ public class Hero {
             case URSA:
                 this.name = "Ursa";
                 break;
+            case MOB:
+                this.name = "Mob";
         }
     }
 
     public void increaseExperience(int xp) {
-        int additionalXp = this.xp + xp;
-        int levelThreshold = level * 1000 + (level - 1) * (level - 1) * 450;
-        if (additionalXp >= levelThreshold) {
-            level++;
-            this.xp += Math.min(additionalXp, levelThreshold);
-            if (additionalXp - levelThreshold > 0) {
-                increaseExperience(additionalXp - levelThreshold);
+        while (xp > 0) {
+            int levelThreshold = (level + 1) * 1000 + level * level * 450;
+            int toNextLevel = levelThreshold - this.xp;
+            if (xp > toNextLevel) {
+                level++;
+                this.xp += toNextLevel;
+                xp -= toNextLevel;
+            } else {
+                this.xp += xp;
+                xp = 0;
             }
         }
-    }
-
-    public void prepareToGame() {
-        if (worldMap.getSize() == 0) {
-            calculateWorldMap();
-        }
-    }
-
-    public void calculateWorldMap() {
-        worldMap.generateMap((level - 1) * 5 + 10);
-    }
-
-    public WorldMap getWorldMap() {
-        return worldMap;
     }
 
     public int getLevel() {
@@ -92,23 +85,11 @@ public class Hero {
         return hitPoints;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Hero hero = (Hero) o;
-        return Objects.equals(type, hero.type);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
-
     public enum Type {
         VOID,
         NEVERMORE,
         TRAXES,
-        URSA
+        URSA,
+        MOB
     }
 }

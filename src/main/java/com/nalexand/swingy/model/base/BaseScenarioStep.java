@@ -1,18 +1,17 @@
 package com.nalexand.swingy.model.base;
 
-import com.nalexand.swingy.model.scenario.ModelFacade;
+import com.nalexand.swingy.model.ModelFacade;
+import com.nalexand.swingy.ui.Command;
 
-public abstract class BaseScenarioStep<Child extends ScenarioStep.Data> implements ScenarioStep<Child> {
+public abstract class BaseScenarioStep {
 
-    protected ModelFacade model;
+    public ModelFacade model;
+
+    public void onRendered() { /* do nothing */ }
+
+    public abstract void resolve(Command command);
 
     protected BaseScenarioStep(ModelFacade model) {
         this.model = model;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public Child provideScenarioData() {
-        return (Child) this;
     }
 }

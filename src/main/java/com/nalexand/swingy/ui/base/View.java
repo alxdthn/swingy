@@ -1,8 +1,8 @@
 package com.nalexand.swingy.ui.base;
 
-import com.nalexand.swingy.model.base.ScenarioStep;
+import com.nalexand.swingy.model.base.BaseScenarioStep;
 
 public interface View {
 
-    void renderScenarioData(ScenarioStep.Data scenarioData);
+    void renderScenarioData(BaseScenarioStep scenarioStep);
 }
