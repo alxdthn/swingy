@@ -1,8 +1,7 @@
 package com.nalexand.swingy.model.scenario;
 
-import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.model.base.BaseScenarioStep;
 import com.nalexand.swingy.model.Hero;
+import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.Command;
 
 import java.util.List;

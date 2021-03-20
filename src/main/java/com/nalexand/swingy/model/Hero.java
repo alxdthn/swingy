@@ -1,5 +1,10 @@
 package com.nalexand.swingy.model;
 
+import com.nalexand.swingy.Swingy;
+import com.nalexand.swingy.model.items.Item;
+import com.nalexand.swingy.model.items.ItemFactory;
+import com.nalexand.swingy.utils.Utils;
+
 public class Hero {
 
     public String name;
@@ -26,6 +31,12 @@ public class Hero {
 
     public int posY = 0;
 
+    public Item weapon = null;
+
+    public Item armor = null;
+
+    public Item helmet = null;
+
     public Hero(Type type) {
         this.type = type;
         switch (type) {
@@ -42,7 +53,7 @@ public class Hero {
                 this.name = "Ursa";
                 break;
             case MOB:
-                this.name = "Mob";
+                this.name = Swingy.MOB_NAMES[Utils.randomBetween(0, Swingy.MOB_NAMES.length - 1)];
         }
     }
 
@@ -83,6 +94,24 @@ public class Hero {
 
     public int getHitPoints() {
         return hitPoints;
+    }
+
+    public void initAsMob(Hero hero) {
+        level = hero.level + Utils.randomBetween(-1, 1);
+        if (Utils.randomByPercent(Swingy.ITEM_GENERATION_PERCENTAGE)) {
+            Item randomItem = ItemFactory.randomItem();
+            switch (randomItem.type) {
+                case WEAPON:
+                    weapon = randomItem;
+                    break;
+                case ARMOR:
+                    armor = randomItem;
+                    break;
+                case HELMET:
+                    helmet = randomItem;
+                    break;
+            }
+        }
     }
 
     public enum Type {

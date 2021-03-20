@@ -1,4 +1,4 @@
-package com.nalexand.swingy.model.base;
+package com.nalexand.swingy.model.scenario;
 
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.Command;

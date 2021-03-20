@@ -1,7 +1,6 @@
 package com.nalexand.swingy.model.scenario;
 
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.model.base.BaseScenarioStep;
 import com.nalexand.swingy.ui.Command;
 
 public class BattleProcess extends BaseScenarioStep {

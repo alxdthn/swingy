@@ -1,5 +1,6 @@
 package com.nalexand.swingy.model;
 
+import com.nalexand.swingy.Swingy;
 import com.nalexand.swingy.utils.Utils;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class WorldMap {
 
     public void generateWorld(Hero hero) {
         generateMap(hero);
-        generateMobs();
+        generateMobs(hero);
         generateObstacles();
     }
 
@@ -50,7 +51,7 @@ public class WorldMap {
         cells.get(center).get(center).withHero = true;
     }
 
-    private void generateMobs() {
+    private void generateMobs(Hero hero) {
         int needGenerateMobs = 2;
         mobs = new ArrayList<>(needGenerateMobs);
         while (needGenerateMobs != 0) {
@@ -59,6 +60,7 @@ public class WorldMap {
             Cell cell = cells.get(randomY).get(randomX);
             if (cell.isFree()) {
                 Hero newMob = new Hero(Hero.Type.MOB);
+                newMob.initAsMob(hero);
                 newMob.posX = randomX;
                 newMob.posY = randomY;
                 mobs.add(newMob);
@@ -69,14 +71,14 @@ public class WorldMap {
     }
 
     private void generateObstacles() {
-        int obstaclesGenerated = 0;
-        for (int row = 0; row < size; row++) {
-            for (int column = 0; column < size; column++) {
-                Cell cell = cells.get(row).get(column);
-                if (!cell.isFree()) continue;
-                cell.isObstacle = Utils.randomByPercent(25 / (obstaclesGenerated + 1));
-                if (cell.isObstacle) obstaclesGenerated++;
-            }
+        int needGenerateObstacles = (int) (size * Swingy.OBSTACLES_PERCENTAGE);
+        while (needGenerateObstacles > 0) {
+            int randomX = Utils.randomBetween(0, size - 1);
+            int randomY = Utils.randomBetween(0, size - 1);
+            Cell cell = cells.get(randomY).get(randomX);
+            if (!cell.isFree()) continue;
+            cell.isObstacle = true;
+            needGenerateObstacles--;
         }
     }
 }

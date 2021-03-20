@@ -1,7 +1,6 @@
 package com.nalexand.swingy.ui.base;
 
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.model.base.BaseScenarioStep;
 import com.nalexand.swingy.model.scenario.*;
 
 public abstract class BaseView implements View {

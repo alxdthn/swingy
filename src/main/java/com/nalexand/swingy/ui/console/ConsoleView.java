@@ -1,15 +1,13 @@
 package com.nalexand.swingy.ui.console;
 
-import com.nalexand.swingy.model.Battle;
-import com.nalexand.swingy.model.Cell;
-import com.nalexand.swingy.model.WorldMap;
-import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.model.Hero;
+import com.nalexand.swingy.model.*;
+import com.nalexand.swingy.model.items.Item;
 import com.nalexand.swingy.ui.base.BaseView;
 import com.nalexand.swingy.utils.Colors;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.nalexand.swingy.utils.Utils.printFormat;
@@ -53,22 +51,22 @@ public final class ConsoleView extends BaseView {
 
         Iterator<List<Cell>> worldMapIterator = worldMap.getCells().iterator();
 
-        printLineWithMap(hero.name + ":", worldMapIterator);
+        printLineWithMap(hero.name + ":", worldMapIterator, "Items:");
 
         printLineWithMap(String.format(
                 "level: %s",
                 hero.getLevel()
-        ), worldMapIterator);
+        ), worldMapIterator, formatItem(hero, Item.Type.HELMET));
 
         printLineWithMap(String.format(
                 "xp: %s",
                 hero.getXp()
-        ), worldMapIterator);
+        ), worldMapIterator, formatItem(hero, Item.Type.ARMOR));
 
         printLineWithMap(String.format(
                 "xp: %s",
                 hero.getXp()
-        ), worldMapIterator);
+        ), worldMapIterator, formatItem(hero, Item.Type.WEAPON));
 
         printLineWithMap(String.format(
                 "hp: %s",
@@ -147,6 +145,15 @@ public final class ConsoleView extends BaseView {
         );
     }
 
+    private void printLineWithMap(String info, Iterator<List<Cell>> worldMapIterator, String itemLine) {
+        printFormat(
+                "%-" + INFO_WIDTH + "s%s %s\n",
+                info,
+                nextWorldLineAsString(worldMapIterator),
+                itemLine
+        );
+    }
+
     private String nextWorldLineAsString(Iterator<List<Cell>> worldMapIterator) {
         if (!worldMapIterator.hasNext()) return "";
         return worldMapIterator
@@ -165,6 +172,47 @@ public final class ConsoleView extends BaseView {
             return Colors.RED + "[M]" + Colors.END;
         } else {
             return "[.]";
+        }
+    }
+
+    private String formatItem(Hero hero, Item.Type type) {
+        String itemTypeString;
+        String formattedItem;
+        Item item;
+        switch (type) {
+            case WEAPON:
+                itemTypeString = "weapon";
+                item = hero.weapon;
+                formattedItem = safeFormatItem(item, (notNullItem) ->
+                        String.format("%s attack = %d", notNullItem.name, notNullItem.attack)
+                );
+                break;
+            case ARMOR:
+                itemTypeString = "armor";
+                item = hero.armor;
+                formattedItem = safeFormatItem(item, (notNullItem) ->
+                        String.format("%s defence = %d", notNullItem.name, notNullItem.defence)
+                );
+                break;
+            default:
+                itemTypeString = "helmet";
+                item = hero.helmet;
+                formattedItem = safeFormatItem(item, (notNullItem) ->
+                        String.format("%s hitPoints = %d", notNullItem.name, notNullItem.hitPoints)
+                );
+                break;
+        }
+        return String.format("%s: %s",
+                itemTypeString,
+                formattedItem
+        );
+    }
+
+    private String safeFormatItem(Item item, Function<Item, String> formatter) {
+        if (item == null) {
+            return "EMPTY";
+        } else {
+            return formatter.apply(item);
         }
     }
 }
