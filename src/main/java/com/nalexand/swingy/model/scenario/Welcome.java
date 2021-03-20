@@ -31,7 +31,7 @@ public class Welcome extends BaseScenarioStep {
                 break;
             case KEY_5:
                 model.setSelectedHero(createdHeroes.get(3).type);
-            case UNKNOWN:
+            default:
                 return;
         }
         model.nextStep(new GameProcess(model));

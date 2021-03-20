@@ -110,18 +110,36 @@ public final class ConsoleView extends BaseView {
         printDash();
 
         Battle battle = model.getBattle();
+        Hero hero = model.getSelectedHero();
 
-        printFormat("Battle with %s!\n", battle.mob.name);
-        println("");
-        println("1: Win");
-        println("2: Lose");
+        String heroTitle = String.format("%s (%d hp)", hero.name, battle.heroStartHp);
+        String mobTitle = String.format("%s (%d hp)", battle.mob.name, battle.mobStartHp);
+
+        printFormat("%34s\n", "BATTLE!");
+        printFormat("%28s  |  %s\n", heroTitle, mobTitle);
+        printFormat("%-8s|%8s|%12s|%-12s|%-8s\n", "step", "hp", "damage", "damage", "hp");
+        battle.getSteps().forEach(step -> println(step.format()));
     }
 
     @Override
     protected void showBattleWin(ModelFacade model) {
         printDash();
 
+        Battle battle = model.getBattle();
+
         println("You are win!");
+        List<Item> drop = listOfNotNull(
+                battle.mob.helmet,
+                battle.mob.armor,
+                battle.mob.weapon
+        );
+        if (!drop.isEmpty()) {
+            println("Drop:");
+            int option = 1;
+            for (Item item : drop) {
+                printFormat("%d: %s", option++, item.getFormattedString());
+            }
+        }
         println("1: Ok!");
     }
 

@@ -25,9 +25,9 @@ public class Item {
             case WEAPON:
                 return String.format("weapon: %s (attack = %d)", name, attack);
             case ARMOR:
-                return String.format("armor %s (defence = %d)", name, defence);
+                return String.format("armor: %s (defence = %d)", name, defence);
             default:
-                return String.format("helmet %s (hitPoints = %d)", name, hitPoints);
+                return String.format("helmet: %s (hitPoints = %d)", name, hitPoints);
         }
     }
 

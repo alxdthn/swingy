@@ -15,10 +15,15 @@ public class GameProcess extends BaseScenarioStep {
     @Override
     public void onRendered() {
         Battle battle = model.getBattle();
-        if (battle != null && battle.isConfirmed) {
-            model.nextStep(new BattleProcess(model));
-        } else if (battle != null) {
-            model.nextStep(new BattleProcess.Confirmation(model));
+        if (battle != null) {
+            switch (battle.status) {
+                case CONFIRMATION:
+                    model.nextStep(new BattleProcess.Confirmation(model));
+                    break;
+                case WIN:
+                    model.nextStep(new BattleProcess.Win(model));
+                    break;
+            }
         }
     }
 
@@ -54,7 +59,7 @@ public class GameProcess extends BaseScenarioStep {
                 model.moveHero(toPosX, toPosY);
             } else if (destinationCell.withMob) {
                 Hero mob = model.getMobWithPosition(toPosX, toPosY);
-                model.startBattle(new Battle(mob));
+                model.startBattle(new Battle(hero, mob));
                 model.nextStep(new BattleProcess.Confirmation(model));
                 return;
             }

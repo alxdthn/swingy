@@ -5,7 +5,6 @@ import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.model.scenario.Welcome;
 import com.nalexand.swingy.ui.Command;
 import com.nalexand.swingy.ui.base.View;
-import com.nalexand.swingy.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +38,8 @@ public class ModelFacade {
 
     //region Data providing
     public Hero getSelectedHero() {
-        if (gameState.selectedHero == null) return null;
-        return gameState.heroes.get(gameState.selectedHero);
+        if (gameState.selectedHeroType == null) return null;
+        return gameState.heroes.get(gameState.selectedHeroType);
     }
 
     public List<Hero> getCreatedHeroes() {
@@ -56,7 +55,7 @@ public class ModelFacade {
     }
 
     public Battle getBattle() {
-        return gameState.battle;
+        return getSelectedHero().battle;
     }
 
     public Hero getMobWithPosition(int posX, int posY) {
@@ -72,15 +71,16 @@ public class ModelFacade {
     public void satisfyHero() {
         Hero currentHero = getSelectedHero();
         gameState.heroes.put(currentHero.type, new Hero(currentHero.type));
-        gameState.selectedHero = null;
+        gameState.selectedHeroType = null;
         saveGameState();
     }
     //endregion
 
     //region State interactions
     public void setSelectedHero(Hero.Type selectedHeroType) {
-        gameState.selectedHero = selectedHeroType;
-        getSelectedHero().created = true;
+        gameState.selectedHeroType = selectedHeroType;
+        Hero selectedHero = getSelectedHero();
+        selectedHero.initAsHero();
         saveGameState();
     }
 
@@ -109,7 +109,7 @@ public class ModelFacade {
 
 
     public void startBattle(Battle battle) {
-        gameState.battle = battle;
+        getSelectedHero().battle = battle;
         saveGameState();
     }
 
@@ -119,12 +119,10 @@ public class ModelFacade {
     }
 
     public void clearBattle() {
-        gameState.battle = null;
+        Hero selectedHero = getSelectedHero();
+        selectedHero.worldMap.removeMob(selectedHero.battle.mob);
+        selectedHero.battle = null;
         saveGameState();
-    }
-
-    public void removeBattleMob() {
-        getSelectedHero().worldMap.removeMob(getBattle().mob);
     }
 
     public void saveGameState() {

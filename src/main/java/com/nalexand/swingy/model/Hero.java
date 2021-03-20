@@ -15,6 +15,8 @@ public class Hero {
 
     public WorldMap worldMap = null;
 
+    public Battle battle = null;
+
     public int level = 0;
 
     private int xp = 0;
@@ -23,7 +25,7 @@ public class Hero {
 
     private int defence = 0;
 
-    private int hitPoints = 3;
+    public int hitPoints = 3;
 
     public int posX = 0;
 
@@ -79,15 +81,20 @@ public class Hero {
     }
 
     public int getAttack() {
-        return attack;
+        return attack + ((weapon != null) ? weapon.attack : 0);
     }
 
     public int getDefence() {
-        return defence;
+        return defence + ((armor != null) ? armor.defence : 0);
     }
 
     public int getHitPoints() {
-        return hitPoints;
+        return hitPoints + ((helmet != null) ? helmet.hitPoints : 0);
+    }
+
+    public void initAsHero() {
+        created = true;
+        hitPoints = 4;
     }
 
     public void initAsMob(Hero hero) {

@@ -5,11 +5,9 @@ import java.util.Map;
 
 public class GameState {
 
-    public Hero.Type selectedHero = null;
+    public Hero.Type selectedHeroType = null;
 
     public Map<Hero.Type, Hero> heroes = new HashMap<>();
-
-    public Battle battle = null;
 
     public GameState() {
         heroes.put(Hero.Type.VOID, new Hero(Hero.Type.VOID));

@@ -17,7 +17,7 @@ public class CreateHero extends BaseScenarioStep {
 
     @Override
     public void resolve(Command command) {
-        Hero selectedHero = null;
+        Hero selectedHero;
         switch (command) {
             case KEY_1:
                 selectedHero = availableHeroes.get(0);
@@ -31,17 +31,14 @@ public class CreateHero extends BaseScenarioStep {
             case KEY_4:
                 selectedHero = availableHeroes.get(3);
                 break;
-            case UNKNOWN:
-                break;
+            default:
+                return;
         }
-        if (selectedHero != null) {
-            Hero currentlySelectedHero = model.getSelectedHero();
-            if (currentlySelectedHero != null && selectedHero.type == currentlySelectedHero.type) {
-                //model.nextStep(new Dialog(model));
-            } else {
-                model.setSelectedHero(selectedHero.type);
-                model.nextStep(new GameProcess(model));
-            }
+        Hero currentlySelectedHero = model.getSelectedHero();
+        if (currentlySelectedHero != null && selectedHero.type == currentlySelectedHero.type) {
+            model.satisfyHero();
         }
+        model.setSelectedHero(selectedHero.type);
+        model.nextStep(new GameProcess(model));
     }
 }
