@@ -5,6 +5,7 @@ import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.model.scenario.Welcome;
 import com.nalexand.swingy.ui.Command;
 import com.nalexand.swingy.ui.base.View;
+import com.nalexand.swingy.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

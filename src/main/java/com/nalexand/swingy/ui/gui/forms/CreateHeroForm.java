@@ -5,20 +5,26 @@ import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.Command;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.List;
 
 public class CreateHeroForm {
     private JButton createHeroButton;
     private JPanel panel1;
+    private final ModelFacade modelFacade;
+
+    private final Command[] commands = {Command.KEY_2, Command.KEY_3, Command.KEY_4, Command.KEY_5};
 
     public CreateHeroForm(ModelFacade modelFacade) {
         $$$setupUI$$$();
+        this.modelFacade = modelFacade;
         List<Hero> createdHeroes = modelFacade.getCreatedHeroes();
-        for (Hero hero : createdHeroes) {
-            addSelectHeroButton(hero);
-        }
         createHeroButton.addActionListener(e -> modelFacade.resolveCommand(Command.KEY_1));
+        int index = 0;
+        for (Hero hero : createdHeroes) {
+            addSelectHeroButton(hero, index++);
+        }
     }
 
     public JPanel getPanel1() {
@@ -34,10 +40,18 @@ public class CreateHeroForm {
      */
     private void $$$setupUI$$$() {
         panel1 = new JPanel();
-        panel1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel1.setLayout(new GridBagLayout());
+        panel1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, new Color(-4473925)));
         createHeroButton = new JButton();
+        createHeroButton.setHorizontalAlignment(0);
+        createHeroButton.setHorizontalTextPosition(0);
         createHeroButton.setText("Create hero");
-        panel1.add(createHeroButton);
+        createHeroButton.setVerticalAlignment(0);
+        GridBagConstraints gbc;
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel1.add(createHeroButton, gbc);
     }
 
     /**
@@ -47,7 +61,13 @@ public class CreateHeroForm {
         return panel1;
     }
 
-    private void addSelectHeroButton(Hero hero) {
-
+    private void addSelectHeroButton(Hero hero, int position) {
+        JButton newButton = new JButton(hero.name);
+        GridBagConstraints gbc;
+        gbc = new GridBagConstraints();
+        gbc.gridy = position + 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        newButton.addActionListener(e -> modelFacade.resolveCommand(commands[position]));
+        panel1.add(newButton, gbc);
     }
 }
