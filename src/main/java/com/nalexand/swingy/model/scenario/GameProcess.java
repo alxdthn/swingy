@@ -1,9 +1,9 @@
 package com.nalexand.swingy.model.scenario;
 
+import com.nalexand.swingy.controller.GameProcessController;
 import com.nalexand.swingy.model.*;
-import com.nalexand.swingy.ui.Command;
 
-public class GameProcess extends BaseScenarioStep {
+public class GameProcess extends BaseScenarioStep implements GameProcessController {
 
     protected GameProcess(ModelFacade model) {
         super(model);
@@ -28,26 +28,12 @@ public class GameProcess extends BaseScenarioStep {
     }
 
     @Override
-    public void resolve(Command command) {
-        Hero hero = model.getSelectedHero();
-        switch (command) {
-            case KEY_W:
-                moveHero(hero.posX,hero.posY - 1);
-                break;
-            case KEY_A:
-                moveHero(hero.posX - 1, hero.posY);
-                break;
-            case KEY_S:
-                moveHero(hero.posX, hero.posY + 1);
-                break;
-            case KEY_D:
-                moveHero(hero.posX + 1, hero.posY);
-        }
-    }
-
-    private void moveHero(int toPosX, int toPosY) {
+    public void moveHero(int xOffset, int yOffset) {
         Hero hero = model.getSelectedHero();
         WorldMap worldMap = hero.worldMap;
+
+        int toPosX = hero.posX + xOffset;
+        int toPosY = hero.posY + yOffset;
 
         boolean isMapEdge = toPosX < 0 || toPosX >= worldMap.getSize() ||
                 toPosY < 0 || toPosY >= worldMap.getSize();

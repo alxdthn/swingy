@@ -3,7 +3,6 @@ package com.nalexand.swingy.model;
 import com.nalexand.swingy.model.file.FileInteractor;
 import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.model.scenario.Welcome;
-import com.nalexand.swingy.ui.Command;
 import com.nalexand.swingy.ui.base.View;
 
 import java.util.ArrayList;
@@ -24,10 +23,6 @@ public class ModelFacade {
     public void render() {
         view.renderScenarioData(currentStep);
         currentStep.onRendered();
-    }
-
-    public void resolveCommand(Command command) {
-        currentStep.resolve(command);
     }
 
     public void nextStep(BaseScenarioStep scenarioStep) {

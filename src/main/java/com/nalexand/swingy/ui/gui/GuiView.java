@@ -1,6 +1,8 @@
 package com.nalexand.swingy.ui.gui;
 
+import com.nalexand.swingy.controller.*;
 import com.nalexand.swingy.model.ModelFacade;
+import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.ui.base.BaseView;
 import com.nalexand.swingy.ui.gui.forms.CreateHeroForm;
 import com.nalexand.swingy.ui.gui.forms.WelcomeForm;
@@ -12,25 +14,30 @@ public final class GuiView extends BaseView {
 
     private JFrame frame = null;
 
-    private JPanel currentPane = null;
+    private JComponent currentPane = null;
 
     @Override
-    protected void showWelcome(ModelFacade model) {
-        SwingUtilities.invokeLater(() -> renderWelcome(model));
+    public void renderScenarioData(BaseScenarioStep scenarioStep) {
+        SwingUtilities.invokeLater(() -> super.renderScenarioData(scenarioStep));
     }
 
     @Override
-    protected void showCreateHero(ModelFacade model) {
-        SwingUtilities.invokeLater(() -> renderCreateNewHero(model));
+    protected void showWelcome(ModelFacade model, WelcomeController controller) {
+        render(new WelcomeForm(model, controller).$$$getRootComponent$$$());
     }
 
     @Override
-    protected void showGameProcess(ModelFacade model) {
+    protected void showCreateHero(ModelFacade model, CreateHeroController controller) {
+        render(new CreateHeroForm().$$$getRootComponent$$$());
+    }
+
+    @Override
+    protected void showGameProcess(ModelFacade model, GameProcessController controller) {
         throw new IllegalStateException();
     }
 
     @Override
-    protected void showBattleConfirmation(ModelFacade model) {
+    protected void showBattleConfirmation(ModelFacade model, DialogController controller) {
 
     }
 
@@ -40,26 +47,16 @@ public final class GuiView extends BaseView {
     }
 
     @Override
-    protected void showBattleWin(ModelFacade model) {
+    protected void showBattleWin(ModelFacade model, BattleWinController controller) {
 
     }
 
     @Override
-    protected void showBattleLose(ModelFacade model) {
+    protected void showBattleLose(ModelFacade model, DialogController controller) {
 
     }
 
-    private void renderWelcome(ModelFacade model) {
-        JPanel panel = new WelcomeForm(model).getPanel1();
-        render(panel);
-    }
-
-    private void renderCreateNewHero(ModelFacade model) {
-        JPanel panel = new CreateHeroForm().getPanel();
-        render(panel);
-    }
-
-    private void render(JPanel newContent) {
+    private void render(JComponent newContent) {
         if (currentPane != null) {
             frame.getContentPane().remove(currentPane);
         }

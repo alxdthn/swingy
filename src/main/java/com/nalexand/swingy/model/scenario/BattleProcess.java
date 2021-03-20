@@ -1,9 +1,10 @@
 package com.nalexand.swingy.model.scenario;
 
+import com.nalexand.swingy.controller.BattleWinController;
+import com.nalexand.swingy.controller.DialogController;
 import com.nalexand.swingy.model.Battle;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.ui.Command;
 
 public class BattleProcess extends BaseScenarioStep {
 
@@ -20,11 +21,6 @@ public class BattleProcess extends BaseScenarioStep {
         } else {
             model.nextStep(new BattleProcess.Lose(model));
         }
-    }
-
-    @Override
-    public void resolve(Command command) {
-
     }
 
     private void runBattle() {
@@ -55,43 +51,39 @@ public class BattleProcess extends BaseScenarioStep {
         }
     }
 
-    public static class Confirmation extends BaseScenarioStep {
+    public static class Confirmation extends BaseScenarioStep implements DialogController {
 
         protected Confirmation(ModelFacade model) {
             super(model);
         }
 
         @Override
-        public void resolve(Command command) {
-            switch (command) {
-                case KEY_1:
-                    model.saveGameState();
-                    model.nextStep(new BattleProcess(model));
-                    break;
-                case KEY_2:
-                    model.clearBattle();
-                    model.nextStep(new GameProcess(model));
-                    break;
-            }
+        public void accept() {
+            model.saveGameState();
+            model.nextStep(new BattleProcess(model));
+        }
+
+        @Override
+        public void dismiss() {
+            model.clearBattle();
+            model.nextStep(new GameProcess(model));
         }
     }
 
-    public static class Win extends BaseScenarioStep {
+    public static class Win extends BaseScenarioStep implements BattleWinController {
 
         protected Win(ModelFacade model) {
             super(model);
         }
 
         @Override
-        public void resolve(Command command) {
-            if (command == Command.KEY_1) {
-                model.clearBattle();
-                model.nextStep(new GameProcess(model));
-            }
+        public void accept() {
+            model.clearBattle();
+            model.nextStep(new GameProcess(model));
         }
     }
 
-    public static class Lose extends BaseScenarioStep {
+    public static class Lose extends BaseScenarioStep implements DialogController {
 
         protected Lose(ModelFacade model) {
             super(model);
@@ -99,10 +91,13 @@ public class BattleProcess extends BaseScenarioStep {
         }
 
         @Override
-        public void resolve(Command command) {
-            if (command == Command.KEY_1) {
-                model.nextStep(new Welcome(model));
-            }
+        public void accept() {
+            model.nextStep(new Welcome(model));
+        }
+
+        @Override
+        public void dismiss() {
+            //  TODO
         }
     }
 }

@@ -1,8 +1,8 @@
 package com.nalexand.swingy.ui.gui.forms;
 
+import com.nalexand.swingy.controller.WelcomeController;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.ui.Command;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -11,26 +11,18 @@ import java.util.List;
 
 public class WelcomeForm {
     private JButton createHeroButton;
-    private JPanel panel1;
-    private final ModelFacade modelFacade;
+    private JPanel panel;
+    private final WelcomeController controller;
 
-    private final Command[] commands = {Command.KEY_2, Command.KEY_3, Command.KEY_4, Command.KEY_5};
-
-    public WelcomeForm(ModelFacade modelFacade) {
+    public WelcomeForm(ModelFacade model, WelcomeController controller) {
         $$$setupUI$$$();
-        this.modelFacade = modelFacade;
-        List<Hero> createdHeroes = modelFacade.getCreatedHeroes();
-        createHeroButton.addActionListener(e -> {
-            modelFacade.resolveCommand(Command.KEY_1);
-        });
+        this.controller = controller;
+        List<Hero> createdHeroes = model.getCreatedHeroes();
+        createHeroButton.addActionListener(e -> controller.showCreateHero());
         int index = 0;
         for (Hero hero : createdHeroes) {
             addSelectHeroButton(hero, index++);
         }
-    }
-
-    public JPanel getPanel1() {
-        return panel1;
     }
 
     /**
@@ -41,9 +33,9 @@ public class WelcomeForm {
      * @noinspection ALL
      */
     private void $$$setupUI$$$() {
-        panel1 = new JPanel();
-        panel1.setLayout(new GridBagLayout());
-        panel1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, new Color(-4473925)));
+        panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, new Color(-4473925)));
         createHeroButton = new JButton();
         createHeroButton.setHorizontalAlignment(0);
         createHeroButton.setHorizontalTextPosition(0);
@@ -53,14 +45,14 @@ public class WelcomeForm {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel1.add(createHeroButton, gbc);
+        panel.add(createHeroButton, gbc);
     }
 
     /**
      * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {
-        return panel1;
+        return panel;
     }
 
     private void addSelectHeroButton(Hero hero, int position) {
@@ -69,7 +61,7 @@ public class WelcomeForm {
         gbc = new GridBagConstraints();
         gbc.gridy = position + 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        newButton.addActionListener(e -> modelFacade.resolveCommand(commands[position]));
-        panel1.add(newButton, gbc);
+        newButton.addActionListener(e -> controller.selectHeroAndShowGameProcess(hero));
+        panel.add(newButton, gbc);
     }
 }

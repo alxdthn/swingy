@@ -1,15 +1,13 @@
 package com.nalexand.swingy.ui.console;
 
+import com.nalexand.swingy.controller.*;
 import com.nalexand.swingy.model.*;
 import com.nalexand.swingy.model.items.Item;
-import com.nalexand.swingy.ui.Command;
+import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.ui.base.BaseView;
 import com.nalexand.swingy.utils.Colors;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.nalexand.swingy.utils.Utils.*;
@@ -18,35 +16,47 @@ public final class ConsoleView extends BaseView {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    private static final int INFO_WIDTH = 32;
+    private Map<Command, CommandListener> keyListeners;
 
     @Override
-    protected void showWelcome(ModelFacade model) {
+    public void renderScenarioData(BaseScenarioStep scenarioStep) {
+        keyListeners = new HashMap<>();
+        super.renderScenarioData(scenarioStep);
+    }
+
+    @Override
+    protected void showWelcome(ModelFacade model, WelcomeController controller) {
         printDash();
 
         println("Select hero");
         println("1: Create a hero");
+        listenCommand(Command.KEY_1, controller::showCreateHero);
 
         int option = 2;
+        Command[] options = {Command.KEY_2, Command.KEY_3, Command.KEY_4, Command.KEY_5};
         for (Hero hero : model.getCreatedHeroes()) {
             printFormat("%d: %s\n", option++, hero.name);
+            listenCommand(options[++option - 1], () -> controller.selectHeroAndShowGameProcess(hero));
         }
     }
 
     @Override
-    protected void showCreateHero(ModelFacade model) {
+    protected void showCreateHero(ModelFacade model, CreateHeroController controller) {
         printDash();
 
         println("Create hero");
 
         int option = 1;
+        Command[] options = {Command.KEY_1, Command.KEY_2, Command.KEY_3, Command.KEY_4};
         for (Hero hero : model.getAvailableForCreateHeroes()) {
-            printFormat("%d: %s\n", option++, hero.name);
+            printFormat("%d: %s\n", option, hero.name);
+            listenCommand(options[option - 1], () -> controller.createHero(hero));
+            option++;
         }
     }
 
     @Override
-    protected void showGameProcess(ModelFacade model) {
+    protected void showGameProcess(ModelFacade model, GameProcessController controller) {
         printDash();
 
         Hero hero = model.getSelectedHero();
@@ -84,10 +94,15 @@ public final class ConsoleView extends BaseView {
         while (worldMapIterator.hasNext()) {
             printMapLine(worldMapIterator);
         }
+
+        listenCommand(Command.KEY_W, () -> controller.moveHero(0, -1));
+        listenCommand(Command.KEY_A, () -> controller.moveHero(-1, 0));
+        listenCommand(Command.KEY_S, () -> controller.moveHero(0, 1));
+        listenCommand(Command.KEY_D, () -> controller.moveHero(1, 0));
     }
 
     @Override
-    protected void showBattleConfirmation(ModelFacade model) {
+    protected void showBattleConfirmation(ModelFacade model, DialogController controller) {
         printDash();
 
         Battle battle = model.getBattle();
@@ -103,6 +118,9 @@ public final class ConsoleView extends BaseView {
 
         println("1: Fight");
         println("2: Run");
+
+        listenCommand(Command.KEY_1, controller::accept);
+        listenCommand(Command.KEY_2, controller::dismiss);
     }
 
     @Override
@@ -122,7 +140,7 @@ public final class ConsoleView extends BaseView {
     }
 
     @Override
-    protected void showBattleWin(ModelFacade model) {
+    protected void showBattleWin(ModelFacade model, BattleWinController controller) {
         printDash();
 
         Battle battle = model.getBattle();
@@ -141,14 +159,16 @@ public final class ConsoleView extends BaseView {
             }
         }
         println("1: Ok!");
+        listenCommand(Command.KEY_1, controller::accept);
     }
 
     @Override
-    protected void showBattleLose(ModelFacade model) {
+    protected void showBattleLose(ModelFacade model, DialogController controller) {
         printDash();
 
         println("You are lose :(");
         println("1: Fuck!");
+        listenCommand(Command.KEY_1, controller::accept);
     }
 
     private void printDash() {
@@ -161,7 +181,7 @@ public final class ConsoleView extends BaseView {
 
     private void printLineWithMap(String info, Iterator<List<Cell>> worldMapIterator) {
         printFormat(
-                "%-" + INFO_WIDTH + "s%s\n",
+                "%-32s%s\n",
                 info,
                 nextWorldLineAsString(worldMapIterator)
         );
@@ -169,7 +189,7 @@ public final class ConsoleView extends BaseView {
 
     private void printLineWithMap(String info, Iterator<List<Cell>> worldMapIterator, String itemLine) {
         printFormat(
-                "%-" + INFO_WIDTH + "s%s %s\n",
+                "%-32s%s %s\n",
                 info,
                 nextWorldLineAsString(worldMapIterator),
                 itemLine
@@ -197,11 +217,14 @@ public final class ConsoleView extends BaseView {
         }
     }
 
-    public void start(ModelFacade model) {
+    public void start() {
         String line;
         while ((line = getLine()) != null) {
             Command command = getCommand(line);
-            model.resolveCommand(command);
+            CommandListener listener = keyListeners.get(command);
+            if (listener != null) {
+                listener.invoke();
+            }
         }
     }
 
@@ -246,5 +269,27 @@ public final class ConsoleView extends BaseView {
                 break;
         }
         return result;
+    }
+
+    private void listenCommand(Command command, CommandListener listener) {
+        keyListeners.put(command, listener);
+    }
+
+    private interface CommandListener {
+
+        void invoke();
+    }
+
+    private enum Command {
+        KEY_1,
+        KEY_2,
+        KEY_3,
+        KEY_4,
+        KEY_5,
+        KEY_W,
+        KEY_A,
+        KEY_S,
+        KEY_D,
+        UNKNOWN
     }
 }

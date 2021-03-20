@@ -36,7 +36,7 @@ public class Swingy {
             case "console":
                 model.setView(consoleView);
                 model.render();
-                consoleView.start(model);
+                consoleView.start();
                 break;
             case "gui":
                 model.setView(guiView);
