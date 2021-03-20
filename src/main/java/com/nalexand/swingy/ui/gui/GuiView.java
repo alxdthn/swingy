@@ -2,13 +2,12 @@ package com.nalexand.swingy.ui.gui;
 
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.base.BaseView;
-import com.nalexand.swingy.ui.base.Controller;
 import com.nalexand.swingy.ui.gui.forms.CreateHeroForm;
 
 import javax.swing.*;
 import java.awt.*;
 
-public final class GuiView extends BaseView implements Controller {
+public final class GuiView extends BaseView {
 
     private JFrame frame = null;
 
@@ -65,16 +64,6 @@ public final class GuiView extends BaseView implements Controller {
         currentPane = newContent;
         frame.getContentPane().add(newContent, BorderLayout.CENTER);
         frame.pack();
-    }
-
-    @Override
-    public void start() {
-        initGui();
-    }
-
-    @Override
-    public void close() {
-
     }
 
     public void initGui() {
