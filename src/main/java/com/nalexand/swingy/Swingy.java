@@ -14,7 +14,7 @@ public class Swingy {
 
     public static final int ITEM_GENERATION_PERCENTAGE = 21;
 
-    public static final String[] MOB_NAMES = {"A", "B", "C", "D"};
+    public static final String[] MOB_NAMES = {"Ork", "Necromancer", "Bandit", "Wood Elf"};
 
     static final ModelFacade model = new ModelFacade();
 

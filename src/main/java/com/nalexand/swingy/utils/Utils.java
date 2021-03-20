@@ -1,5 +1,7 @@
 package com.nalexand.swingy.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Utils {
@@ -24,5 +26,15 @@ public class Utils {
 
     public static int randomBetween(int low, int high) {
         return random.nextInt(high-low) + low;
+    }
+
+    public static <T> List<T> listOfNotNull(T... items) {
+        List<T> result = new ArrayList<>();
+        for (T item : items) {
+            if (item != null) {
+                result.add(item);
+            }
+        }
+        return result;
     }
 }

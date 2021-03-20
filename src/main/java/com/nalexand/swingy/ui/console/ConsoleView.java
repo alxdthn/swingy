@@ -10,11 +10,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.nalexand.swingy.utils.Utils.printFormat;
-import static com.nalexand.swingy.utils.Utils.println;
+import static com.nalexand.swingy.utils.Utils.*;
 
 public final class ConsoleView extends BaseView {
 
@@ -59,38 +57,28 @@ public final class ConsoleView extends BaseView {
         printLineWithMap(hero.name + ":", worldMapIterator, "Items:");
 
         printLineWithMap(String.format(
-                "level: %s",
+                "LEVEL: %s",
                 hero.getLevel()
-        ), worldMapIterator, formatItem(hero, Item.Type.HELMET));
+        ), worldMapIterator, Item.safeFormatItem(hero.helmet));
 
         printLineWithMap(String.format(
-                "xp: %s",
+                "XP: %s",
                 hero.getXp()
-        ), worldMapIterator, formatItem(hero, Item.Type.ARMOR));
+        ), worldMapIterator, Item.safeFormatItem(hero.armor));
 
         printLineWithMap(String.format(
-                "xp: %s",
-                hero.getXp()
-        ), worldMapIterator, formatItem(hero, Item.Type.WEAPON));
+                "HP: %s",
+                hero.getHitPoints()
+        ), worldMapIterator, Item.safeFormatItem(hero.weapon));
 
         printLineWithMap(String.format(
-                "hp: %s",
-                hero.getHp()
-        ), worldMapIterator);
-
-        printLineWithMap(String.format(
-                "attack: %s",
+                "ATTACK: %s",
                 hero.getAttack()
         ), worldMapIterator);
 
         printLineWithMap(String.format(
-                "defence: %s",
+                "DEFENCE: %s",
                 hero.getDefence()
-        ), worldMapIterator);
-
-        printLineWithMap(String.format(
-                "hit points: %s",
-                hero.getHitPoints()
         ), worldMapIterator);
 
         while (worldMapIterator.hasNext()) {
@@ -105,6 +93,14 @@ public final class ConsoleView extends BaseView {
         Battle battle = model.getBattle();
         Hero mob = battle.mob;
         printFormat("You are meet with %s\n", mob.name);
+        printFormat("level %s\n", mob.level);
+        println("Items:");
+        listOfNotNull(
+                mob.helmet,
+                mob.armor,
+                mob.weapon
+        ).forEach(item -> println(item.getFormattedString()));
+
         println("1: Fight");
         println("2: Run");
     }
@@ -113,7 +109,10 @@ public final class ConsoleView extends BaseView {
     protected void showBattle(ModelFacade model) {
         printDash();
 
-        println("Battle!");
+        Battle battle = model.getBattle();
+
+        printFormat("Battle with %s!\n", battle.mob.name);
+        println("");
         println("1: Win");
         println("2: Lose");
     }
@@ -177,47 +176,6 @@ public final class ConsoleView extends BaseView {
             return Colors.RED + "[M]" + Colors.END;
         } else {
             return "[.]";
-        }
-    }
-
-    private String formatItem(Hero hero, Item.Type type) {
-        String itemTypeString;
-        String formattedItem;
-        Item item;
-        switch (type) {
-            case WEAPON:
-                itemTypeString = "weapon";
-                item = hero.weapon;
-                formattedItem = safeFormatItem(item, (notNullItem) ->
-                        String.format("%s attack = %d", notNullItem.name, notNullItem.attack)
-                );
-                break;
-            case ARMOR:
-                itemTypeString = "armor";
-                item = hero.armor;
-                formattedItem = safeFormatItem(item, (notNullItem) ->
-                        String.format("%s defence = %d", notNullItem.name, notNullItem.defence)
-                );
-                break;
-            default:
-                itemTypeString = "helmet";
-                item = hero.helmet;
-                formattedItem = safeFormatItem(item, (notNullItem) ->
-                        String.format("%s hitPoints = %d", notNullItem.name, notNullItem.hitPoints)
-                );
-                break;
-        }
-        return String.format("%s: %s",
-                itemTypeString,
-                formattedItem
-        );
-    }
-
-    private String safeFormatItem(Item item, Function<Item, String> formatter) {
-        if (item == null) {
-            return "EMPTY";
-        } else {
-            return formatter.apply(item);
         }
     }
 

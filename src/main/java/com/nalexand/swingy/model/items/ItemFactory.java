@@ -8,9 +8,9 @@ public class ItemFactory {
 
     private static Item[] items = {
             //region Weapons
-            new Item(WEAPON, "Divine rapira", 3, 0, 0),
+            new Item(WEAPON, "Divine rapier", 3, 0, 0),
             new Item(WEAPON, "Desolator", 2, 0, 0),
-            new Item(WEAPON, "Batterfly", 1, 0, 0),
+            new Item(WEAPON, "Butterfly", 1, 0, 0),
             //endregion
             //region Armors
             new Item(ARMOR, "Shiva's guard", 0, 2, 0),

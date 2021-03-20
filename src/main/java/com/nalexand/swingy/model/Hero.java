@@ -19,13 +19,11 @@ public class Hero {
 
     private int xp = 0;
 
-    private int hp = 0;
-
-    private int attack = 0;
+    private int attack = 1;
 
     private int defence = 0;
 
-    private int hitPoints = 0;
+    private int hitPoints = 3;
 
     public int posX = 0;
 
@@ -80,10 +78,6 @@ public class Hero {
         return xp;
     }
 
-    public int getHp() {
-        return hp;
-    }
-
     public int getAttack() {
         return attack;
     }
@@ -97,7 +91,7 @@ public class Hero {
     }
 
     public void initAsMob(Hero hero) {
-        level = hero.level + Utils.randomBetween(-1, 1);
+        level = hero.level + 1;
         if (Utils.randomByPercent(Swingy.ITEM_GENERATION_PERCENTAGE)) {
             Item randomItem = ItemFactory.randomItem();
             switch (randomItem.type) {

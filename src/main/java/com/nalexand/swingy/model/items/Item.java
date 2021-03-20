@@ -20,5 +20,24 @@ public class Item {
         this.hitPoints = hitPoints;
     }
 
+    public String getFormattedString() {
+        switch (type) {
+            case WEAPON:
+                return String.format("weapon: %s (attack = %d)", name, attack);
+            case ARMOR:
+                return String.format("armor %s (defence = %d)", name, defence);
+            default:
+                return String.format("helmet %s (hitPoints = %d)", name, hitPoints);
+        }
+    }
+
+    public static String safeFormatItem(Item item) {
+        if (item == null) {
+            return "EMPTY";
+        } else {
+            return item.getFormattedString();
+        }
+    }
+
     public enum Type { WEAPON, ARMOR, HELMET }
 }
