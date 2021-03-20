@@ -1,4 +1,4 @@
-package com.nalexand.swingy.ui.gui;
+package com.nalexand.swingy.ui.gui.forms;
 
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;

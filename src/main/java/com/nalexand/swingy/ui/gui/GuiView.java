@@ -2,26 +2,17 @@ package com.nalexand.swingy.ui.gui;
 
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.base.BaseView;
+import com.nalexand.swingy.ui.base.Controller;
+import com.nalexand.swingy.ui.gui.forms.CreateHeroForm;
 
 import javax.swing.*;
 import java.awt.*;
 
-public final class GuiView extends BaseView {
+public final class GuiView extends BaseView implements Controller {
 
     private JFrame frame = null;
 
     private JPanel currentPane = null;
-
-    private GuiController guiController;
-
-    public void initController(GuiController guiController) {
-        this.guiController = guiController;
-    }
-
-    public void initGui() {
-        frame = new JFrame("Swingy");
-        SwingUtilities.invokeLater(this::initGuiInternal);
-    }
 
     @Override
     protected void showWelcome(ModelFacade model) {
@@ -64,12 +55,31 @@ public final class GuiView extends BaseView {
     }
 
     private void renderCreateNewHero(ModelFacade model) {
-        JPanel contents = new JPanel();
-        contents.setLayout(new BoxLayout(contents, BoxLayout.PAGE_AXIS));
 
-        addTitle(contents,"Create new hero!!");
+    }
 
-        render(contents);
+    private void render(JPanel newContent) {
+        if (currentPane != null) {
+            frame.getContentPane().remove(currentPane);
+        }
+        currentPane = newContent;
+        frame.getContentPane().add(newContent, BorderLayout.CENTER);
+        frame.pack();
+    }
+
+    @Override
+    public void start() {
+        initGui();
+    }
+
+    @Override
+    public void close() {
+
+    }
+
+    public void initGui() {
+        frame = new JFrame("Swingy");
+        SwingUtilities.invokeLater(this::initGuiInternal);
     }
 
     private void initGuiInternal() {
@@ -89,21 +99,5 @@ public final class GuiView extends BaseView {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(windowSize);
         frame.setVisible(true);
-    }
-
-    private void render(JPanel newContent) {
-        if (currentPane != null) {
-            frame.getContentPane().remove(currentPane);
-        }
-        currentPane = newContent;
-        frame.getContentPane().add(newContent, BorderLayout.CENTER);
-        frame.pack();
-    }
-
-    private void addTitle(JPanel contents, String title) {
-        JLabel result = new JLabel(title);
-        result.getFont().deriveFont(164f);
-        result.getFont().deriveFont(Font.BOLD);
-        contents.add(result);
     }
 }

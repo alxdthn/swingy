@@ -2,7 +2,6 @@ package com.nalexand.swingy;
 
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.console.ConsoleUserInterface;
-import com.nalexand.swingy.ui.gui.GuiUserInterface;
 import com.nalexand.swingy.ui.gui.GuiView;
 
 public class Swingy {
@@ -21,7 +20,7 @@ public class Swingy {
 
     static final ConsoleUserInterface consoleUserInterface = new ConsoleUserInterface(model);
 
-    static final GuiUserInterface guiUserInterface = new GuiUserInterface(model, new GuiView());
+    static final GuiView guiView = new GuiView();
 
     public static void main(String[] args) {
         boolean isValid = args.length == 1 && args[0].matches("(console|gui)");
@@ -38,7 +37,9 @@ public class Swingy {
                 consoleUserInterface.start(model);
                 break;
             case "gui":
-                guiUserInterface.start(model);
+                model.setView(guiView);
+                guiView.initGui();
+                model.render();
                 break;
         }
     }
