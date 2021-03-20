@@ -67,7 +67,7 @@ public class Hero {
                 xp -= toNextLevel;
             } else {
                 this.xp += xp;
-                xp = 0;
+                return;
             }
         }
     }

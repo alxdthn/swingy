@@ -58,15 +58,16 @@ public class WorldMap {
             int randomX = Utils.randomBetween(0, size - 1);
             int randomY = Utils.randomBetween(0, size - 1);
             Cell cell = cells.get(randomY).get(randomX);
-            if (cell.isFree()) {
-                Hero newMob = new Hero(Hero.Type.MOB);
-                newMob.initAsMob(hero);
-                newMob.posX = randomX;
-                newMob.posY = randomY;
-                mobs.add(newMob);
-                cell.withMob = true;
-                needGenerateMobs--;
-            }
+
+            if (!cell.isFree()) continue;
+
+            Hero newMob = new Hero(Hero.Type.MOB);
+            newMob.initAsMob(hero);
+            newMob.posX = randomX;
+            newMob.posY = randomY;
+            mobs.add(newMob);
+            cell.withMob = true;
+            needGenerateMobs--;
         }
     }
 
@@ -76,7 +77,9 @@ public class WorldMap {
             int randomX = Utils.randomBetween(0, size - 1);
             int randomY = Utils.randomBetween(0, size - 1);
             Cell cell = cells.get(randomY).get(randomX);
+
             if (!cell.isFree()) continue;
+
             cell.isObstacle = true;
             needGenerateObstacles--;
         }
