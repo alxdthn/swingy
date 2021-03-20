@@ -3,6 +3,7 @@ package com.nalexand.swingy.ui.gui;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.base.BaseView;
 import com.nalexand.swingy.ui.gui.forms.CreateHeroForm;
+import com.nalexand.swingy.ui.gui.forms.WelcomeForm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,12 +50,13 @@ public final class GuiView extends BaseView {
     }
 
     private void renderWelcome(ModelFacade model) {
-        JPanel createHero = new CreateHeroForm(model).getPanel1();
-        render(createHero);
+        JPanel panel = new WelcomeForm(model).getPanel1();
+        render(panel);
     }
 
     private void renderCreateNewHero(ModelFacade model) {
-
+        JPanel panel = new CreateHeroForm().getPanel();
+        render(panel);
     }
 
     private void render(JPanel newContent) {
