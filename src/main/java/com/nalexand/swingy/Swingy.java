@@ -9,13 +9,13 @@ public class Swingy {
 
     public static final String GAME_DATA_FILE = "./game_data.json";
 
-    public static final boolean IGNORE_SAVED = false;
+    public static final boolean IGNORE_SAVED = true;
 
     public static final double OBSTACLES_PERCENTAGE = 0.25;
 
     public static final int ITEM_GENERATION_PERCENTAGE = 21;
 
-    public static final String[] MOB_NAMES = { "A", "B", "C", "D" };
+    public static final String[] MOB_NAMES = {"A", "B", "C", "D"};
 
     static final ModelFacade model = new ModelFacade();
 

@@ -19,7 +19,7 @@ public final class GuiView extends BaseView {
     }
 
     public void initGui() {
-        frame = new JFrame("com.nalexand.swingy.Swingy");
+        frame = new JFrame("Swingy");
         SwingUtilities.invokeLater(this::initGuiInternal);
     }
 
@@ -59,20 +59,8 @@ public final class GuiView extends BaseView {
     }
 
     private void renderWelcome(ModelFacade model) {
-        JPanel contents = new JPanel();
-        contents.setLayout(new BoxLayout(contents, BoxLayout.Y_AXIS));
-
-        addTitle(contents,"Select hero");
-
-        JButton createNewHeroButton = new JButton("Create new hero");
-        createNewHeroButton.addActionListener(e -> guiController.createNewHeroButton());
-        contents.add(createNewHeroButton);
-
-        if (!model.getCreatedHeroes().isEmpty()) {
-            JButton selectPrevHeroButton = new JButton("Select a previously created hero");
-            contents.add(selectPrevHeroButton);
-        }
-        render(contents);
+        JPanel createHero = new CreateHeroForm(model).getPanel1();
+        render(createHero);
     }
 
     private void renderCreateNewHero(ModelFacade model) {
