@@ -72,7 +72,7 @@ public class WorldMap {
     }
 
     private void generateObstacles() {
-        int needGenerateObstacles = (int) (size * Swingy.OBSTACLES_PERCENTAGE);
+        int needGenerateObstacles = (int) (size * size * Swingy.OBSTACLES_PERCENTAGE);
         while (needGenerateObstacles > 0) {
             int randomX = Utils.randomBetween(0, size - 1);
             int randomY = Utils.randomBetween(0, size - 1);
