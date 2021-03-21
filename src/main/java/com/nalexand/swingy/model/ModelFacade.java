@@ -115,7 +115,6 @@ public class ModelFacade {
 
     public void clearBattle() {
         Hero selectedHero = getSelectedHero();
-        selectedHero.worldMap.removeMob(selectedHero.battle.mob);
         selectedHero.battle = null;
         saveGameState();
     }

@@ -47,8 +47,10 @@ public class BattleProcess extends BaseScenarioStep {
         if (battle.isHeroWinner) {
             battle.status = Battle.Status.WIN;
             model.increaseExperience(10000);
+            hero.worldMap.removeMob(mob);
             model.moveHeroToMob();
         }
+        model.saveGameState();
     }
 
     public static class Confirmation extends BaseScenarioStep implements DialogController {
