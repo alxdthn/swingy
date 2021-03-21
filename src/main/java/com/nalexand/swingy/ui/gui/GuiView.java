@@ -5,6 +5,7 @@ import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.ui.base.BaseView;
 import com.nalexand.swingy.ui.gui.forms.CreateHeroForm;
+import com.nalexand.swingy.ui.gui.forms.GameProcessForm;
 import com.nalexand.swingy.ui.gui.forms.WelcomeForm;
 
 import javax.swing.*;
@@ -28,12 +29,12 @@ public final class GuiView extends BaseView {
 
     @Override
     protected void showCreateHero(ModelFacade model, CreateHeroController controller) {
-        render(new CreateHeroForm().$$$getRootComponent$$$());
+        render(new CreateHeroForm(model, controller).$$$getRootComponent$$$());
     }
 
     @Override
     protected void showGameProcess(ModelFacade model, GameProcessController controller) {
-        throw new IllegalStateException();
+        render(new GameProcessForm(model, controller).$$$getRootComponent$$$());
     }
 
     @Override

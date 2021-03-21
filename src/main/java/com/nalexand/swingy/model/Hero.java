@@ -48,8 +48,8 @@ public class Hero {
             case NEVERMORE:
                 this.name = "Nevermore";
                 break;
-            case TRAXES:
-                this.name = "Traxes";
+            case TRAXEX:
+                this.name = "Traxex";
                 break;
             case URSA:
                 this.name = "Ursa";
@@ -154,7 +154,7 @@ public class Hero {
     public enum Type {
         VOID,
         NEVERMORE,
-        TRAXES,
+        TRAXEX,
         URSA,
         MOB
     }

@@ -12,7 +12,7 @@ public class GameState {
     public GameState() {
         heroes.put(Hero.Type.VOID, new Hero(Hero.Type.VOID));
         heroes.put(Hero.Type.NEVERMORE, new Hero(Hero.Type.NEVERMORE));
-        heroes.put(Hero.Type.TRAXES, new Hero(Hero.Type.TRAXES));
+        heroes.put(Hero.Type.TRAXEX, new Hero(Hero.Type.TRAXEX));
         heroes.put(Hero.Type.URSA, new Hero(Hero.Type.URSA));
     }
 }

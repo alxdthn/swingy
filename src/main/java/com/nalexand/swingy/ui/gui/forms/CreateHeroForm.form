@@ -6,43 +6,6 @@
     </constraints>
     <properties/>
     <border type="none"/>
-    <children>
-      <component id="9fa54" class="javax.swing.JButton" binding="voidButton" default-binding="true">
-        <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="Void"/>
-        </properties>
-      </component>
-      <component id="42f46" class="javax.swing.JButton" binding="nevermoreButton" default-binding="true">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="Nevermore"/>
-        </properties>
-      </component>
-      <component id="b2646" class="javax.swing.JButton" binding="traxesButton" default-binding="true">
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="Traxes"/>
-        </properties>
-      </component>
-      <component id="d52cb" class="javax.swing.JButton" binding="ursaButton" default-binding="true">
-        <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="Ursa"/>
-        </properties>
-      </component>
-    </children>
+    <children/>
   </grid>
 </form>
