@@ -45,8 +45,14 @@ public class GameProcess extends BaseScenarioStep implements GameProcessControll
                 model.moveHero(toPosX, toPosY);
             } else if (destinationCell.withMob) {
                 Hero mob = model.getMobWithPosition(toPosX, toPosY);
-                model.startBattle(new Battle(hero, mob));
+                destinationCell.battle = new Battle(hero, mob, toPosX, toPosY);
+                model.startBattle(destinationCell.battle);
                 model.nextStep(new BattleProcess.Confirmation(model));
+                return;
+            } else if (destinationCell.battle != null) {
+                hero.battle = destinationCell.battle;
+                model.moveHero(toPosX, toPosY);
+                model.nextStep(new BattleProcess.Win(model));
                 return;
             }
         }

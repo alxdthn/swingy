@@ -27,23 +27,23 @@ public class GameProcessOutput extends BaseConsoleOutput {
 
         Iterator<List<Cell>> worldMapIterator = worldMap.getCells().iterator();
 
-        printLineWithMap(hero.name + ":", worldMapIterator, "Items:");
+        printLineWithMap(hero.name + ":", worldMapIterator);
 
         printLineWithMap(String.format(
                 "LEVEL: %s",
                 hero.getLevel()
-        ), worldMapIterator, Item.safeFormatItem(hero.helmet, Item.Type.HELMET));
+        ), worldMapIterator);
 
         printLineWithMap(String.format(
                 "XP: %s",
                 hero.getXp()
-        ), worldMapIterator, Item.safeFormatItem(hero.armor, Item.Type.ARMOR));
+        ), worldMapIterator);
 
         printLineWithMap(String.format(
                 "HP: %s/%s",
                 hero.currentHitPoints,
                 hero.getHitPoints()
-        ), worldMapIterator, Item.safeFormatItem(hero.weapon, Item.Type.WEAPON));
+        ), worldMapIterator);
 
         printLineWithMap(String.format(
                 "ATTACK: %s",
@@ -54,6 +54,11 @@ public class GameProcessOutput extends BaseConsoleOutput {
                 "DEFENCE: %s",
                 hero.getDefence()
         ), worldMapIterator);
+
+        printLineWithMap("ITEMS:", worldMapIterator);
+        printLineWithMap(Item.safeFormatItem(hero.helmet, Item.Type.HELMET), worldMapIterator);
+        printLineWithMap(Item.safeFormatItem(hero.armor, Item.Type.ARMOR), worldMapIterator);
+        printLineWithMap(Item.safeFormatItem(hero.weapon, Item.Type.WEAPON), worldMapIterator);
 
         while (worldMapIterator.hasNext()) {
             printMapLine(worldMapIterator);
@@ -71,18 +76,9 @@ public class GameProcessOutput extends BaseConsoleOutput {
 
     private void printLineWithMap(String info, Iterator<List<Cell>> worldMapIterator) {
         printFormat(
-                "%-20s%s\n",
+                "%-40s%s\n",
                 info,
                 nextWorldLineAsString(worldMapIterator)
-        );
-    }
-
-    private void printLineWithMap(String info, Iterator<List<Cell>> worldMapIterator, String itemLine) {
-        printFormat(
-                "%-20s%s %s\n",
-                info,
-                nextWorldLineAsString(worldMapIterator),
-                itemLine
         );
     }
 
@@ -97,11 +93,13 @@ public class GameProcessOutput extends BaseConsoleOutput {
 
     private String printCell(Cell cell) {
         if (cell.withHero) {
-            return Colors.YELLOW + "[H]" + Colors.END;
+            return Colors.GREEN + "[H]" + Colors.END;
         } else if (cell.isObstacle) {
-            return Colors.GREEN + "[X]" + Colors.END;
+            return Colors.BLUE + "[0]" + Colors.END;
         } else if (cell.withMob) {
-            return Colors.RED + "[M]" + Colors.END;
+            return Colors.RED + "[X]" + Colors.END;
+        } else if (cell.battle != null) {
+            return Colors.YELLOW + "[L]" + Colors.END;
         } else {
             return "[.]";
         }

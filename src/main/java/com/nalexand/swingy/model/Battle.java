@@ -1,7 +1,11 @@
 package com.nalexand.swingy.model;
 
+import com.nalexand.swingy.model.items.Item;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.nalexand.swingy.utils.Utils.listOfNotNull;
 
 public class Battle {
 
@@ -17,8 +21,14 @@ public class Battle {
 
     public int mobStartHp;
 
-    public Battle(Hero hero, Hero mob) {
+    public int posX;
+
+    public int posY;
+
+    public Battle(Hero hero, Hero mob, int posX, int posY) {
         this.mob = mob;
+        this.posX = posX;
+        this.posY = posY;
         heroStartHp = hero.hitPoints;
         mobStartHp = mob.hitPoints;
     }
@@ -31,11 +41,15 @@ public class Battle {
         step.number = steps.size();
     }
 
+    public List<Item> getLoot() {
+        return listOfNotNull(mob.weapon, mob.armor, mob.helmet);
+    }
+
     public List<Step> getSteps() {
         return new ArrayList<>(steps);
     }
 
-    public enum Status { CONFIRMATION, WIN }
+    public enum Status { CONFIRMATION, WIN, LOOT }
 
     public static class Step {
 

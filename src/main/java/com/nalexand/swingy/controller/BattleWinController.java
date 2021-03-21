@@ -6,5 +6,5 @@ public interface BattleWinController {
 
     void accept();
 
-    void takeDrop(Item item);
+    void takeLootItem(Item item);
 }

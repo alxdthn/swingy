@@ -15,29 +15,49 @@ import static com.nalexand.swingy.utils.Utils.*;
 public class BattleWinOutput extends BaseConsoleOutput {
 
     public BattleWinOutput(ModelFacade model, BattleWinController controller) {
+        Battle battle = model.getBattle();
+        switch (battle.status) {
+            case WIN:
+                printWinState(controller, battle);
+                break;
+            case LOOT:
+                printLootState(controller, battle);
+                break;
+            default:
+                throw new IllegalStateException("Bad status: " + battle.status.toString());
+        }
+    }
+
+    private void printWinState(BattleWinController controller, Battle battle) {
+        printState("Win!", controller, battle);
+    }
+
+    private void printLootState(BattleWinController controller, Battle battle) {
+        printState("You are find the loot!", controller, battle);
+    }
+
+    private void printState(String title, BattleWinController controller, Battle battle) {
         printDash();
 
-        Battle battle = model.getBattle();
+        println(title);
 
-        println("You are win!");
+        Command[] commands = {Command.KEY_1, Command.KEY_2, Command.KEY_3, Command.KEY_4};
 
-        println("1: Ok!");
-        listenCommand(Command.KEY_1, controller::accept);
-
-        List<Item> drop = listOfNotNull(
+        List<Item> loot = listOfNotNull(
                 battle.mob.helmet,
                 battle.mob.armor,
                 battle.mob.weapon
         );
-        if (!drop.isEmpty()) {
-            println("Drop:");
-            int option = 2;
-            Command[] commands = {Command.KEY_2, Command.KEY_3, Command.KEY_4};
-            for (Item item : drop) {
+        int option = 1;
+        if (!loot.isEmpty()) {
+            println("Loot:");
+            for (Item item : loot) {
                 printFormat("%d: %s\n", option, item.getFormattedString());
-                listenCommand(commands[option - 2], () -> controller.takeDrop(item));
+                listenCommand(commands[option - 1], () -> controller.takeLootItem(item));
                 option++;
             }
         }
+        printFormat("%d: Close\n", option);
+        listenCommand(commands[option - 1], controller::accept);
     }
 }

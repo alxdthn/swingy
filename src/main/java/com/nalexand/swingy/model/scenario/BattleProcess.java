@@ -26,10 +26,13 @@ public class BattleProcess extends BaseScenarioStep {
 
     private void runBattle() {
         Battle battle = model.getBattle();
+
         Hero mob = battle.mob;
         Hero hero = model.getSelectedHero();
+
         int heroHp = hero.getHitPoints();
         int mobHp = mob.getHitPoints();
+
         while (heroHp > 0 && mobHp > 0) {
             Battle.Step step = new Battle.Step();
             step.mobDamage = Math.max(0, hero.getAttack() - mob.getDefence());
@@ -81,12 +84,18 @@ public class BattleProcess extends BaseScenarioStep {
 
         @Override
         public void accept() {
+            Battle battle = model.getBattle();
+            if (battle.getLoot().isEmpty()) {
+                model.getSelectedHero().worldMap.getCells().get(battle.posY).get(battle.posX).battle = null;
+            } else {
+                battle.status = Battle.Status.LOOT;
+            }
             model.clearBattle();
             model.nextStep(new GameProcess(model));
         }
 
         @Override
-        public void takeDrop(Item item) {
+        public void takeLootItem(Item item) {
             Hero hero = model.getSelectedHero();
             Hero mob = model.getBattle().mob;
             Item currentItem = hero.takeItem(item);

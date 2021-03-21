@@ -63,7 +63,7 @@ public class Hero {
         while (xp > 0) {
             int levelThreshold = (level + 1) * 1000 + level * level * 450;
             int toNextLevel = levelThreshold - this.xp;
-            if (xp > toNextLevel) {
+            if (xp >= toNextLevel) {
                 level++;
                 this.xp += toNextLevel;
                 xp -= toNextLevel;

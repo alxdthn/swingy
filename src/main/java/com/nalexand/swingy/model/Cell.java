@@ -13,7 +13,9 @@ public class Cell {
     @SerializedName("m")
     public boolean withMob = false;
 
+    public Battle battle = null;
+
     public boolean isFree() {
-        return !withHero && !isObstacle && !withMob;
+        return !withHero && !isObstacle && !withMob && battle == null;
     }
 }
