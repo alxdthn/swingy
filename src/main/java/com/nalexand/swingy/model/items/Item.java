@@ -31,9 +31,16 @@ public class Item {
         }
     }
 
-    public static String safeFormatItem(Item item) {
+    public static String safeFormatItem(Item item, Item.Type type) {
         if (item == null) {
-            return "EMPTY";
+            switch (type) {
+                case WEAPON:
+                    return "weapon: EMPTY";
+                case ARMOR:
+                    return "armor: EMPTY";
+                default:
+                    return "helmet: EMPTY";
+            }
         } else {
             return item.getFormattedString();
         }

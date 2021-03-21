@@ -32,17 +32,18 @@ public class GameProcessOutput extends BaseConsoleOutput {
         printLineWithMap(String.format(
                 "LEVEL: %s",
                 hero.getLevel()
-        ), worldMapIterator, Item.safeFormatItem(hero.helmet));
+        ), worldMapIterator, Item.safeFormatItem(hero.helmet, Item.Type.HELMET));
 
         printLineWithMap(String.format(
                 "XP: %s",
                 hero.getXp()
-        ), worldMapIterator, Item.safeFormatItem(hero.armor));
+        ), worldMapIterator, Item.safeFormatItem(hero.armor, Item.Type.ARMOR));
 
         printLineWithMap(String.format(
-                "HP: %s",
+                "HP: %s/%s",
+                hero.currentHitPoints,
                 hero.getHitPoints()
-        ), worldMapIterator, Item.safeFormatItem(hero.weapon));
+        ), worldMapIterator, Item.safeFormatItem(hero.weapon, Item.Type.WEAPON));
 
         printLineWithMap(String.format(
                 "ATTACK: %s",
@@ -70,7 +71,7 @@ public class GameProcessOutput extends BaseConsoleOutput {
 
     private void printLineWithMap(String info, Iterator<List<Cell>> worldMapIterator) {
         printFormat(
-                "%-32s%s\n",
+                "%-20s%s\n",
                 info,
                 nextWorldLineAsString(worldMapIterator)
         );
@@ -78,7 +79,7 @@ public class GameProcessOutput extends BaseConsoleOutput {
 
     private void printLineWithMap(String info, Iterator<List<Cell>> worldMapIterator, String itemLine) {
         printFormat(
-                "%-32s%s %s\n",
+                "%-20s%s %s\n",
                 info,
                 nextWorldLineAsString(worldMapIterator),
                 itemLine

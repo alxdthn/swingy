@@ -5,6 +5,7 @@ import com.nalexand.swingy.controller.DialogController;
 import com.nalexand.swingy.model.Battle;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
+import com.nalexand.swingy.model.items.Item;
 
 public class BattleProcess extends BaseScenarioStep {
 
@@ -36,7 +37,7 @@ public class BattleProcess extends BaseScenarioStep {
 
             heroHp -= step.heroDamage;
             mobHp -= step.mobDamage;
-            hero.hitPoints -= step.heroDamage;
+            hero.currentHitPoints -= step.heroDamage;
 
             step.mobHp = mobHp;
             step.heroHp = heroHp;
@@ -46,7 +47,7 @@ public class BattleProcess extends BaseScenarioStep {
         battle.isHeroWinner = heroHp > 0;
         if (battle.isHeroWinner) {
             battle.status = Battle.Status.WIN;
-            model.increaseExperience(10000);
+            model.increaseExperience(500);
             hero.worldMap.removeMob(mob);
             model.moveHeroToMob();
         }
@@ -82,6 +83,20 @@ public class BattleProcess extends BaseScenarioStep {
         public void accept() {
             model.clearBattle();
             model.nextStep(new GameProcess(model));
+        }
+
+        @Override
+        public void takeDrop(Item item) {
+            Hero hero = model.getSelectedHero();
+            Hero mob = model.getBattle().mob;
+            Item currentItem = hero.takeItem(item);
+            if (currentItem != null) {
+                mob.takeItem(currentItem);
+            } else {
+                mob.dropItem(item);
+            }
+            model.saveGameState();
+            model.render();
         }
     }
 

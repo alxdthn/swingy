@@ -12,7 +12,7 @@ public class Swingy {
 
     public static final double OBSTACLES_PERCENTAGE = 0.25;
 
-    public static final int ITEM_GENERATION_PERCENTAGE = 21;
+    public static final int ITEM_GENERATION_PERCENTAGE = 100;
 
     public static final String[] MOB_NAMES = {"Ork", "Necromancer", "Bandit", "Wood Elf"};
 

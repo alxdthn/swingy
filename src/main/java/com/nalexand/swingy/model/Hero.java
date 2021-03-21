@@ -25,7 +25,9 @@ public class Hero {
 
     private int defence = 0;
 
-    public int hitPoints = 3;
+    public int hitPoints = 0;
+
+    public int currentHitPoints = 0;
 
     public int posX = 0;
 
@@ -95,10 +97,12 @@ public class Hero {
     public void initAsHero() {
         created = true;
         hitPoints = 4;
+        currentHitPoints = 4;
     }
 
     public void initAsMob(Hero hero) {
         level = hero.level + 1;
+        hitPoints = 0;
         if (Utils.randomByPercent(Swingy.ITEM_GENERATION_PERCENTAGE)) {
             Item randomItem = ItemFactory.randomItem();
             switch (randomItem.type) {
@@ -112,6 +116,38 @@ public class Hero {
                     helmet = randomItem;
                     break;
             }
+        }
+    }
+
+    public Item takeItem(Item item) {
+        Item returnItem = null;
+        switch (item.type) {
+            case WEAPON:
+                returnItem = weapon;
+                weapon = item;
+                break;
+            case ARMOR:
+                returnItem = armor;
+                armor = item;
+                break;
+            case HELMET:
+                returnItem = helmet;
+                helmet = item;
+        }
+        return returnItem;
+    }
+
+    public void dropItem(Item item) {
+        switch (item.type) {
+            case WEAPON:
+                weapon = null;
+                break;
+            case ARMOR:
+                armor = null;
+                break;
+            case HELMET:
+                helmet = null;
+                break;
         }
     }
 

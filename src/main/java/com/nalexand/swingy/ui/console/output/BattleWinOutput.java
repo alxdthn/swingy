@@ -20,6 +20,10 @@ public class BattleWinOutput extends BaseConsoleOutput {
         Battle battle = model.getBattle();
 
         println("You are win!");
+
+        println("1: Ok!");
+        listenCommand(Command.KEY_1, controller::accept);
+
         List<Item> drop = listOfNotNull(
                 battle.mob.helmet,
                 battle.mob.armor,
@@ -27,12 +31,13 @@ public class BattleWinOutput extends BaseConsoleOutput {
         );
         if (!drop.isEmpty()) {
             println("Drop:");
-            int option = 1;
+            int option = 2;
+            Command[] commands = {Command.KEY_2, Command.KEY_3, Command.KEY_4};
             for (Item item : drop) {
-                printFormat("%d: %s", option++, item.getFormattedString());
+                printFormat("%d: %s\n", option, item.getFormattedString());
+                listenCommand(commands[option - 2], () -> controller.takeDrop(item));
+                option++;
             }
         }
-        println("1: Ok!");
-        listenCommand(Command.KEY_1, controller::accept);
     }
 }
