@@ -10,7 +10,7 @@
     </border>
     <children>
       <grid id="4d19a" binding="menu" layout-manager="GridLayoutManager" row-count="7" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
+        <margin top="16" left="16" bottom="16" right="16"/>
         <constraints border-constraint="West"/>
         <properties/>
         <border type="bevel-raised" title="&lt;Hero name&gt;" title-justification="2" title-position="3">
@@ -80,10 +80,10 @@
           </component>
         </children>
       </grid>
-      <grid id="cea9e" binding="map" layout-manager="GridBagLayout">
+      <grid id="e652e" binding="map" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="Center"/>
         <properties/>
-        <border type="bevel-raised" title="Map" title-justification="2" title-position="3"/>
+        <border type="bevel-raised" title="World map" title-justification="2" title-position="3"/>
         <children/>
       </grid>
     </children>

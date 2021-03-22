@@ -3,12 +3,13 @@ package com.nalexand.swingy.ui.gui.forms;
 import com.nalexand.swingy.controller.CreateHeroController;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
+import com.nalexand.swingy.ui.base.Form;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class CreateHeroForm {
+public class CreateHeroForm implements Form {
     private JPanel panel;
 
     public CreateHeroForm(ModelFacade model, CreateHeroController controller) {
@@ -40,6 +41,11 @@ public class CreateHeroForm {
      */
     public JComponent $$$getRootComponent$$$() {
         return panel;
+    }
+
+    @Override
+    public JComponent getRootComponent() {
+        return $$$getRootComponent$$$();
     }
 
     private void addCreateHeroButton(Hero hero, CreateHeroController controller, int gridY) {

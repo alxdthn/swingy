@@ -4,18 +4,24 @@ import com.nalexand.swingy.controller.*;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.ui.base.BaseView;
+import com.nalexand.swingy.ui.base.Form;
+import com.nalexand.swingy.ui.base.KeyListenerForm;
 import com.nalexand.swingy.ui.gui.forms.CreateHeroForm;
 import com.nalexand.swingy.ui.gui.forms.GameProcessForm;
 import com.nalexand.swingy.ui.gui.forms.WelcomeForm;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public final class GuiView extends BaseView {
+public final class GuiView extends BaseView implements KeyListener {
 
     private JFrame frame = null;
 
     private JComponent currentPane = null;
+
+    private Form currentForm = null;
 
     @Override
     public void renderScenarioData(BaseScenarioStep scenarioStep) {
@@ -24,17 +30,17 @@ public final class GuiView extends BaseView {
 
     @Override
     protected void showWelcome(ModelFacade model, WelcomeController controller) {
-        render(new WelcomeForm(model, controller).$$$getRootComponent$$$());
+        render(new WelcomeForm(model, controller));
     }
 
     @Override
     protected void showCreateHero(ModelFacade model, CreateHeroController controller) {
-        render(new CreateHeroForm(model, controller).$$$getRootComponent$$$());
+        render(new CreateHeroForm(model, controller));
     }
 
     @Override
     protected void showGameProcess(ModelFacade model, GameProcessController controller) {
-        render(new GameProcessForm(model, controller).$$$getRootComponent$$$());
+        render(new GameProcessForm(model, controller));
     }
 
     @Override
@@ -57,12 +63,13 @@ public final class GuiView extends BaseView {
 
     }
 
-    private void render(JComponent newContent) {
+    private void render(Form form) {
+        currentForm = form;
         if (currentPane != null) {
             frame.getContentPane().remove(currentPane);
         }
-        currentPane = newContent;
-        frame.getContentPane().add(newContent, BorderLayout.CENTER);
+        currentPane = form.getRootComponent();
+        frame.getContentPane().add(currentPane, BorderLayout.CENTER);
         frame.pack();
     }
 
@@ -83,10 +90,28 @@ public final class GuiView extends BaseView {
                 (screenSize.height - windowSize.height) / 2
         );
 
+        frame.addKeyListener(this);
         frame.setLayout(new BorderLayout());
         frame.setLocation(location);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(windowSize);
         frame.setVisible(true);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (currentForm instanceof KeyListenerForm) {
+            ((KeyListenerForm) currentForm).notifyCommandListeners(e.getKeyCode());
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
     }
 }

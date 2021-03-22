@@ -3,13 +3,14 @@ package com.nalexand.swingy.ui.gui.forms;
 import com.nalexand.swingy.controller.WelcomeController;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
+import com.nalexand.swingy.ui.base.Form;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.List;
 
-public class WelcomeForm {
+public class WelcomeForm implements Form {
     private JButton createHeroButton;
     private JPanel panel;
     private final WelcomeController controller;
@@ -53,6 +54,11 @@ public class WelcomeForm {
      */
     public JComponent $$$getRootComponent$$$() {
         return panel;
+    }
+
+    @Override
+    public JComponent getRootComponent() {
+        return $$$getRootComponent$$$();
     }
 
     private void addSelectHeroButton(Hero hero, int position) {
