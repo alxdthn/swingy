@@ -5,7 +5,6 @@ import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.ui.base.BaseView;
 import com.nalexand.swingy.ui.base.Form;
-import com.nalexand.swingy.ui.base.KeyListenerForm;
 import com.nalexand.swingy.ui.gui.forms.BattleConfirmationForm;
 import com.nalexand.swingy.ui.gui.forms.CreateHeroForm;
 import com.nalexand.swingy.ui.gui.forms.GameProcessForm;
@@ -13,16 +12,12 @@ import com.nalexand.swingy.ui.gui.forms.WelcomeForm;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-public final class GuiView extends BaseView implements KeyListener {
+public final class GuiView extends BaseView {
 
     private JFrame frame = null;
 
     private JComponent currentPane = null;
-
-    private Form currentForm = null;
 
     @Override
     public void renderScenarioData(BaseScenarioStep scenarioStep) {
@@ -46,7 +41,6 @@ public final class GuiView extends BaseView implements KeyListener {
 
     @Override
     protected void showBattleConfirmation(ModelFacade model, DialogController controller) {
-//        showDialog(new BattleConf(model, controller));
         render(new BattleConfirmationForm(model, controller));
     }
 
@@ -66,16 +60,10 @@ public final class GuiView extends BaseView implements KeyListener {
     }
 
     private void render(Form form) {
-        currentForm = form;
         if (currentPane != null) {
             frame.getContentPane().remove(currentPane);
         }
         currentPane = form.getRootComponent();
-        frame.getContentPane().add(currentPane, BorderLayout.CENTER);
-        frame.pack();
-    }
-
-    private void showDialog(Form form) {
         frame.getContentPane().add(currentPane, BorderLayout.CENTER);
         frame.pack();
     }
@@ -97,28 +85,10 @@ public final class GuiView extends BaseView implements KeyListener {
                 (screenSize.height - windowSize.height) / 2
         );
 
-        frame.addKeyListener(this);
         frame.setLayout(new BorderLayout());
         frame.setLocation(location);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(windowSize);
         frame.setVisible(true);
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        if (currentForm instanceof KeyListenerForm) {
-            ((KeyListenerForm) currentForm).notifyCommandListeners(e.getKeyCode());
-        }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
     }
 }

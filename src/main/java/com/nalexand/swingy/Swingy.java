@@ -45,14 +45,18 @@ public class Swingy {
                 model.setView(guiView);
                 guiView.initGui();
                 model.render();
-                model.setSelectedHero(Hero.Type.URSA);
-                Hero hero = model.getSelectedHero();
-                model.calculateWorldMap();
-                Hero mob = hero.worldMap.mobs.get(0);
-                mob.initAsMob(hero);
-                model.startBattle(new Battle(hero, mob, 0, 0));
-                model.nextStep(new BattleProcess.Confirmation(model));
+                //  DEBUG_runBattleConfirmation();
                 break;
         }
+    }
+
+    private static void DEBUG_runBattleConfirmation() {
+        model.setSelectedHero(Hero.Type.URSA);
+        Hero hero = model.getSelectedHero();
+        model.calculateWorldMap();
+        Hero mob = hero.worldMap.mobs.get(0);
+        mob.initAsMob(hero);
+        model.startBattle(new Battle(hero, mob, 0, 0));
+        model.nextStep(new BattleProcess.Confirmation(model));
     }
 }

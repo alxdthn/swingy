@@ -51,19 +51,19 @@ public class IconProvider {
         String resource = null;
         switch (item.name) {
             case "Divine rapier":
-                resource = "/dominator.png";
+                resource = "/rapier.png";
                 break;
             case "Desolator":
-                resource = "/dominator.png";
+                resource = "/desolator.png";
                 break;
             case "Butterfly":
-                resource = "/dominator.png";
+                resource = "/butterfly.png";
                 break;
             case "Shiva's guard":
-                resource = "/dominator.png";
+                resource = "/shiva.png";
                 break;
             case "Blade mail":
-                resource = "/dominator.png";
+                resource = "/blade_mail.png";
                 break;
             case "Dominator":
                 resource = "/dominator.png";
