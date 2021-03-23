@@ -6,6 +6,7 @@ import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.ui.base.BaseView;
 import com.nalexand.swingy.ui.base.Form;
 import com.nalexand.swingy.ui.base.KeyListenerForm;
+import com.nalexand.swingy.ui.gui.forms.BattleConfirmationForm;
 import com.nalexand.swingy.ui.gui.forms.CreateHeroForm;
 import com.nalexand.swingy.ui.gui.forms.GameProcessForm;
 import com.nalexand.swingy.ui.gui.forms.WelcomeForm;
@@ -45,7 +46,8 @@ public final class GuiView extends BaseView implements KeyListener {
 
     @Override
     protected void showBattleConfirmation(ModelFacade model, DialogController controller) {
-
+//        showDialog(new BattleConf(model, controller));
+        render(new BattleConfirmationForm(model, controller));
     }
 
     @Override
@@ -69,6 +71,11 @@ public final class GuiView extends BaseView implements KeyListener {
             frame.getContentPane().remove(currentPane);
         }
         currentPane = form.getRootComponent();
+        frame.getContentPane().add(currentPane, BorderLayout.CENTER);
+        frame.pack();
+    }
+
+    private void showDialog(Form form) {
         frame.getContentPane().add(currentPane, BorderLayout.CENTER);
         frame.pack();
     }

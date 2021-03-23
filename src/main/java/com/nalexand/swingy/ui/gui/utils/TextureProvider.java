@@ -16,9 +16,12 @@ public class TextureProvider {
 
     private static Image waterTexture = null;
 
+    private static Image mobTexture = null;
+
     private static Image traxexMapSprite = null;
 
-    private TextureProvider() {}
+    private TextureProvider() {
+    }
 
     public static Image getGrassTexture() throws IOException {
         if (grassTexture == null) {

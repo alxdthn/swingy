@@ -1,6 +1,9 @@
 package com.nalexand.swingy;
 
+import com.nalexand.swingy.model.Battle;
+import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
+import com.nalexand.swingy.model.scenario.BattleProcess;
 import com.nalexand.swingy.ui.console.ConsoleView;
 import com.nalexand.swingy.ui.gui.GuiView;
 
@@ -8,7 +11,7 @@ public class Swingy {
 
     public static final String GAME_DATA_FILE = "./game_data.json";
 
-    public static final boolean IGNORE_SAVED = false;
+    public static final boolean IGNORE_SAVED = true;
 
     public static final double OBSTACLES_PERCENTAGE = 0.25;
 
@@ -42,6 +45,13 @@ public class Swingy {
                 model.setView(guiView);
                 guiView.initGui();
                 model.render();
+                model.setSelectedHero(Hero.Type.URSA);
+                Hero hero = model.getSelectedHero();
+                model.calculateWorldMap();
+                Hero mob = hero.worldMap.mobs.get(0);
+                mob.initAsMob(hero);
+                model.startBattle(new Battle(hero, mob, 0, 0));
+                model.nextStep(new BattleProcess.Confirmation(model));
                 break;
         }
     }

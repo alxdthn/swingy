@@ -59,7 +59,7 @@ public class BattleProcess extends BaseScenarioStep {
 
     public static class Confirmation extends BaseScenarioStep implements DialogController {
 
-        protected Confirmation(ModelFacade model) {
+        public Confirmation(ModelFacade model) {
             super(model);
         }
 
