@@ -102,7 +102,7 @@ public class Hero {
 
     public void initAsMob(Hero hero) {
         level = hero.level + 1;
-        hitPoints = 0;
+        hitPoints = 3;
         if (Utils.randomByPercent(Swingy.ITEM_GENERATION_PERCENTAGE)) {
             Item randomItem = ItemFactory.randomItem();
             switch (randomItem.type) {

@@ -1,6 +1,7 @@
 package com.nalexand.swingy.ui.gui.utils;
 
 import com.nalexand.swingy.model.Hero;
+import com.nalexand.swingy.model.items.Item;
 
 import javax.swing.*;
 
@@ -42,6 +43,34 @@ public class IconProvider {
         }
         if (resource == null) {
             throw new IllegalStateException(String.format("No icon for %s %s", hero.type, hero.name));
+        }
+        return new ImageIcon(IconProvider.class.getResource(resource));
+    }
+
+    public static ImageIcon getItemIcon(Item item) {
+        String resource = null;
+        switch (item.name) {
+            case "Divine rapier":
+                resource = "/dominator.png";
+                break;
+            case "Desolator":
+                resource = "/dominator.png";
+                break;
+            case "Butterfly":
+                resource = "/dominator.png";
+                break;
+            case "Shiva's guard":
+                resource = "/dominator.png";
+                break;
+            case "Blade mail":
+                resource = "/dominator.png";
+                break;
+            case "Dominator":
+                resource = "/dominator.png";
+                break;
+        }
+        if (resource == null) {
+            throw new IllegalStateException(String.format("No icon for %s", item.name));
         }
         return new ImageIcon(IconProvider.class.getResource(resource));
     }

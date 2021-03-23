@@ -31,6 +31,17 @@ public class Item {
         }
     }
 
+    public String getDisplayedString() {
+        switch (type) {
+            case WEAPON:
+                return String.format("Attack +%d", attack);
+            case ARMOR:
+                return String.format("Defence +%d", defence);
+            default:
+                return String.format("HP +%d", hitPoints);
+        }
+    }
+
     public static String safeFormatItem(Item item, Item.Type type) {
         if (item == null) {
             switch (type) {
