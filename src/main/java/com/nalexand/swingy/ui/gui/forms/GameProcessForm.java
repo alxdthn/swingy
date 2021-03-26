@@ -65,11 +65,11 @@ public class GameProcessForm extends KeyListenerForm {
     private void $$$setupUI$$$() {
         panel = new JPanel();
         panel.setLayout(new BorderLayout(0, 0));
-        panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+        panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16), null));
         menu = new JPanel();
         menu.setLayout(new GridLayoutManager(7, 1, new Insets(16, 16, 16, 16), -1, -1));
         panel.add(menu, BorderLayout.WEST);
-        menu.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "<Hero name>", TitledBorder.CENTER, TitledBorder.BELOW_TOP, this.$$$getFont$$$(null, -1, -1, menu.getFont()), null));
+        menu.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "<Hero name>", TitledBorder.CENTER, TitledBorder.BELOW_TOP, this.$$$getFont$$$(null, -1, -1, menu.getFont())));
         heroIcon = new JLabel();
         heroIcon.setHorizontalAlignment(2);
         heroIcon.setIcon(new ImageIcon(getClass().getResource("/traxex.png")));
@@ -99,7 +99,7 @@ public class GameProcessForm extends KeyListenerForm {
         map = new JPanel();
         map.setLayout(new BorderLayout(0, 0));
         panel.add(map, BorderLayout.CENTER);
-        map.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "World map", TitledBorder.CENTER, TitledBorder.BELOW_TOP, null, null));
+        map.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "World map", TitledBorder.CENTER, TitledBorder.BELOW_TOP));
     }
 
     /**
