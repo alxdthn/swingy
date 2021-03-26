@@ -5,10 +5,7 @@ import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.ui.base.BaseView;
 import com.nalexand.swingy.ui.base.Form;
-import com.nalexand.swingy.ui.gui.forms.BattleConfirmationForm;
-import com.nalexand.swingy.ui.gui.forms.CreateHeroForm;
-import com.nalexand.swingy.ui.gui.forms.GameProcessForm;
-import com.nalexand.swingy.ui.gui.forms.WelcomeForm;
+import com.nalexand.swingy.ui.gui.forms.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,8 +42,8 @@ public final class GuiView extends BaseView {
     }
 
     @Override
-    protected void showBattle(ModelFacade model) {
-
+    protected void showBattle(ModelFacade model, BattleController controller) {
+        render(new ShowBattleForm(model, controller));
     }
 
     @Override

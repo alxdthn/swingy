@@ -14,7 +14,7 @@ public abstract class BaseView implements View {
 
     protected abstract void showBattleConfirmation(ModelFacade model, DialogController controller);
 
-    protected abstract void showBattle(ModelFacade model);
+    protected abstract void showBattle(ModelFacade model, BattleController controller);
 
     protected abstract void showBattleWin(ModelFacade model, BattleWinController controller);
 
@@ -32,7 +32,7 @@ public abstract class BaseView implements View {
         } else if (scenarioStep instanceof BattleProcess.Confirmation) {
             showBattleConfirmation(model, (DialogController) scenarioStep);
         } else if (scenarioStep instanceof BattleProcess) {
-            showBattle(model);
+            showBattle(model, (BattleController) scenarioStep);
         } else if (scenarioStep instanceof BattleProcess.Win) {
             showBattleWin(model, (BattleWinController) scenarioStep);
         } else if (scenarioStep instanceof BattleProcess.Lose) {

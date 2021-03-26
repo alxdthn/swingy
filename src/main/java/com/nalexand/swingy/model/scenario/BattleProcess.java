@@ -1,5 +1,6 @@
 package com.nalexand.swingy.model.scenario;
 
+import com.nalexand.swingy.controller.BattleController;
 import com.nalexand.swingy.controller.BattleWinController;
 import com.nalexand.swingy.controller.DialogController;
 import com.nalexand.swingy.model.Battle;
@@ -7,21 +8,11 @@ import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.items.Item;
 
-public class BattleProcess extends BaseScenarioStep {
+public class BattleProcess extends BaseScenarioStep implements BattleController {
 
     protected BattleProcess(ModelFacade model) {
         super(model);
         runBattle();
-    }
-
-    @Override
-    public void onRendered() {
-        super.onRendered();
-        if (model.getBattle().isHeroWinner) {
-            model.nextStep(new BattleProcess.Win(model));
-        } else {
-            model.nextStep(new BattleProcess.Lose(model));
-        }
     }
 
     private void runBattle() {
@@ -55,6 +46,15 @@ public class BattleProcess extends BaseScenarioStep {
             model.moveHeroToMob();
         }
         model.saveGameState();
+    }
+
+    @Override
+    public void accept() {
+        if (model.getBattle().isHeroWinner) {
+            model.nextStep(new BattleProcess.Win(model));
+        } else {
+            model.nextStep(new BattleProcess.Lose(model));
+        }
     }
 
     public static class Confirmation extends BaseScenarioStep implements DialogController {

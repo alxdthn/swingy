@@ -36,8 +36,8 @@ public final class ConsoleView extends BaseView {
     }
 
     @Override
-    protected void showBattle(ModelFacade model) {
-        consoleOutput = new BattleOutput(model);
+    protected void showBattle(ModelFacade model, BattleController controller) {
+        consoleOutput = new BattleOutput(model, controller);
     }
 
     @Override

@@ -45,7 +45,7 @@ public class Swingy {
                 model.setView(guiView);
                 guiView.initGui();
                 model.render();
-                //  DEBUG_runBattleConfirmation();
+                DEBUG_runBattleConfirmation();
                 break;
         }
     }
