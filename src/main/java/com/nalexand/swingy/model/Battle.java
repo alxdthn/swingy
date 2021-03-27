@@ -1,6 +1,7 @@
 package com.nalexand.swingy.model;
 
 import com.nalexand.swingy.model.items.Item;
+import com.nalexand.swingy.utils.GameLogics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,8 @@ public class Battle {
     public int posX;
 
     public int posY;
+
+    public int xp = GameLogics.calculateXP();
 
     public Battle(Hero hero, Hero mob, int posX, int posY) {
         this.mob = mob;

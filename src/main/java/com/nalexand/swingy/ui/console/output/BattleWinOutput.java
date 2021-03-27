@@ -29,7 +29,11 @@ public class BattleWinOutput extends BaseConsoleOutput {
     }
 
     private void printWinState(BattleWinController controller, Battle battle) {
-        printState("Win!", controller, battle);
+        printState(
+                String.format("Win!\nXP = %d\n", battle.xp),
+                controller,
+                battle
+        );
     }
 
     private void printLootState(BattleWinController controller, Battle battle) {

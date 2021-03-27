@@ -1,6 +1,7 @@
 package com.nalexand.swingy.model;
 
 import com.nalexand.swingy.Swingy;
+import com.nalexand.swingy.utils.GameLogics;
 import com.nalexand.swingy.utils.Utils;
 
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class WorldMap {
             if (!cell.isFree()) continue;
 
             Hero newMob = new Hero(Hero.Type.MOB);
-            newMob.initAsMob(hero);
+            GameLogics.initAsMob(newMob, hero);
             newMob.posX = randomX;
             newMob.posY = randomY;
             mobs.add(newMob);

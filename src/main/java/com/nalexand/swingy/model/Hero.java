@@ -2,7 +2,6 @@ package com.nalexand.swingy.model;
 
 import com.nalexand.swingy.Swingy;
 import com.nalexand.swingy.model.items.Item;
-import com.nalexand.swingy.model.items.ItemFactory;
 import com.nalexand.swingy.utils.Utils;
 
 public class Hero {
@@ -19,11 +18,11 @@ public class Hero {
 
     public int level = 0;
 
-    private int xp = 0;
+    public int xp = 0;
 
-    private int attack = 1;
+    public int attack = 1;
 
-    private int defence = 0;
+    public int defence = 0;
 
     public int hitPoints = 0;
 
@@ -59,21 +58,6 @@ public class Hero {
         }
     }
 
-    public void increaseExperience(int xp) {
-        while (xp > 0) {
-            int levelThreshold = (level + 1) * 1000 + level * level * 450;
-            int toNextLevel = levelThreshold - this.xp;
-            if (xp >= toNextLevel) {
-                level++;
-                this.xp += toNextLevel;
-                xp -= toNextLevel;
-            } else {
-                this.xp += xp;
-                return;
-            }
-        }
-    }
-
     public int getLevel() {
         return level;
     }
@@ -90,33 +74,8 @@ public class Hero {
         return defence + ((armor != null) ? armor.defence : 0);
     }
 
-    public int getHitPoints() {
+    public int getMaxHitPoints() {
         return hitPoints + ((helmet != null) ? helmet.hitPoints : 0);
-    }
-
-    public void initAsHero() {
-        created = true;
-        hitPoints = 4;
-        currentHitPoints = 4;
-    }
-
-    public void initAsMob(Hero hero) {
-        level = hero.level + 1;
-        hitPoints = 3;
-        if (Utils.randomByPercent(Swingy.ITEM_GENERATION_PERCENTAGE)) {
-            Item randomItem = ItemFactory.randomItem();
-            switch (randomItem.type) {
-                case WEAPON:
-                    weapon = randomItem;
-                    break;
-                case ARMOR:
-                    armor = randomItem;
-                    break;
-                case HELMET:
-                    helmet = randomItem;
-                    break;
-            }
-        }
     }
 
     public Item takeItem(Item item) {

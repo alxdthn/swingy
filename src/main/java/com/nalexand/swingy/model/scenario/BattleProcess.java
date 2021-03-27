@@ -7,6 +7,7 @@ import com.nalexand.swingy.model.Battle;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.items.Item;
+import com.nalexand.swingy.utils.GameLogics;
 
 public class BattleProcess extends BaseScenarioStep implements BattleController {
 
@@ -21,11 +22,12 @@ public class BattleProcess extends BaseScenarioStep implements BattleController 
         Hero mob = battle.mob;
         Hero hero = model.getSelectedHero();
 
-        int heroHp = hero.getHitPoints();
-        int mobHp = mob.getHitPoints();
+        int heroHp = hero.getMaxHitPoints();
+        int mobHp = mob.getMaxHitPoints();
 
         while (heroHp > 0 && mobHp > 0) {
             Battle.Step step = new Battle.Step();
+
             step.mobDamage = Math.max(0, hero.getAttack() - mob.getDefence());
             step.heroDamage = Math.max(0, mob.getAttack() - hero.getDefence());
 
@@ -41,7 +43,7 @@ public class BattleProcess extends BaseScenarioStep implements BattleController 
         battle.isHeroWinner = heroHp > 0;
         if (battle.isHeroWinner) {
             battle.status = Battle.Status.WIN;
-            model.increaseExperience(500);
+            GameLogics.increaseXP(hero, battle.xp);
             hero.worldMap.removeMob(mob);
             model.moveHeroToMob();
         }

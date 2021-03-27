@@ -42,7 +42,7 @@ public class GameProcessOutput extends BaseConsoleOutput {
         printLineWithMap(String.format(
                 "HP: %s/%s",
                 hero.currentHitPoints,
-                hero.getHitPoints()
+                hero.getMaxHitPoints()
         ), worldMapIterator);
 
         printLineWithMap(String.format(

@@ -11,8 +11,11 @@ import com.nalexand.swingy.ui.gui.utils.IconProvider;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Locale;
 
 public class GameProcessForm extends KeyListenerForm {
     private JPanel panel;
@@ -43,7 +46,7 @@ public class GameProcessForm extends KeyListenerForm {
         heroIcon.setIcon(IconProvider.getHeroIcon(hero));
         levelLabel.setText(levelLabel.getText() + " " + hero.getLevel());
         xpLabel.setText(xpLabel.getText() + hero.getXp());
-        hpLabel.setText(hpLabel.getText() + String.format("%d/%d", hero.currentHitPoints, hero.getHitPoints()));
+        hpLabel.setText(hpLabel.getText() + String.format("%d/%d", hero.currentHitPoints, hero.getMaxHitPoints()));
         attackLabel.setText(attackLabel.getText() + hero.getAttack());
         defenceLabel.setText(defenceLabel.getText() + hero.getDefence());
         //endregion
@@ -65,11 +68,11 @@ public class GameProcessForm extends KeyListenerForm {
     private void $$$setupUI$$$() {
         panel = new JPanel();
         panel.setLayout(new BorderLayout(0, 0));
-        panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16), null));
+        panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         menu = new JPanel();
         menu.setLayout(new GridLayoutManager(7, 1, new Insets(16, 16, 16, 16), -1, -1));
         panel.add(menu, BorderLayout.WEST);
-        menu.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "<Hero name>", TitledBorder.CENTER, TitledBorder.BELOW_TOP, this.$$$getFont$$$(null, -1, -1, menu.getFont())));
+        menu.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "<Hero name>", TitledBorder.CENTER, TitledBorder.BELOW_TOP, this.$$$getFont$$$(null, -1, -1, menu.getFont()), null));
         heroIcon = new JLabel();
         heroIcon.setHorizontalAlignment(2);
         heroIcon.setIcon(new ImageIcon(getClass().getResource("/traxex.png")));
@@ -99,7 +102,7 @@ public class GameProcessForm extends KeyListenerForm {
         map = new JPanel();
         map.setLayout(new BorderLayout(0, 0));
         panel.add(map, BorderLayout.CENTER);
-        map.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "World map", TitledBorder.CENTER, TitledBorder.BELOW_TOP));
+        map.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "World map", TitledBorder.CENTER, TitledBorder.BELOW_TOP, null, null));
     }
 
     /**
@@ -118,7 +121,10 @@ public class GameProcessForm extends KeyListenerForm {
                 resultName = currentFont.getName();
             }
         }
-        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
+        Font font = new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
+        boolean isMac = System.getProperty("os.name", "").toLowerCase(Locale.ENGLISH).startsWith("mac");
+        Font fontWithFallback = isMac ? new Font(font.getFamily(), font.getStyle(), font.getSize()) : new StyleContext().getFont(font.getFamily(), font.getStyle(), font.getSize());
+        return fontWithFallback instanceof FontUIResource ? fontWithFallback : new FontUIResource(fontWithFallback);
     }
 
     /**

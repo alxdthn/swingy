@@ -38,6 +38,9 @@ public class GameProcess extends BaseScenarioStep implements GameProcessControll
         boolean isMapEdge = toPosX < 0 || toPosX >= worldMap.getSize() ||
                 toPosY < 0 || toPosY >= worldMap.getSize();
         if (isMapEdge) {
+            if (hero.currentHitPoints != hero.getMaxHitPoints()) {
+                hero.currentHitPoints++;
+            }
             model.calculateWorldMap();
         } else  {
             Cell destinationCell = worldMap.getCells().get(toPosY).get(toPosX);

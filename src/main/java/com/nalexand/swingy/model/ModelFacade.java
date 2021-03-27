@@ -4,6 +4,7 @@ import com.nalexand.swingy.model.file.FileInteractor;
 import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.model.scenario.Welcome;
 import com.nalexand.swingy.ui.base.View;
+import com.nalexand.swingy.utils.GameLogics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +76,7 @@ public class ModelFacade {
     public void setSelectedHero(Hero.Type selectedHeroType) {
         gameState.selectedHeroType = selectedHeroType;
         Hero selectedHero = getSelectedHero();
-        selectedHero.initAsHero();
+        GameLogics.initAsHero(selectedHero);
         saveGameState();
     }
 
@@ -105,11 +106,6 @@ public class ModelFacade {
 
     public void startBattle(Battle battle) {
         getSelectedHero().battle = battle;
-        saveGameState();
-    }
-
-    public void increaseExperience(int xp) {
-        getSelectedHero().increaseExperience(xp);
         saveGameState();
     }
 

@@ -6,6 +6,7 @@ import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.scenario.BattleProcess;
 import com.nalexand.swingy.ui.console.ConsoleView;
 import com.nalexand.swingy.ui.gui.GuiView;
+import com.nalexand.swingy.utils.GameLogics;
 
 public class Swingy {
 
@@ -15,7 +16,9 @@ public class Swingy {
 
     public static final double OBSTACLES_PERCENTAGE = 0.25;
 
-    public static final int ITEM_GENERATION_PERCENTAGE = 100;
+    public static final int ITEM_GENERATION_PERCENTAGE = 75;
+
+    public static final int INITIAL_HERO_HP = 4;
 
     public static final String[] MOB_NAMES = {"Ork", "Necromancer", "Bandit", "Wood Elf"};
 
@@ -55,7 +58,7 @@ public class Swingy {
         Hero hero = model.getSelectedHero();
         model.calculateWorldMap();
         Hero mob = hero.worldMap.mobs.get(0);
-        mob.initAsMob(hero);
+        GameLogics.initAsMob(mob, hero);
         model.startBattle(new Battle(hero, mob, 0, 0));
         model.nextStep(new BattleProcess.Confirmation(model));
     }
