@@ -3,78 +3,66 @@ package com.nalexand.swingy.ui.gui.utils;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TextureProvider {
 
-    private static Image grassTexture = null;
+    public static final String GRASS = "/grass.png";
+    public static final String WATER = "/water.png";
+    public static final String VOID = "/void.png";
+    public static final String NEVERMORE = "/nevermore.png";
+    public static final String TRAXEX = "/traxex.png";
+    public static final String URSA = "/ursa.png";
+    public static final String BANDIT = "/bandit.png";
+    public static final String NECROMANCER = "/necromancer.png";
+    public static final String ORK = "/ork.png";
+    public static final String WOOD_ELF = "/wood_lef.png";
+    public static final String DESOLATOR = "/wood_lef.png";
+    public static final String BUTTERFLY = "/butterfly.png";
+    public static final String SHIVA = "/shiva.png";
+    public static final String DOMINATOR = "/dominator.png";
+    public static final String BLADE_MAIL = "/blade_mail.png";
+    public static final String RAPIER = "/rapier.png";
 
-    private static Image grassWithHeroTexture = null;
-
-    private static Image grassWithMobTexture = null;
-
-    private static Image grassWithLootTexture = null;
-
-    private static Image waterTexture = null;
-
-    private static Image mobTexture = null;
-
-    private static Image traxexMapSprite = null;
+    private static final Map<String, Image> cachedImages = new HashMap<>();
 
     private TextureProvider() {
     }
 
-    public static Image getGrassTexture() throws IOException {
-        if (grassTexture == null) {
-            grassTexture = readGrassTexture();
-        }
-        return grassTexture;
-    }
+    public static Image getImageWith(String backgroundSource, String foregroundSource) throws IOException {
+        String key = backgroundSource + "_" + foregroundSource;
+        Image result = cachedImages.get(key);
+        if (result == null) {
+            Image background = readImage(backgroundSource);
+            Image foreground = getImage(foregroundSource);
 
-    public static Image getGrassWithHeroTexture() throws IOException {
-        if (grassWithHeroTexture == null) {
-            grassWithHeroTexture = readGrassTexture();
-            grassWithHeroTexture.getGraphics().drawImage(
-                    getTraxexMapSprite(),
-                    0,
-                    0,
+            int backgroundImageSize = Math.min(
+                    background.getHeight(null),
+                    background.getWidth(null)
+            );
+            int foregroundImageSize = backgroundImageSize / 2;
+            background.getGraphics().drawImage(
+                    foreground,
+                    (backgroundImageSize - foregroundImageSize) / 2,
+                    (backgroundImageSize - foregroundImageSize) / 2,
+                    foregroundImageSize,
+                    foregroundImageSize,
                     null
             );
+            cachedImages.put(key, background);
+            result = background;
         }
-        return grassWithHeroTexture;
+        return result;
     }
 
-    public static Image getGrassWithMobTexture() throws IOException {
-        if (grassWithMobTexture == null) {
-            grassWithMobTexture = readGrassTexture();
-            grassWithMobTexture.getGraphics().drawOval(0, 0, 10, 10);
+    public static Image getImage(String source) throws IOException {
+        Image result = cachedImages.get(source);
+        if (result == null) {
+            result = readImage(source);
+            cachedImages.put(source, result);
         }
-        return grassWithMobTexture;
-    }
-
-    public static Image getGrassWithLootTexture() throws IOException {
-        if (grassWithLootTexture == null) {
-            grassWithLootTexture = readGrassTexture();
-            grassWithLootTexture.getGraphics().drawOval(0, 0, 10, 10);
-        }
-        return grassWithLootTexture;
-    }
-
-    public static Image getWaterTexture() throws IOException {
-        if (waterTexture == null) {
-            waterTexture = readImage("/water.png");
-        }
-        return waterTexture;
-    }
-
-    private static Image getTraxexMapSprite() throws IOException {
-        if (traxexMapSprite == null) {
-            traxexMapSprite = readImage("/traxex_map.gif");
-        }
-        return traxexMapSprite;
-    }
-
-    private static Image readGrassTexture() throws IOException {
-        return readImage("/grass.png");
+        return result;
     }
 
     private static Image readImage(String source) throws IOException {

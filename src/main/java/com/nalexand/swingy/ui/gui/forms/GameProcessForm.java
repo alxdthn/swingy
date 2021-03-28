@@ -7,7 +7,7 @@ import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.base.KeyListenerForm;
 import com.nalexand.swingy.ui.gui.custom.WorldMapPanel;
-import com.nalexand.swingy.ui.gui.utils.IconProvider;
+import com.nalexand.swingy.ui.gui.utils.IconResolver;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -43,7 +43,7 @@ public class GameProcessForm extends KeyListenerForm {
 
         //region Draw menu
         ((TitledBorder) menu.getBorder()).setTitle(hero.name);
-        heroIcon.setIcon(IconProvider.getHeroIcon(hero));
+        IconResolver.setIcon(heroIcon, hero.iconSource);
         levelLabel.setText(levelLabel.getText() + " " + hero.getLevel());
         xpLabel.setText(xpLabel.getText() + hero.getXp());
         hpLabel.setText(hpLabel.getText() + String.format("%d/%d", hero.currentHitPoints, hero.getMaxHitPoints()));

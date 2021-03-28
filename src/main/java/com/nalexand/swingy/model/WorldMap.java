@@ -38,11 +38,11 @@ public class WorldMap {
         size = ((hero.level - 1) * 5) + 10 - (hero.level % 2);
         cells = new ArrayList<>(size);
 
-        for (int row = 0; row < size; row++) {
+        for (int y = 0; y < size; y++) {
             List<Cell> rowList = new ArrayList<>(size);
             cells.add(rowList);
-            for (int column = 0; column < size; column++) {
-                rowList.add(new Cell());
+            for (int x = 0; x < size; x++) {
+                rowList.add(new Cell(x, y));
             }
         }
 

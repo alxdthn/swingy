@@ -2,7 +2,12 @@ package com.nalexand.swingy.model;
 
 import com.nalexand.swingy.Swingy;
 import com.nalexand.swingy.model.items.Item;
+import com.nalexand.swingy.ui.gui.utils.IconResolver;
 import com.nalexand.swingy.utils.Utils;
+
+import java.util.List;
+
+import static com.nalexand.swingy.utils.Utils.listOfNotNull;
 
 public class Hero {
 
@@ -38,6 +43,8 @@ public class Hero {
 
     public Item helmet = null;
 
+    public String iconSource;
+
     public Hero(Type type) {
         this.type = type;
         switch (type) {
@@ -56,6 +63,7 @@ public class Hero {
             case MOB:
                 this.name = Swingy.MOB_NAMES[Utils.randomBetween(0, Swingy.MOB_NAMES.length - 1)];
         }
+        iconSource = IconResolver.getHeroIcon(this);
     }
 
     public int getLevel() {
@@ -108,6 +116,15 @@ public class Hero {
                 helmet = null;
                 break;
         }
+    }
+
+    public Item getItem() {
+        List<Item> items = listOfNotNull(
+                weapon,
+                armor,
+                helmet
+        );
+        return (items.isEmpty()) ? null : items.get(0);
     }
 
     public enum Type {

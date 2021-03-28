@@ -1,5 +1,7 @@
 package com.nalexand.swingy.model.items;
 
+import com.nalexand.swingy.ui.gui.utils.IconResolver;
+
 public class Item {
 
     public Type type;
@@ -12,12 +14,15 @@ public class Item {
 
     public int hitPoints;
 
+    public String iconSource;
+
     public Item(Type type, String name, int attack, int defence, int hitPoints) {
         this.type = type;
         this.name = name;
         this.attack = attack;
         this.defence = defence;
         this.hitPoints = hitPoints;
+        this.iconSource = IconResolver.getItemIcon(this);
     }
 
     public String getFormattedString() {

@@ -14,9 +14,12 @@ public class WorldMapPanel extends JPanel {
 
     private final WorldMap worldMap;
 
+    private final ModelFacade model;
+
     public WorldMapPanel(ModelFacade model) {
         super();
         this.worldMap = model.getSelectedHero().worldMap;
+        this.model = model;
     }
 
     @Override
@@ -36,15 +39,24 @@ public class WorldMapPanel extends JPanel {
             for (Cell cell : row) {
                 Image texture;
                 if (cell.isFree()) {
-                    texture = TextureProvider.getGrassTexture();
+                    texture = TextureProvider.getImage(TextureProvider.GRASS);
                 } else if (cell.isObstacle) {
-                    texture = TextureProvider.getWaterTexture();
+                    texture = TextureProvider.getImage(TextureProvider.WATER);
                 } else if (cell.withMob) {
-                    texture = TextureProvider.getGrassWithMobTexture();
+                    texture = TextureProvider.getImageWith(
+                            TextureProvider.GRASS,
+                            model.getMobWithPosition(cell.x, cell.y).iconSource
+                    );
                 } else if (cell.withHero) {
-                    texture = TextureProvider.getGrassWithHeroTexture();
+                    texture = TextureProvider.getImageWith(
+                            TextureProvider.GRASS,
+                            model.getSelectedHero().iconSource
+                    );
                 } else if (cell.battle != null) {
-                    texture = TextureProvider.getGrassWithLootTexture();
+                    texture = TextureProvider.getImageWith(
+                            TextureProvider.GRASS,
+                            model.getBattle().mob.getItem().iconSource
+                    );
                 } else {
                     throw new IllegalStateException();
                 }

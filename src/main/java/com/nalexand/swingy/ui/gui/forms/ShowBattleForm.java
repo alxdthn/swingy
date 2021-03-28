@@ -7,7 +7,7 @@ import com.nalexand.swingy.model.Battle;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.base.Form;
-import com.nalexand.swingy.ui.gui.utils.IconProvider;
+import com.nalexand.swingy.ui.gui.utils.IconResolver;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -34,9 +34,9 @@ public class ShowBattleForm implements Form {
 
         Hero selectedHero = model.getSelectedHero();
         Battle battle = model.getBattle();
-        hero.setIcon(IconProvider.getHeroIcon(selectedHero));
+        IconResolver.setIcon(hero, selectedHero.iconSource);
         hero.setText("HP: " + selectedHero.hitPoints);
-        mob.setIcon(IconProvider.getHeroIcon(battle.mob));
+        IconResolver.setIcon(mob, battle.mob.iconSource);
         mob.setText("HP: " + battle.mob.hitPoints);
 
         List<Battle.Step> steps = battle.getSteps();

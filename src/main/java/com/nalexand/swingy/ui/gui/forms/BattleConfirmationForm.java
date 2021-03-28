@@ -7,7 +7,7 @@ import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.items.Item;
 import com.nalexand.swingy.ui.base.Form;
-import com.nalexand.swingy.ui.gui.utils.IconProvider;
+import com.nalexand.swingy.ui.gui.utils.IconResolver;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -38,7 +38,7 @@ public class BattleConfirmationForm implements Form {
 // DO NOT EDIT OR ADD ANY CODE HERE!
         $$$setupUI$$$();
         Hero mob = model.getBattle().mob;
-        modIcon.setIcon(IconProvider.getHeroIcon(mob));
+        IconResolver.setIcon(modIcon, mob.iconSource);
         name.setText("Name: " + mob.name);
         hp.setText("HP: " + mob.currentHitPoints);
         level.setText("Level: " + mob.level);
@@ -49,7 +49,7 @@ public class BattleConfirmationForm implements Form {
         );
         if (!items.isEmpty()) {
             Item mobItem = items.get(0);
-            item.setIcon(IconProvider.getItemIcon(mobItem));
+            IconResolver.setIcon(item, mobItem.iconSource);
             itemBonus.setText(mobItem.getDisplayedString());
             itemName.setText(mobItem.name);
         }
