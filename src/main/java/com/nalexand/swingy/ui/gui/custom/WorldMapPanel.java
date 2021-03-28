@@ -27,6 +27,7 @@ public class WorldMapPanel extends JPanel {
         try {
             drawWordMap(graphics);
         } catch (IOException e) {
+            //TODO ERROR
             System.exit(1);
         }
     }
@@ -34,8 +35,9 @@ public class WorldMapPanel extends JPanel {
     private void drawWordMap(Graphics graphics) throws IOException {
         int cellSize = Math.min(getWidth(), getHeight()) / worldMap.getSize();
         int y = 0;
+        int startX = (getWidth() - cellSize * worldMap.getSize()) / 2;
         for (List<Cell> row : worldMap.getCells()) {
-            int x = 0;
+            int x = startX;
             for (Cell cell : row) {
                 Image texture;
                 if (cell.isFree()) {
