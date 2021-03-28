@@ -60,7 +60,17 @@ public class IconResolver {
         try {
             label.setIcon(new ImageIcon(TextureProvider.getImage(source)));
         } catch (IOException e) {
-            /* do nothing */
+            //TODO ERROR
+            e.printStackTrace();
+        }
+    }
+
+    public static void setIcon(JButton button, String source) {
+        try {
+            button.setIcon(new ImageIcon(TextureProvider.getImage(source)));
+        } catch (IOException e) {
+            //TODO ERROR
+            e.printStackTrace();
         }
     }
 }

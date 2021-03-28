@@ -17,8 +17,8 @@ public class TextureProvider {
     public static final String BANDIT = "/bandit.png";
     public static final String NECROMANCER = "/necromancer.png";
     public static final String ORK = "/ork.png";
-    public static final String WOOD_ELF = "/wood_lef.png";
-    public static final String DESOLATOR = "/wood_lef.png";
+    public static final String WOOD_ELF = "/wood_elf.png";
+    public static final String DESOLATOR = "/desolator.png";
     public static final String BUTTERFLY = "/butterfly.png";
     public static final String SHIVA = "/shiva.png";
     public static final String DOMINATOR = "/dominator.png";
@@ -66,6 +66,14 @@ public class TextureProvider {
     }
 
     private static Image readImage(String source) throws IOException {
-        return ImageIO.read(TextureProvider.class.getResource(source));
+        try {
+            return ImageIO.read(TextureProvider.class.getResource(source));
+        } catch (IllegalArgumentException e) {
+            //TODO ERROR
+            System.err.println("bad resource "+ source);
+            e.printStackTrace();
+            System.exit(1);
+            return null;
+        }
     }
 }

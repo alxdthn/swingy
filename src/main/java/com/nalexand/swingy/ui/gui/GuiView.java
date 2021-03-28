@@ -48,7 +48,7 @@ public final class GuiView extends BaseView {
 
     @Override
     protected void showBattleWin(ModelFacade model, BattleWinController controller) {
-
+        render(new BattleWinForm(model, controller));
     }
 
     @Override
