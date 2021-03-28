@@ -4,7 +4,6 @@ import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.items.Item;
 
 import javax.swing.*;
-import java.io.IOException;
 
 public class IconResolver {
 
@@ -57,20 +56,10 @@ public class IconResolver {
 
 
     public static void setIcon(JLabel label, String source) {
-        try {
-            label.setIcon(new ImageIcon(TextureProvider.getImage(source)));
-        } catch (IOException e) {
-            //TODO ERROR
-            e.printStackTrace();
-        }
+        label.setIcon(new ImageIcon(TextureProvider.getImage(source)));
     }
 
     public static void setIcon(JButton button, String source) {
-        try {
-            button.setIcon(new ImageIcon(TextureProvider.getImage(source)));
-        } catch (IOException e) {
-            //TODO ERROR
-            e.printStackTrace();
-        }
+        button.setIcon(new ImageIcon(TextureProvider.getImage(source)));
     }
 }

@@ -24,6 +24,7 @@ public class TextureProvider {
     public static final String DOMINATOR = "/dominator.png";
     public static final String BLADE_MAIL = "/blade_mail.png";
     public static final String RAPIER = "/rapier.png";
+    public static final String INVENTORY = "/inventory.png";
 
     private static final Map<String, Image> cachedImages = new HashMap<>();
 
@@ -56,13 +57,20 @@ public class TextureProvider {
         return result;
     }
 
-    public static Image getImage(String source) throws IOException {
-        Image result = cachedImages.get(source);
-        if (result == null) {
-            result = readImage(source);
-            cachedImages.put(source, result);
+    public static Image getImage(String source) {
+        try {
+            Image result = cachedImages.get(source);
+            if (result == null) {
+                result = readImage(source);
+                cachedImages.put(source, result);
+            }
+            return result;
+        } catch (IOException e) {
+            //TODO error
+            e.printStackTrace();
+            System.exit(1);
+            return null;
         }
-        return result;
     }
 
     private static Image readImage(String source) throws IOException {

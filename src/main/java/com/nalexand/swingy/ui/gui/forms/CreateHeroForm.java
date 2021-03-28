@@ -10,7 +10,6 @@ import com.nalexand.swingy.ui.gui.utils.TextureProvider;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.util.List;
 
 public class CreateHeroForm implements Form {
@@ -98,11 +97,7 @@ public class CreateHeroForm implements Form {
 
     private void addCreateHeroButton(Hero hero, CreateHeroController controller, int gridY) {
         JButton button = new JButton();
-        try {
-            button.setIcon(new ImageIcon(TextureProvider.getImage(hero.iconSource)));
-        } catch (IOException e) {
-            /* do nothing */
-        }
+        button.setIcon(new ImageIcon(TextureProvider.getImage(hero.iconSource)));
         button.setHorizontalAlignment(SwingConstants.LEFT);
         button.setText(hero.name);
         GridBagConstraints gbc;
