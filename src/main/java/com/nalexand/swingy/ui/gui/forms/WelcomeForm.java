@@ -1,5 +1,8 @@
 package com.nalexand.swingy.ui.gui.forms;
 
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
+import com.intellij.uiDesigner.core.Spacer;
 import com.nalexand.swingy.controller.WelcomeController;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
@@ -7,12 +10,16 @@ import com.nalexand.swingy.ui.base.Form;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.util.List;
+import java.util.Locale;
 
 public class WelcomeForm implements Form {
     private JButton createHeroButton;
-    private JPanel panel;
+    private JPanel root;
+    private JPanel content;
     private final WelcomeController controller;
 
     public WelcomeForm(ModelFacade model, WelcomeController controller) {
@@ -34,26 +41,59 @@ public class WelcomeForm implements Form {
      * @noinspection ALL
      */
     private void $$$setupUI$$$() {
-        panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
-        panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, new Color(-4473925)));
+        root = new JPanel();
+        root.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        content = new JPanel();
+        content.setLayout(new GridLayoutManager(4, 1, new Insets(32, 32, 32, 32), -1, -1));
+        content.setAlignmentX(0.5f);
+        content.setAlignmentY(0.5f);
+        content.setAutoscrolls(false);
+        root.add(content, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         createHeroButton = new JButton();
         createHeroButton.setHorizontalAlignment(0);
         createHeroButton.setHorizontalTextPosition(0);
         createHeroButton.setText("Create hero");
         createHeroButton.setVerticalAlignment(0);
-        GridBagConstraints gbc;
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        panel.add(createHeroButton, gbc);
+        content.add(createHeroButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label1 = new JLabel();
+        Font label1Font = this.$$$getFont$$$("Phosphate", -1, 36, label1.getFont());
+        if (label1Font != null) label1.setFont(label1Font);
+        label1.setText("Swingy!");
+        content.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final Spacer spacer1 = new Spacer();
+        content.add(spacer1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        final Spacer spacer2 = new Spacer();
+        content.add(spacer2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        Font font = new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
+        boolean isMac = System.getProperty("os.name", "").toLowerCase(Locale.ENGLISH).startsWith("mac");
+        Font fontWithFallback = isMac ? new Font(font.getFamily(), font.getStyle(), font.getSize()) : new StyleContext().getFont(font.getFamily(), font.getStyle(), font.getSize());
+        return fontWithFallback instanceof FontUIResource ? fontWithFallback : new FontUIResource(fontWithFallback);
     }
 
     /**
      * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {
-        return panel;
+        return root;
     }
 
     @Override
@@ -68,6 +108,6 @@ public class WelcomeForm implements Form {
         gbc.gridy = position + 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         newButton.addActionListener(e -> controller.selectHeroAndShowGameProcess(hero));
-        panel.add(newButton, gbc);
+        root.add(newButton, gbc);
     }
 }
