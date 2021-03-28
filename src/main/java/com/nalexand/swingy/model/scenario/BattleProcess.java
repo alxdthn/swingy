@@ -103,11 +103,12 @@ public class BattleProcess extends BaseScenarioStep implements BattleController 
             Item currentItem = hero.takeItem(item);
             if (currentItem != null) {
                 mob.takeItem(currentItem);
+                model.saveGameState();
+                model.render();
             } else {
                 mob.dropItem(item);
+                accept();
             }
-            model.saveGameState();
-            model.render();
         }
     }
 
