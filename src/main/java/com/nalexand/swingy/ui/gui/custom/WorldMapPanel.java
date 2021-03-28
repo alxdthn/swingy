@@ -55,7 +55,7 @@ public class WorldMapPanel extends JPanel {
                 } else if (cell.battle != null) {
                     texture = TextureProvider.getImageWith(
                             TextureProvider.GRASS,
-                            model.getBattle().mob.getItem().iconSource
+                            cell.battle.mob.getItem().iconSource
                     );
                 } else {
                     throw new IllegalStateException();

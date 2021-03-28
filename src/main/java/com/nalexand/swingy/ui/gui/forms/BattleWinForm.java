@@ -11,11 +11,7 @@ import com.nalexand.swingy.ui.base.Form;
 import com.nalexand.swingy.ui.gui.utils.IconResolver;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.util.Locale;
 
 public class BattleWinForm implements Form {
     private JPanel root;
@@ -37,6 +33,9 @@ public class BattleWinForm implements Form {
         Item mobItem = battle.mob.getItem();
         if (mobItem != null) {
             IconResolver.setIcon(loot, mobItem.iconSource);
+            loot.setText(
+                    String.format("%s\n%s", mobItem.name, mobItem.getDisplayedString())
+            );
         } else {
             loot.setVisible(false);
         }
@@ -58,7 +57,7 @@ public class BattleWinForm implements Form {
         content = new JPanel();
         content.setLayout(new GridLayoutManager(6, 1, new Insets(32, 32, 32, 32), -1, -1));
         root.add(content, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null));
         title = new JLabel();
         Font titleFont = this.$$$getFont$$$("Phosphate", -1, 36, title.getFont());
         if (titleFont != null) title.setFont(titleFont);
@@ -99,10 +98,7 @@ public class BattleWinForm implements Form {
                 resultName = currentFont.getName();
             }
         }
-        Font font = new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
-        boolean isMac = System.getProperty("os.name", "").toLowerCase(Locale.ENGLISH).startsWith("mac");
-        Font fontWithFallback = isMac ? new Font(font.getFamily(), font.getStyle(), font.getSize()) : new StyleContext().getFont(font.getFamily(), font.getStyle(), font.getSize());
-        return fontWithFallback instanceof FontUIResource ? fontWithFallback : new FontUIResource(fontWithFallback);
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**

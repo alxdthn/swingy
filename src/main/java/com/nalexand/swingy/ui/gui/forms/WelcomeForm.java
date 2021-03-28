@@ -9,17 +9,14 @@ import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.base.Form;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.util.List;
-import java.util.Locale;
 
 public class WelcomeForm implements Form {
     private JButton createHeroButton;
     private JPanel root;
     private JPanel content;
+    private JLabel title;
     private final WelcomeController controller;
 
     public WelcomeForm(ModelFacade model, WelcomeController controller) {
@@ -44,27 +41,27 @@ public class WelcomeForm implements Form {
         root = new JPanel();
         root.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         content = new JPanel();
-        content.setLayout(new GridLayoutManager(4, 1, new Insets(32, 32, 32, 32), -1, -1));
+        content.setLayout(new GridLayoutManager(3, 1, new Insets(32, 32, 32, 32), -1, -1));
         content.setAlignmentX(0.5f);
         content.setAlignmentY(0.5f);
         content.setAutoscrolls(false);
         root.add(content, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null));
         createHeroButton = new JButton();
+        Font createHeroButtonFont = this.$$$getFont$$$("Phosphate", -1, 22, createHeroButton.getFont());
+        if (createHeroButtonFont != null) createHeroButton.setFont(createHeroButtonFont);
         createHeroButton.setHorizontalAlignment(0);
         createHeroButton.setHorizontalTextPosition(0);
         createHeroButton.setText("Create hero");
         createHeroButton.setVerticalAlignment(0);
-        content.add(createHeroButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JLabel label1 = new JLabel();
-        Font label1Font = this.$$$getFont$$$("Phosphate", -1, 36, label1.getFont());
-        if (label1Font != null) label1.setFont(label1Font);
-        label1.setText("Swingy!");
-        content.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        content.add(createHeroButton, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        title = new JLabel();
+        Font titleFont = this.$$$getFont$$$("Phosphate", -1, 36, title.getFont());
+        if (titleFont != null) title.setFont(titleFont);
+        title.setText("Swingy!");
+        content.add(title, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
-        content.add(spacer1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        final Spacer spacer2 = new Spacer();
-        content.add(spacer2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        content.add(spacer1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 32), null, 0, false));
     }
 
     /**
@@ -83,10 +80,7 @@ public class WelcomeForm implements Form {
                 resultName = currentFont.getName();
             }
         }
-        Font font = new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
-        boolean isMac = System.getProperty("os.name", "").toLowerCase(Locale.ENGLISH).startsWith("mac");
-        Font fontWithFallback = isMac ? new Font(font.getFamily(), font.getStyle(), font.getSize()) : new StyleContext().getFont(font.getFamily(), font.getStyle(), font.getSize());
-        return fontWithFallback instanceof FontUIResource ? fontWithFallback : new FontUIResource(fontWithFallback);
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**
