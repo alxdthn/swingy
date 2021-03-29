@@ -48,7 +48,7 @@ public class Swingy {
                 model.setView(guiView);
                 guiView.initGui();
                 model.render();
-                //DEBUG_runBattleConfirmation();
+//                DEBUG_runBattleProcess();
                 break;
         }
     }
@@ -61,5 +61,24 @@ public class Swingy {
         GameLogics.initAsMob(mob, hero);
         model.startBattle(new Battle(hero, mob, 0, 0));
         model.nextStep(new BattleProcess.Confirmation(model));
+    }
+
+    private static void DEBUG_runBattleProcess() {
+        model.setSelectedHero(Hero.Type.URSA);
+        Hero hero = model.getSelectedHero();
+        model.calculateWorldMap();
+        Hero mob = hero.worldMap.mobs.get(0);
+        //GameLogics.initAsMob(mob, hero);
+
+        hero.hitPoints = 12;
+        hero.currentHitPoints = 12;
+        hero.attack = 1;
+
+        mob.hitPoints = 11;
+        mob.attack = 1;
+        mob.dropItem(mob.getItem());
+
+        model.startBattle(new Battle(hero, mob, 0, 0));
+        model.nextStep(new BattleProcess(model));
     }
 }

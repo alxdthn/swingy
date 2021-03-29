@@ -9,6 +9,7 @@ import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.base.Form;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.List;
 
@@ -39,14 +40,20 @@ public class WelcomeForm implements Form {
      */
     private void $$$setupUI$$$() {
         root = new JPanel();
-        root.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        root.setLayout(new GridBagLayout());
         content = new JPanel();
         content.setLayout(new GridLayoutManager(3, 1, new Insets(32, 32, 32, 32), -1, -1));
         content.setAlignmentX(0.5f);
         content.setAlignmentY(0.5f);
         content.setAutoscrolls(false);
-        root.add(content, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null));
+        GridBagConstraints gbc;
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        root.add(content, gbc);
+        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         createHeroButton = new JButton();
         Font createHeroButtonFont = this.$$$getFont$$$("Phosphate", -1, 22, createHeroButton.getFont());
         if (createHeroButtonFont != null) createHeroButton.setFont(createHeroButtonFont);

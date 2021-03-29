@@ -62,7 +62,7 @@ public class GameLogics {
             }
         }
         mob.currentHitPoints = mob.getMaxHitPoints();
-        mob.hitPoints = 0;
-        mob.currentHitPoints = 0;
+//        mob.hitPoints = 0;
+//        mob.currentHitPoints = 0;
     }
 }

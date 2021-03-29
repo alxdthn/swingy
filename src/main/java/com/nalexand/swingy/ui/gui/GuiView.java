@@ -53,7 +53,7 @@ public final class GuiView extends BaseView {
 
     @Override
     protected void showBattleLose(ModelFacade model, DialogController controller) {
-
+        render(new BattleLoseForm(model, controller));
     }
 
     private void render(Form form) {
@@ -61,6 +61,7 @@ public final class GuiView extends BaseView {
             frame.getContentPane().remove(currentPane);
         }
         currentPane = form.getRootComponent();
+        Theme.apply(currentPane);
         frame.getContentPane().add(currentPane, BorderLayout.CENTER);
         frame.pack();
     }

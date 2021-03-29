@@ -11,7 +11,7 @@ import com.nalexand.swingy.utils.GameLogics;
 
 public class BattleProcess extends BaseScenarioStep implements BattleController {
 
-    protected BattleProcess(ModelFacade model) {
+    public BattleProcess(ModelFacade model) {
         super(model);
         runBattle();
     }

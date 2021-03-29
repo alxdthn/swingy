@@ -68,7 +68,9 @@
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <font name="Phosphate" size="8"/>
+            </properties>
             <border type="line">
               <color color="-4473925"/>
             </border>
@@ -79,6 +81,8 @@
               <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <font name="Phosphate" size="20"/>
+              <hideActionText value="false"/>
               <text value="ok"/>
             </properties>
           </component>

@@ -65,6 +65,9 @@ public class ShowBattleForm implements Form {
         cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         cell.setHorizontalAlignment(SwingConstants.CENTER);
         cell.setHorizontalTextPosition(SwingConstants.CENTER);
+//        Font font = new Font("Phosphate", title.getFont().getStyle(), 12);
+//        cell.setFont(font);
+
         battleResult.add(
                 cell,
                 new GridConstraints(row, column, 1, 1,
@@ -115,11 +118,35 @@ public class ShowBattleForm implements Form {
         panel3.add(mob, BorderLayout.CENTER);
         battleResult = new JPanel();
         battleResult.setLayout(new GridBagLayout());
+        Font battleResultFont = this.$$$getFont$$$("Phosphate", -1, 8, battleResult.getFont());
+        if (battleResultFont != null) battleResult.setFont(battleResultFont);
         content.add(battleResult, new GridConstraints(2, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        battleResult.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-4473925)), null));
+        battleResult.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-4473925)), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         okButton = new JButton();
+        Font okButtonFont = this.$$$getFont$$$("Phosphate", -1, 20, okButton.getFont());
+        if (okButtonFont != null) okButton.setFont(okButtonFont);
+        okButton.setHideActionText(false);
         okButton.setText("ok");
         content.add(okButton, new GridConstraints(3, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**
