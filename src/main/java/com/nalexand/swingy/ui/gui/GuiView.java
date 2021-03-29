@@ -16,6 +16,8 @@ import static java.awt.event.KeyEvent.VK_Q;
 
 public final class GuiView extends BaseView {
 
+    public final static String NAME = "gui";
+
     private JFrame frame = null;
 
     private JComponent currentPane = null;
@@ -23,6 +25,23 @@ public final class GuiView extends BaseView {
     @Override
     public void renderScenarioData(BaseScenarioStep scenarioStep) {
         SwingUtilities.invokeLater(() -> super.renderScenarioData(scenarioStep));
+    }
+
+    @Override
+    public void start(ModelFacade model) {
+        model.setView(this);
+        initGui();
+        model.render();
+    }
+
+    @Override
+    public void stop() {
+        frame.setVisible(false);
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 
     @Override
@@ -70,12 +89,12 @@ public final class GuiView extends BaseView {
         frame.pack();
     }
 
-    public void initGui(ModelFacade model) {
+    public void initGui() {
         frame = new JFrame("Swingy");
-        SwingUtilities.invokeLater(() -> this.initGuiInternal(model));
+        SwingUtilities.invokeLater(this::initGuiInternal);
     }
 
-    private void initGuiInternal(ModelFacade model) {
+    private void initGuiInternal() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension windowSize = new Dimension(screenSize);
 

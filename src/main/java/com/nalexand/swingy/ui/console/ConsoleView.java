@@ -1,5 +1,6 @@
 package com.nalexand.swingy.ui.console;
 
+import com.nalexand.swingy.Swingy;
 import com.nalexand.swingy.controller.*;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.base.BaseConsoleOutput;
@@ -11,9 +12,13 @@ import java.util.Scanner;
 
 public final class ConsoleView extends BaseView {
 
+    public final static String NAME = "console";
+
     private final Scanner scanner = new Scanner(System.in);
 
     private BaseConsoleOutput consoleOutput;
+
+    public boolean isActive = false;
 
     @Override
     protected void showWelcome(ModelFacade model, WelcomeController controller) {
@@ -50,12 +55,32 @@ public final class ConsoleView extends BaseView {
         consoleOutput = new BattleLoseOutput(model, controller);
     }
 
-    public void start() {
+    @Override
+    public void start(ModelFacade model) {
+        isActive = true;
+        model.setView(this);
+        model.render();
         String line;
         while ((line = getLine()) != null) {
+            System.out.println(line);
             Command command = getCommand(line);
-            consoleOutput.notifyCommandListeners(command);
+            if (command == Command.GUI) {
+                Swingy.switchView();
+            } else {
+                consoleOutput.notifyCommandListeners(command);
+            }
+            if (!isActive) break;
         }
+    }
+
+    @Override
+    public void stop() {
+        isActive = false;
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 
     private String getLine() {
@@ -64,7 +89,7 @@ public final class ConsoleView extends BaseView {
         try {
             result = scanner.nextLine();
         } catch (NoSuchElementException | IllegalStateException e) {
-            System.exit(1);
+            e.printStackTrace();
         }
         return result;
     }
@@ -97,6 +122,8 @@ public final class ConsoleView extends BaseView {
             case "d":
                 result = Command.KEY_D;
                 break;
+            case "gui":
+                result = Command.GUI;
         }
         return result;
     }
