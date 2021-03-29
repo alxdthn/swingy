@@ -22,25 +22,31 @@ public class BattleProcess extends BaseScenarioStep implements BattleController 
         Hero mob = battle.mob;
         Hero hero = model.getSelectedHero();
 
-        int heroHp = hero.getMaxHitPoints();
-        int mobHp = mob.getMaxHitPoints();
-
-        while (heroHp > 0 && mobHp > 0) {
+        boolean isHeroTurn = true;
+        while (hero.currentHitPoints > 0 && mob.currentHitPoints > 0) {
             Battle.Step step = new Battle.Step();
 
-            step.mobDamage = Math.max(0, hero.getAttack() - mob.getDefence());
-            step.heroDamage = Math.max(0, mob.getAttack() - hero.getDefence());
-
-            heroHp -= step.heroDamage;
-            mobHp -= step.mobDamage;
-            hero.currentHitPoints -= step.heroDamage;
-
-            step.mobHp = mobHp;
-            step.heroHp = heroHp;
-
+            if (isHeroTurn) {
+                //  Mob get damage
+                step.owner = hero.name;
+                step.abstractRecipientIdentifier = "enemy";
+                step.recipient = mob.name;
+                step.recipientDamage = Math.max(0, hero.getAttack() - mob.getDefence());
+                mob.currentHitPoints -= step.recipientDamage;
+                step.recipientHpLeft = mob.currentHitPoints;
+            } else {
+                //  Hero get damage
+                step.owner = mob.name;
+                step.abstractRecipientIdentifier = "  you";
+                step.recipient = hero.name;
+                step.recipientDamage = Math.max(0, mob.getAttack() - hero.getDefence());
+                hero.currentHitPoints -= step.recipientDamage;
+                step.recipientHpLeft = hero.currentHitPoints;
+            }
+            isHeroTurn = !isHeroTurn;
             battle.addStep(step);
         }
-        battle.isHeroWinner = heroHp > 0;
+        battle.isHeroWinner = hero.currentHitPoints > 0;
         if (battle.isHeroWinner) {
             battle.status = Battle.Status.WIN;
             GameLogics.increaseXP(hero, battle.xp);

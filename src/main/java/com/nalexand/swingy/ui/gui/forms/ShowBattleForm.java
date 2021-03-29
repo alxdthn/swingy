@@ -50,11 +50,6 @@ public class ShowBattleForm implements Form {
         addCell("HP", 0, 4);
         int row = 1;
         for (Battle.Step step : steps) {
-            addCell(Integer.toString(step.number), row, 0);
-            addCell(Integer.toString(step.heroHp), row, 1);
-            addCell(Integer.toString(step.heroDamage), row, 2);
-            addCell(Integer.toString(step.mobDamage), row, 3);
-            addCell(Integer.toString(step.mobHp), row, 4);
             row++;
         }
         okButton.addActionListener(e -> controller.accept());
@@ -121,7 +116,7 @@ public class ShowBattleForm implements Form {
         Font battleResultFont = this.$$$getFont$$$("Phosphate", -1, 8, battleResult.getFont());
         if (battleResultFont != null) battleResult.setFont(battleResultFont);
         content.add(battleResult, new GridConstraints(2, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        battleResult.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-4473925)), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+        battleResult.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-4473925)), null));
         okButton = new JButton();
         Font okButtonFont = this.$$$getFont$$$("Phosphate", -1, 20, okButton.getFont());
         if (okButtonFont != null) okButton.setFont(okButtonFont);
