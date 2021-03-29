@@ -3,6 +3,7 @@ package com.nalexand.swingy.model;
 import com.nalexand.swingy.Swingy;
 import com.nalexand.swingy.model.items.Item;
 import com.nalexand.swingy.ui.gui.utils.IconResolver;
+import com.nalexand.swingy.utils.GameLogics;
 import com.nalexand.swingy.utils.Utils;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public class Hero {
     public Battle battle = null;
 
     public int level = 0;
+
+    public int levelThreshold = 0;
 
     public int xp = 0;
 
@@ -64,14 +67,7 @@ public class Hero {
                 this.name = Swingy.MOB_NAMES[Utils.randomBetween(0, Swingy.MOB_NAMES.length - 1)];
         }
         iconSource = IconResolver.getHeroIcon(this);
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public int getXp() {
-        return xp;
+        recalculateLevelThreshold();
     }
 
     public int getAttack() {
@@ -126,6 +122,15 @@ public class Hero {
                 helmet
         );
         return (items.isEmpty()) ? null : items.get(0);
+    }
+
+    public void levelUp() {
+        level++;
+        recalculateLevelThreshold();
+    }
+
+    private void recalculateLevelThreshold() {
+        levelThreshold = GameLogics.calculateLevelThreshold(level);
     }
 
     public enum Type {

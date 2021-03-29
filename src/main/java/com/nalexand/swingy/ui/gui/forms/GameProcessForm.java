@@ -46,8 +46,8 @@ public class GameProcessForm extends KeyListenerForm {
         //region Draw menu
         ((TitledBorder) menu.getBorder()).setTitle(hero.name);
         IconResolver.setIcon(heroIcon, hero.iconSource);
-        levelLabel.setText(levelLabel.getText() + " " + hero.getLevel());
-        xpLabel.setText(xpLabel.getText() + hero.getXp());
+        levelLabel.setText(levelLabel.getText() + hero.level);
+        xpLabel.setText(xpLabel.getText() + String.format("%d/%d", hero.xp, hero.levelThreshold));
         hpLabel.setText(hpLabel.getText() + String.format("%d/%d", hero.currentHitPoints, hero.getMaxHitPoints()));
         attackLabel.setText(attackLabel.getText() + hero.getAttack());
         defenceLabel.setText(defenceLabel.getText() + hero.getDefence());

@@ -31,12 +31,13 @@ public class GameProcessOutput extends BaseConsoleOutput {
 
         printLineWithMap(String.format(
                 "LEVEL: %s",
-                hero.getLevel()
+                hero.level
         ), worldMapIterator);
 
         printLineWithMap(String.format(
-                "XP: %s",
-                hero.getXp()
+                "XP: %s/%s",
+                hero.xp,
+                hero.levelThreshold
         ), worldMapIterator);
 
         printLineWithMap(String.format(

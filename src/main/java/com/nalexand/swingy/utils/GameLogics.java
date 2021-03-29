@@ -13,12 +13,15 @@ public class GameLogics {
         return Utils.randomBetween(500, 1500);
     }
 
+    public static int calculateLevelThreshold(int level) {
+        return (level + 1) * 1000 + level * level * 450;
+    }
+
     public static void increaseXP(Hero hero, int xp) {
         while (xp > 0) {
-            int levelThreshold = (hero.level + 1) * 1000 + hero.level * hero.level * 450;
-            int toNextLevel = levelThreshold - hero.getXp();
+            int toNextLevel = hero.levelThreshold - hero.xp;
             if (xp >= toNextLevel) {
-                hero.level++;
+                hero.levelUp();
                 if (hero.level % 3 == 0) {
                     hero.hitPoints++;
                 } else if (hero.level % 2 == 0) {
