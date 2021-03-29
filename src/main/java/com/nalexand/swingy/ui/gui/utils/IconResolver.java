@@ -62,4 +62,8 @@ public class IconResolver {
     public static void setIcon(JButton button, String source) {
         button.setIcon(new ImageIcon(TextureProvider.getImage(source)));
     }
+
+    public static void setGifIcon(JLabel dest, String source) {
+        dest.setIcon(new ImageIcon(IconResolver.class.getResource(source)));
+    }
 }

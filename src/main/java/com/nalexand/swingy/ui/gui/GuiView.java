@@ -1,14 +1,18 @@
 package com.nalexand.swingy.ui.gui;
 
+import com.nalexand.swingy.Swingy;
 import com.nalexand.swingy.controller.*;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.ui.base.BaseView;
 import com.nalexand.swingy.ui.base.Form;
 import com.nalexand.swingy.ui.gui.forms.*;
+import com.nalexand.swingy.utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
+
+import static java.awt.event.KeyEvent.VK_Q;
 
 public final class GuiView extends BaseView {
 
@@ -66,12 +70,12 @@ public final class GuiView extends BaseView {
         frame.pack();
     }
 
-    public void initGui() {
+    public void initGui(ModelFacade model) {
         frame = new JFrame("Swingy");
-        SwingUtilities.invokeLater(this::initGuiInternal);
+        SwingUtilities.invokeLater(() -> this.initGuiInternal(model));
     }
 
-    private void initGuiInternal() {
+    private void initGuiInternal(ModelFacade model) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension windowSize = new Dimension(screenSize);
 
@@ -88,5 +92,7 @@ public final class GuiView extends BaseView {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(windowSize);
         frame.setVisible(true);
+
+        Utils.listenKey(frame.getRootPane(), VK_Q, Swingy::switchView);
     }
 }

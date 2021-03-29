@@ -7,6 +7,8 @@ import com.nalexand.swingy.controller.WelcomeController;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.ui.base.Form;
+import com.nalexand.swingy.ui.gui.utils.IconResolver;
+import com.nalexand.swingy.utils.Utils;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -18,6 +20,7 @@ public class WelcomeForm implements Form {
     private JPanel root;
     private JPanel content;
     private JLabel title;
+    private JLabel welcomeIllustration;
     private final WelcomeController controller;
 
     public WelcomeForm(ModelFacade model, WelcomeController controller) {
@@ -29,6 +32,14 @@ public class WelcomeForm implements Form {
         for (Hero hero : createdHeroes) {
             addSelectHeroButton(hero, index++);
         }
+        String[] gifSources = {
+                "/traxex.gif",
+                "/nevermore.gif",
+                "/ursa.gif",
+                "/void.gif"
+        };
+        String gifSource = gifSources[Utils.randomBetween(0, gifSources.length - 1)];
+        IconResolver.setGifIcon(welcomeIllustration, gifSource);
     }
 
     /**
@@ -42,7 +53,7 @@ public class WelcomeForm implements Form {
         root = new JPanel();
         root.setLayout(new GridBagLayout());
         content = new JPanel();
-        content.setLayout(new GridLayoutManager(3, 1, new Insets(32, 32, 32, 32), -1, -1));
+        content.setLayout(new GridLayoutManager(4, 1, new Insets(32, 32, 32, 32), -1, -1));
         content.setAlignmentX(0.5f);
         content.setAlignmentY(0.5f);
         content.setAutoscrolls(false);
@@ -61,14 +72,17 @@ public class WelcomeForm implements Form {
         createHeroButton.setHorizontalTextPosition(0);
         createHeroButton.setText("Create hero");
         createHeroButton.setVerticalAlignment(0);
-        content.add(createHeroButton, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        content.add(createHeroButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         title = new JLabel();
         Font titleFont = this.$$$getFont$$$("Phosphate", -1, 36, title.getFont());
         if (titleFont != null) title.setFont(titleFont);
         title.setText("Swingy!");
         content.add(title, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
-        content.add(spacer1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 32), null, 0, false));
+        content.add(spacer1, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 32), null, 0, false));
+        welcomeIllustration = new JLabel();
+        welcomeIllustration.setText("");
+        content.add(welcomeIllustration, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

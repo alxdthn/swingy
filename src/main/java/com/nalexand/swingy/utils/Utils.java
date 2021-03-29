@@ -1,8 +1,12 @@
 package com.nalexand.swingy.utils;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW;
 
 public class Utils {
 
@@ -36,5 +40,27 @@ public class Utils {
             }
         }
         return result;
+    }
+
+    public static void listenKey(JComponent component, int key, Utils.KeyListener listener) {
+        String actionMapKey = Integer.toString(key);
+        component.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(
+                KeyStroke.getKeyStroke(key, 0),
+                actionMapKey
+        );
+        component.getActionMap().put(
+                actionMapKey,
+                new AbstractAction(actionMapKey) {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        listener.invoke();
+                    }
+                }
+        );
+    }
+
+    public interface KeyListener {
+
+        void invoke();
     }
 }

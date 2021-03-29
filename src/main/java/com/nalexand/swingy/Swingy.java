@@ -4,6 +4,7 @@ import com.nalexand.swingy.model.Battle;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.scenario.BattleProcess;
+import com.nalexand.swingy.ui.base.View;
 import com.nalexand.swingy.ui.console.ConsoleView;
 import com.nalexand.swingy.ui.gui.GuiView;
 import com.nalexand.swingy.utils.GameLogics;
@@ -22,11 +23,13 @@ public class Swingy {
 
     public static final String[] MOB_NAMES = {"Ork", "Necromancer", "Bandit", "Wood Elf"};
 
-    static final ModelFacade model = new ModelFacade();
+    private static final ModelFacade model = new ModelFacade();
 
-    static final ConsoleView consoleView = new ConsoleView();
+    private static final ConsoleView consoleView = new ConsoleView();
 
-    static final GuiView guiView = new GuiView();
+    private static final GuiView guiView = new GuiView();
+
+    private static View currentView = null;
 
     public static void main(String[] args) {
         boolean isValid = args.length == 1 && args[0].matches("(console|gui)");
@@ -40,13 +43,15 @@ public class Swingy {
 
         switch (args[0]) {
             case "console":
+                currentView = consoleView;
                 model.setView(consoleView);
                 model.render();
                 consoleView.start();
                 break;
             case "gui":
+                currentView = guiView;
                 model.setView(guiView);
-                guiView.initGui();
+                guiView.initGui(model);
                 model.render();
 //                DEBUG_runBattleProcess();
                 break;
@@ -80,5 +85,14 @@ public class Swingy {
 
         model.startBattle(new Battle(hero, mob, 0, 0));
         model.nextStep(new BattleProcess(model));
+    }
+
+    public static void switchView() {
+        if (currentView == guiView) {
+            model.setView(consoleView);
+        } else {
+            model.setView(guiView);
+        }
+        model.render();
     }
 }
