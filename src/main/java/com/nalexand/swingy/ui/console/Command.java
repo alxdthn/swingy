@@ -10,5 +10,6 @@ public enum Command {
     KEY_A,
     KEY_S,
     KEY_D,
+    GUI,
     UNKNOWN
 }

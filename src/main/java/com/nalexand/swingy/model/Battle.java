@@ -41,7 +41,6 @@ public class Battle {
             steps = new ArrayList<>();
         }
         steps.add(step);
-        step.number = steps.size();
     }
 
     public List<Item> getLoot() {
@@ -56,18 +55,25 @@ public class Battle {
 
     public static class Step {
 
-        public int number = 0;
+        public String owner = null;
 
-        public int heroHp = 0;
+        public String recipient = null;
 
-        public int mobHp = 0;
+        public String abstractRecipientIdentifier = null;
 
-        public int heroDamage = 0;
+        public int recipientDamage = 0;
 
-        public int mobDamage = 0;
+        public int recipientHpLeft = 0;
 
-        public String format() {
-            return String.format("%-8d|%8d|%8d -> | <- %-8d|%-8d", number, heroHp, mobDamage, heroDamage, mobHp);
+        public String getMessage() {
+            return String.format(
+                    "%s attack %s: %d damage, %s %d HP remaining",
+                    owner,
+                    recipient,
+                    recipientDamage,
+                    abstractRecipientIdentifier,
+                    recipientHpLeft
+            );
         }
     }
 }

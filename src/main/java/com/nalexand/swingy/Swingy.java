@@ -25,11 +25,9 @@ public class Swingy {
 
     private static final ModelFacade model = new ModelFacade();
 
-    private static final ConsoleView consoleView = new ConsoleView();
-
-    private static final GuiView guiView = new GuiView();
-
     private static View currentView = null;
+
+    private static GuiView guiView = new GuiView();
 
     public static void main(String[] args) {
         boolean isValid = args.length == 1 && args[0].matches("(console|gui)");
@@ -43,19 +41,13 @@ public class Swingy {
 
         switch (args[0]) {
             case "console":
-                currentView = consoleView;
-                model.setView(consoleView);
-                model.render();
-                consoleView.start();
+                currentView = new ConsoleView();
                 break;
             case "gui":
                 currentView = guiView;
-                model.setView(guiView);
-                guiView.initGui(model);
-                model.render();
-//                DEBUG_runBattleProcess();
                 break;
         }
+        currentView.start(model);
     }
 
     private static void DEBUG_runBattleConfirmation() {
@@ -73,7 +65,6 @@ public class Swingy {
         Hero hero = model.getSelectedHero();
         model.calculateWorldMap();
         Hero mob = hero.worldMap.mobs.get(0);
-        //GameLogics.initAsMob(mob, hero);
 
         hero.hitPoints = 12;
         hero.currentHitPoints = 12;
@@ -88,11 +79,12 @@ public class Swingy {
     }
 
     public static void switchView() {
-        if (currentView == guiView) {
-            model.setView(consoleView);
+        currentView.stop();
+        if (currentView.getName().equals(GuiView.NAME)) {
+            currentView = new ConsoleView();
         } else {
-            model.setView(guiView);
+            currentView = guiView;
         }
-        model.render();
+        currentView.start(model);
     }
 }

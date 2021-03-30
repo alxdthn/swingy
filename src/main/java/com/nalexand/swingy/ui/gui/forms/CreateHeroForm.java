@@ -9,7 +9,6 @@ import com.nalexand.swingy.ui.base.Form;
 import com.nalexand.swingy.ui.gui.utils.TextureProvider;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class CreateHeroForm implements Form {
         content = new JPanel();
         content.setLayout(new FlowLayout(FlowLayout.CENTER, 32, 32));
         root.add(content, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null));
         menu = new JPanel();
         menu.setLayout(new GridBagLayout());
         content.add(menu);
