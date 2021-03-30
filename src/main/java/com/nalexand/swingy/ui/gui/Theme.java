@@ -20,6 +20,7 @@ public class Theme {
 
     private static void applyButton(JButton button) {
         button.setFont(getFont("Phosphate", -1, 20, button.getFont()));
+        button.setMargin(new Insets(8, 8, 8, 8));
     }
 
     private static Font getFont(String fontName, int style, int size, Font currentFont) {
