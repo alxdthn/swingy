@@ -2,6 +2,7 @@ package com.nalexand.swingy.ui.gui.forms;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import com.intellij.uiDesigner.core.Spacer;
 import com.nalexand.swingy.controller.BattleController;
 import com.nalexand.swingy.model.Battle;
 import com.nalexand.swingy.model.Hero;
@@ -41,46 +42,38 @@ public class ShowBattleForm implements Form {
 
         List<Battle.Step> steps = battle.getSteps();
 
-        battleResult.setLayout(new GridLayoutManager(steps.size() + 1, 5, new Insets(0, 0, 0, 0), -1, -1));
 
-        addCell("Step", 0, 0);
-        addCell("HP", 0, 1);
-        addCell("Damage", 0, 2);
-        addCell("Damage", 0, 3);
-        addCell("HP", 0, 4);
+        battleResult.setLayout(new GridLayoutManager(steps.size() + 1, 1, new Insets(0, 0, 0, 0), -1, -1));
+
         int row = 1;
         for (Battle.Step step : steps) {
-            addCell(Integer.toString(step.number), row, 0);
-            addCell(Integer.toString(step.heroHp), row, 1);
-            addCell(Integer.toString(step.heroDamage), row, 2);
-            addCell(Integer.toString(step.mobDamage), row, 3);
-            addCell(Integer.toString(step.mobHp), row, 4);
+            JLabel cell = new JLabel("Hero HP: " + step.heroHp + "Hero get damage: -" + step.heroDamage +
+                    "Mob HP: " + step.mobHp + "Mob get damage: " + step.mobDamage);
+            cell.setHorizontalAlignment(SwingConstants.LEFT);
+            cell.setHorizontalTextPosition(SwingConstants.LEFT);
+            cell.setFont(new Font("Bughad", -1, 20));
+            if (step.number % 2 == 1) {
+                cell.setForeground(new Color(0x009900));
+            } else {
+                cell.setForeground(new Color(0x990000));
+            }
+
+            battleResult.add(
+                    cell,
+                    new GridConstraints(row, 0, 1, 1,
+                            GridConstraints.ANCHOR_CENTER,
+                            GridConstraints.FILL_BOTH,
+                            GridConstraints.SIZEPOLICY_FIXED,
+                            GridConstraints.SIZEPOLICY_FIXED,
+                            null,
+                            new Dimension(100, 32),
+                            null,
+                            0,
+                            false)
+            );
             row++;
         }
         okButton.addActionListener(e -> controller.accept());
-    }
-
-    private void addCell(String text, int row, int column) {
-        JLabel cell = new JLabel(text);
-        cell.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        cell.setHorizontalAlignment(SwingConstants.CENTER);
-        cell.setHorizontalTextPosition(SwingConstants.CENTER);
-//        Font font = new Font("Phosphate", title.getFont().getStyle(), 12);
-//        cell.setFont(font);
-
-        battleResult.add(
-                cell,
-                new GridConstraints(row, column, 1, 1,
-                        GridConstraints.ANCHOR_CENTER,
-                        GridConstraints.FILL_BOTH,
-                        GridConstraints.SIZEPOLICY_FIXED,
-                        GridConstraints.SIZEPOLICY_FIXED,
-                        null,
-                        new Dimension(100, 32),
-                        null,
-                        0,
-                        false)
-        );
     }
 
     /**
@@ -94,25 +87,30 @@ public class ShowBattleForm implements Form {
         panel = new JPanel();
         panel.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         content = new JPanel();
-        content.setLayout(new GridLayoutManager(4, 3, new Insets(16, 16, 16, 16), -1, -1));
+        content.setLayout(new GridLayoutManager(7, 3, new Insets(32, 32, 32, 32), -1, -1));
         panel.add(content, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), "Battle", TitledBorder.CENTER, TitledBorder.BELOW_TOP, null, new Color(-4473925)));
+        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.CENTER, TitledBorder.BELOW_TOP, this.$$$getFont$$$("Phosphate", -1, 36, content.getFont()), new Color(-4473925)));
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new BorderLayout(0, 0));
         content.add(panel1, new GridConstraints(0, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         title = new JLabel();
-        title.setText("");
+        Font titleFont = this.$$$getFont$$$("Phosphate", -1, 36, title.getFont());
+        if (titleFont != null) title.setFont(titleFont);
+        title.setForeground(new Color(-16777216));
+        title.setHorizontalAlignment(0);
+        title.setHorizontalTextPosition(0);
+        title.setText("Battle");
         panel1.add(title, BorderLayout.CENTER);
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new BorderLayout(0, 0));
-        content.add(panel2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        content.add(panel2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         hero = new JLabel();
         hero.setHorizontalAlignment(0);
         hero.setText("");
         panel2.add(hero, BorderLayout.CENTER);
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new BorderLayout(0, 0));
-        content.add(panel3, new GridConstraints(1, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        content.add(panel3, new GridConstraints(2, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         mob = new JLabel();
         mob.setText("");
         panel3.add(mob, BorderLayout.CENTER);
@@ -120,14 +118,20 @@ public class ShowBattleForm implements Form {
         battleResult.setLayout(new GridBagLayout());
         Font battleResultFont = this.$$$getFont$$$("Phosphate", -1, 8, battleResult.getFont());
         if (battleResultFont != null) battleResult.setFont(battleResultFont);
-        content.add(battleResult, new GridConstraints(2, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        battleResult.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-4473925)), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+        content.add(battleResult, new GridConstraints(4, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         okButton = new JButton();
         Font okButtonFont = this.$$$getFont$$$("Phosphate", -1, 20, okButton.getFont());
         if (okButtonFont != null) okButton.setFont(okButtonFont);
         okButton.setHideActionText(false);
+        okButton.setMargin(new Insets(8, 8, 8, 8));
         okButton.setText("ok");
-        content.add(okButton, new GridConstraints(3, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        content.add(okButton, new GridConstraints(6, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final Spacer spacer1 = new Spacer();
+        content.add(spacer1, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 16), null, 0, false));
+        final Spacer spacer2 = new Spacer();
+        content.add(spacer2, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 16), null, 0, false));
+        final Spacer spacer3 = new Spacer();
+        content.add(spacer3, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 16), null, 0, false));
     }
 
     /**
