@@ -4,3 +4,5 @@ git pull --rebase - синхронизировать текущую локаль
 git checkout  -b name
 git commit
 
+git branch -D name
+
