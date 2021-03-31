@@ -48,6 +48,7 @@ public class Swingy {
                 break;
         }
         currentView.start(model);
+        DEBUG_runBattleProcess();
     }
 
     private static void DEBUG_runBattleConfirmation() {
@@ -66,11 +67,12 @@ public class Swingy {
         model.calculateWorldMap();
         Hero mob = hero.worldMap.mobs.get(0);
 
-        hero.hitPoints = 12;
-        hero.currentHitPoints = 12;
+        hero.hitPoints = 42;
+        hero.currentHitPoints = 42;
         hero.attack = 1;
 
-        mob.hitPoints = 11;
+        mob.hitPoints = 42;
+        mob.currentHitPoints = 42;
         mob.attack = 1;
         mob.dropItem(mob.getItem());
 
