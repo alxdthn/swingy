@@ -66,7 +66,6 @@ public class HeroForm implements Form {
         content = new JPanel();
         content.setLayout(new GridLayoutManager(6, 1, new Insets(32, 32, 32, 32), -1, -1));
         panel.add(content, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         modIcon = new JLabel();
         modIcon.setHorizontalAlignment(0);
         modIcon.setHorizontalTextPosition(0);

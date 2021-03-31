@@ -11,6 +11,7 @@ import com.nalexand.swingy.ui.base.Form;
 import com.nalexand.swingy.ui.gui.utils.IconResolver;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class BattleWinForm implements Form {
@@ -59,7 +60,7 @@ public class BattleWinForm implements Form {
         content = new JPanel();
         content.setLayout(new GridLayoutManager(7, 1, new Insets(32, 32, 32, 32), -1, -1));
         root.add(content, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null));
+        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         title = new JLabel();
         Font titleFont = this.$$$getFont$$$("Phosphate", -1, 36, title.getFont());
         if (titleFont != null) title.setFont(titleFont);

@@ -11,6 +11,7 @@ import com.nalexand.swingy.ui.gui.utils.IconResolver;
 import com.nalexand.swingy.utils.Utils;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class WelcomeForm implements Form {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         root.add(content, gbc);
-        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null));
+        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         createHeroButton = new JButton();
         Font createHeroButtonFont = this.$$$getFont$$$("Phosphate", -1, 22, createHeroButton.getFont());
         if (createHeroButtonFont != null) createHeroButton.setFont(createHeroButtonFont);
