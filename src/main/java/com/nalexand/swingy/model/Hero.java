@@ -105,6 +105,7 @@ public class Hero {
     }
 
     public void dropItem(Item item) {
+        if (item == null) return;
         switch (item.type) {
             case WEAPON:
                 weapon = null;

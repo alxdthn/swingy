@@ -67,12 +67,12 @@ public class Swingy {
         model.calculateWorldMap();
         Hero mob = hero.worldMap.mobs.get(0);
 
-        hero.hitPoints = 42;
-        hero.currentHitPoints = 42;
+        hero.hitPoints = 2;
+        hero.currentHitPoints = 2;
         hero.attack = 1;
 
-        mob.hitPoints = 42;
-        mob.currentHitPoints = 42;
+        mob.hitPoints = 2;
+        mob.currentHitPoints = 2;
         mob.attack = 1;
         mob.dropItem(mob.getItem());
 
