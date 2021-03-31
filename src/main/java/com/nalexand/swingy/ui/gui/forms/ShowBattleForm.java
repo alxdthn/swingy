@@ -37,12 +37,9 @@ public class ShowBattleForm implements Form {
 // DO NOT EDIT OR ADD ANY CODE HERE!
         $$$setupUI$$$();
 
-//        Hero selectedHero = model.getSelectedHero();
         Battle battle = model.getBattle();
-//        IconResolver.setIcon(hero, selectedHero.iconSource);
-//        hero.setText("HP: " + selectedHero.hitPoints);
-//        IconResolver.setIcon(mob, battle.mob.iconSource);
-//        mob.setText("HP: " + battle.mob.hitPoints);
+        heroLabel.setText(model.getSelectedHero().name);
+        mobLabel.setText(battle.mob.name);
         HeroForm heroForm = new HeroForm(model.getSelectedHero());
         heroPanel.add(heroForm.getPanel());
         HeroForm modHeroForm = new HeroForm(battle.mob);
@@ -55,7 +52,7 @@ public class ShowBattleForm implements Form {
 
         int row = 1;
         for (Battle.Step step : steps) {
-            JLabel cell = new JLabel("some message");
+            JLabel cell = new JLabel(step.getMessage());
             cell.setHorizontalAlignment(SwingConstants.LEFT);
             cell.setHorizontalTextPosition(SwingConstants.LEFT);
             cell.setFont(new Font("Bughad", -1, 20));
@@ -94,7 +91,7 @@ public class ShowBattleForm implements Form {
         panel = new JPanel();
         panel.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         content = new JPanel();
-        content.setLayout(new GridLayoutManager(8, 3, new Insets(32, 32, 32, 32), -1, -1));
+        content.setLayout(new GridLayoutManager(7, 3, new Insets(32, 32, 32, 32), -1, -1));
         panel.add(content, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.CENTER, TitledBorder.BELOW_TOP, this.$$$getFont$$$("Phosphate", -1, 36, content.getFont()), new Color(-4473925)));
         final JPanel panel1 = new JPanel();
@@ -112,26 +109,24 @@ public class ShowBattleForm implements Form {
         battleResult.setLayout(new GridBagLayout());
         Font battleResultFont = this.$$$getFont$$$("Phosphate", -1, 8, battleResult.getFont());
         if (battleResultFont != null) battleResult.setFont(battleResultFont);
-        content.add(battleResult, new GridConstraints(5, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        content.add(battleResult, new GridConstraints(4, 0, 1, 3, GridConstraints.ANCHOR_NORTH, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         okButton = new JButton();
         Font okButtonFont = this.$$$getFont$$$("Phosphate", -1, 20, okButton.getFont());
         if (okButtonFont != null) okButton.setFont(okButtonFont);
         okButton.setHideActionText(false);
         okButton.setMargin(new Insets(8, 8, 8, 8));
         okButton.setText("ok");
-        content.add(okButton, new GridConstraints(7, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        content.add(okButton, new GridConstraints(6, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
-        content.add(spacer1, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 16), null, 0, false));
+        content.add(spacer1, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 16), null, 0, false));
         final Spacer spacer2 = new Spacer();
-        content.add(spacer2, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 16), null, 0, false));
-        final Spacer spacer3 = new Spacer();
-        content.add(spacer3, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 16), null, 0, false));
+        content.add(spacer2, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 16), null, 0, false));
         heroPanel = new JPanel();
         heroPanel.setLayout(new GridBagLayout());
-        content.add(heroPanel, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_NORTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        content.add(heroPanel, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_NORTH, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         mobPanel = new JPanel();
         mobPanel.setLayout(new GridBagLayout());
-        content.add(mobPanel, new GridConstraints(3, 1, 1, 2, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        content.add(mobPanel, new GridConstraints(3, 1, 1, 2, GridConstraints.ANCHOR_NORTH, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridBagLayout());
         content.add(panel2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));

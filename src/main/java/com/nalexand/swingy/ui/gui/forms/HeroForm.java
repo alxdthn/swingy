@@ -21,7 +21,6 @@ public class HeroForm implements Form {
     private JLabel modIcon;
     private JLabel hp;
     private JLabel level;
-    private JLabel item;
     private JLabel attack;
     private JLabel defence;
     private JPanel content;
@@ -34,11 +33,7 @@ public class HeroForm implements Form {
         IconResolver.setIcon(modIcon, hero.iconSource);
         hp.setText("HP: " + hero.currentHitPoints);
         level.setText("Level: " + hero.level);
-        Item heroItem = hero.getItem();
-        if (heroItem != null) {
-            IconResolver.setIcon(item, heroItem.iconSource);
-            item.setText(String.format("<html>%s<br/>%s</html>", heroItem.name, heroItem.getDisplayedString()));
-        }
+
         attack.setText("Attack: " + hero.getAttack());
         defence.setText("Defence: " + hero.getDefence());
 
@@ -64,7 +59,7 @@ public class HeroForm implements Form {
         panel = new JPanel();
         panel.setLayout(new GridLayoutManager(1, 1, new Insets(16, 16, 16, 16), -1, -1));
         content = new JPanel();
-        content.setLayout(new GridLayoutManager(6, 1, new Insets(32, 32, 32, 32), -1, -1));
+        content.setLayout(new GridLayoutManager(5, 1, new Insets(32, 32, 32, 32), -1, -1));
         panel.add(content, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         modIcon = new JLabel();
         modIcon.setHorizontalAlignment(0);
@@ -85,9 +80,6 @@ public class HeroForm implements Form {
         defence = new JLabel();
         defence.setText("Label");
         content.add(defence, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        item = new JLabel();
-        item.setText("");
-        content.add(item, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
