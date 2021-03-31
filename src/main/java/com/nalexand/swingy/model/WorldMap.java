@@ -1,18 +1,25 @@
 package com.nalexand.swingy.model;
 
-import com.nalexand.swingy.Swingy;
 import com.nalexand.swingy.utils.GameLogics;
 import com.nalexand.swingy.utils.Utils;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WorldMap {
 
+    @Min(0)
     private int size = 0;
 
+    @Valid
+    @NotNull
     private List<List<Cell>> cells = null;
 
+    @Valid
+    @NotNull
     public List<Hero> mobs = null;
 
     public void generateWorld(Hero hero) {
@@ -35,7 +42,7 @@ public class WorldMap {
     }
 
     private void generateMap(Hero hero) {
-        size = ((hero.level - 1) * 5) + 10 - (hero.level % 2);
+        size = GameLogics.calculateMapSize(hero.level);
         cells = new ArrayList<>(size);
 
         for (int y = 0; y < size; y++) {
@@ -73,7 +80,7 @@ public class WorldMap {
     }
 
     private void generateObstacles() {
-        int needGenerateObstacles = (int) (size * size * Swingy.OBSTACLES_PERCENTAGE);
+        int needGenerateObstacles = GameLogics.calculateNumberOfObstacles(size);
         while (needGenerateObstacles > 0) {
             int randomX = Utils.randomBetween(0, size - 1);
             int randomY = Utils.randomBetween(0, size - 1);

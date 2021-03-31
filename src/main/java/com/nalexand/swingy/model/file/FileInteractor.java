@@ -7,12 +7,24 @@ import com.google.gson.stream.JsonReader;
 import com.nalexand.swingy.Swingy;
 import com.nalexand.swingy.model.GameState;
 import com.nalexand.swingy.utils.exceptions.FileInteractionException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 
 import java.io.*;
+import java.util.Locale;
+import java.util.Set;
 
 public class FileInteractor {
 
     private final Gson gson = new Gson();
+
+    private final Validator validator;
+
+    {
+        Locale.setDefault(Locale.ENGLISH);
+        validator = Validation.buildDefaultValidatorFactory().getValidator();
+    }
 
     public void saveGameState(GameState gameState) {
 
@@ -47,6 +59,17 @@ public class FileInteractor {
         try {
             InputStreamReader fileReader = new FileReader(gameStateFile);
             GameState result = gson.fromJson(new JsonReader(fileReader), GameState.class);
+            Set<ConstraintViolation<GameState>> violations = validator.validate(result);
+            if (!violations.isEmpty()) {
+                System.err.println("Save loading error:");
+                for (ConstraintViolation<GameState> violation : violations) {
+                    System.err.printf("%s %s\n",
+                            violation.getPropertyPath(),
+                            violation.getMessage()
+                    );
+                }
+                result = null;
+            }
             if (result == null) {
                 return new GameState();
             } else {

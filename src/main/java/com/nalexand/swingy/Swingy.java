@@ -13,11 +13,7 @@ public class Swingy {
 
     public static final String GAME_DATA_FILE = "./game_data.json";
 
-    public static final boolean IGNORE_SAVED = true;
-
-    public static final double OBSTACLES_PERCENTAGE = 0.25;
-
-    public static final int ITEM_GENERATION_PERCENTAGE = 75;
+    public static final boolean IGNORE_SAVED = false;
 
     public static final int INITIAL_HERO_HP = 4;
 

@@ -5,6 +5,10 @@ import com.nalexand.swingy.model.items.Item;
 import com.nalexand.swingy.ui.gui.utils.IconResolver;
 import com.nalexand.swingy.utils.GameLogics;
 import com.nalexand.swingy.utils.Utils;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -12,40 +16,60 @@ import static com.nalexand.swingy.utils.Utils.listOfNotNull;
 
 public class Hero {
 
+    @NotNull
+    @NotEmpty
     public String name;
 
+    @NotNull
     public Type type;
 
+    @NotNull
     public boolean created = false;
 
+    @Valid
     public WorldMap worldMap = null;
 
+    @Valid
     public Battle battle = null;
 
+    @Min(0)
     public int level = 0;
 
+    @Min(0)
     public int levelThreshold = 0;
 
+    @Min(0)
     public int xp = 0;
 
+    @Min(1)
     public int attack = 1;
 
+    @Min(0)
     public int defence = 0;
 
+    @Min(0)
     public int hitPoints = 0;
 
+    @Min(0)
     public int currentHitPoints = 0;
 
+    @Min(0)
     public int posX = 0;
 
+    @Min(0)
     public int posY = 0;
 
+    @Valid
     public Item weapon = null;
 
+    @Valid
     public Item armor = null;
 
+    @Valid
     public Item helmet = null;
 
+    @NotNull
+    @NotEmpty
     public String iconSource;
 
     public Hero(Type type) {

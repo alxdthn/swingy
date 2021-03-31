@@ -1,5 +1,9 @@
 package com.nalexand.swingy.model;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +11,9 @@ public class GameState {
 
     public Hero.Type selectedHeroType = null;
 
+    @Valid
+    @NotNull
+    @Size(min = 4, max = 4)
     public Map<Hero.Type, Hero> heroes = new HashMap<>();
 
     public GameState() {

@@ -2,6 +2,9 @@ package com.nalexand.swingy.model;
 
 import com.nalexand.swingy.model.items.Item;
 import com.nalexand.swingy.utils.GameLogics;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,22 +13,32 @@ import static com.nalexand.swingy.utils.Utils.listOfNotNull;
 
 public class Battle {
 
+    @Valid
+    @NotNull
     public Hero mob;
 
+    @Valid
+    @NotNull
     private List<Step> steps = new ArrayList<>();
 
+    @NotNull
     public Status status = Status.CONFIRMATION;
 
     public boolean isHeroWinner = false;
 
+    @Min(0)
     public int heroStartHp;
 
+    @Min(0)
     public int mobStartHp;
 
+    @Min(0)
     public int posX;
 
+    @Min(0)
     public int posY;
 
+    @Min(0)
     public int xp = GameLogics.calculateXP();
 
     public Battle(Hero hero, Hero mob, int posX, int posY) {
@@ -55,14 +68,19 @@ public class Battle {
 
     public static class Step {
 
+        @NotNull
         public String owner = null;
 
+        @NotNull
         public String recipient = null;
 
+        @NotNull
         public String abstractRecipientIdentifier = null;
 
+        @Min(0)
         public int recipientDamage = 0;
 
+        @Min(0)
         public int recipientHpLeft = 0;
 
         public String getMessage() {

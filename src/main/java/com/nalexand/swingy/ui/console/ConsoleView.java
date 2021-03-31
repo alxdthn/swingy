@@ -62,7 +62,6 @@ public final class ConsoleView extends BaseView {
         model.render();
         String line;
         while ((line = getLine()) != null) {
-            System.out.println(line);
             Command command = getCommand(line);
             if (command == Command.GUI) {
                 Swingy.switchView();

@@ -3,14 +3,11 @@ package com.nalexand.swingy.ui.gui.forms;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-import com.nalexand.swingy.controller.BattleWinController;
 import com.nalexand.swingy.controller.DialogController;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.model.scenario.BattleProcess;
 import com.nalexand.swingy.ui.base.Form;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,7 +50,7 @@ public class BattleLoseForm implements Form {
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.BOTH;
         root.add(content, gbc);
-        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+        content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null));
         title = new JLabel();
         Font titleFont = this.$$$getFont$$$("Phosphate", -1, 36, title.getFont());
         if (titleFont != null) title.setFont(titleFont);

@@ -1,19 +1,30 @@
 package com.nalexand.swingy.model.items;
 
 import com.nalexand.swingy.ui.gui.utils.IconResolver;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class Item {
 
+    @NotNull
     public Type type;
 
+    @NotNull
+    @NotEmpty
     public String name;
 
+    @Min(0)
     public int attack;
 
+    @Min(0)
     public int defence;
 
+    @Min(0)
     public int hitPoints;
 
+    @NotNull
+    @NotEmpty
     public String iconSource;
 
     public Item(Type type, String name, int attack, int defence, int hitPoints) {
