@@ -44,7 +44,16 @@ public class Swingy {
                 break;
         }
         currentView.start(model);
-        DEBUG_runBattleProcess();
+    }
+
+    public static void switchView() {
+        currentView.stop();
+        if (currentView.getName().equals(GuiView.NAME)) {
+            currentView = new ConsoleView();
+        } else {
+            currentView = guiView;
+        }
+        currentView.start(model);
     }
 
     private static void DEBUG_runBattleConfirmation() {
@@ -74,15 +83,5 @@ public class Swingy {
 
         model.startBattle(new Battle(hero, mob, 0, 0));
         model.nextStep(new BattleProcess(model));
-    }
-
-    public static void switchView() {
-        currentView.stop();
-        if (currentView.getName().equals(GuiView.NAME)) {
-            currentView = new ConsoleView();
-        } else {
-            currentView = guiView;
-        }
-        currentView.start(model);
     }
 }

@@ -23,6 +23,7 @@ public class Theme {
         button.setMargin(new Insets(8, 8, 8, 8));
     }
 
+    @SuppressWarnings("DuplicatedCode")
     private static Font getFont(String fontName, int style, int size, Font currentFont) {
         if (currentFont == null) return null;
         String resultName;
@@ -43,6 +44,5 @@ public class Theme {
         JLabel temp = new JLabel();
         if (label.getFont().equals(temp.getFont()))
             label.setFont(getFont("Phosphate", -1, 16, label.getFont()));
-
     }
 }

@@ -1,8 +1,5 @@
 package com.nalexand.swingy.ui.gui.forms;
 
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
 import com.nalexand.swingy.controller.WelcomeController;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
@@ -20,16 +17,15 @@ public class WelcomeForm implements Form {
     private JPanel content;
     private JLabel title;
     private JLabel welcomeIllustration;
-    private final WelcomeController controller;
+    private JLabel continueTitle;
 
     public WelcomeForm(ModelFacade model, WelcomeController controller) {
         $$$setupUI$$$();
-        this.controller = controller;
         List<Hero> createdHeroes = model.getCreatedHeroes();
         createHeroButton.addActionListener(e -> controller.showCreateHero());
-        int index = 0;
+        int buttonYPosition = content.getComponentCount() + 1;
         for (Hero hero : createdHeroes) {
-            addSelectHeroButton(hero, index++);
+            addSelectHeroButton(hero, buttonYPosition++, controller);
         }
         String[] gifSources = {
                 "/traxex.gif",
@@ -52,16 +48,19 @@ public class WelcomeForm implements Form {
         root = new JPanel();
         root.setLayout(new GridBagLayout());
         content = new JPanel();
-        content.setLayout(new GridLayoutManager(4, 1, new Insets(32, 32, 32, 32), -1, -1));
+        content.setLayout(new GridBagLayout());
         content.setAlignmentX(0.5f);
         content.setAlignmentY(0.5f);
         content.setAutoscrolls(false);
+        content.setBackground(new Color(-16777216));
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
+        gbc.ipadx = 32;
+        gbc.ipady = 32;
         root.add(content, gbc);
         content.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(), null));
         createHeroButton = new JButton();
@@ -71,17 +70,39 @@ public class WelcomeForm implements Form {
         createHeroButton.setHorizontalTextPosition(0);
         createHeroButton.setText("Create hero");
         createHeroButton.setVerticalAlignment(0);
-        content.add(createHeroButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 32, 16, 32);
+        content.add(createHeroButton, gbc);
         title = new JLabel();
         Font titleFont = this.$$$getFont$$$("Phosphate", -1, 36, title.getFont());
         if (titleFont != null) title.setFont(titleFont);
         title.setText("Swingy!");
-        content.add(title, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final Spacer spacer1 = new Spacer();
-        content.add(spacer1, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 32), null, 0, false));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.insets = new Insets(0, 0, 32, 0);
+        content.add(title, gbc);
         welcomeIllustration = new JLabel();
         welcomeIllustration.setText("");
-        content.add(welcomeIllustration, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        gbc.insets = new Insets(0, 0, 32, 0);
+        content.add(welcomeIllustration, gbc);
+        continueTitle = new JLabel();
+        continueTitle.setHorizontalAlignment(0);
+        continueTitle.setText("Continue:");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        content.add(continueTitle, gbc);
     }
 
     /**
@@ -115,13 +136,15 @@ public class WelcomeForm implements Form {
         return $$$getRootComponent$$$();
     }
 
-    private void addSelectHeroButton(Hero hero, int position) {
+    private void addSelectHeroButton(Hero hero, int buttonYPosition, WelcomeController controller) {
         JButton newButton = new JButton(hero.name);
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
-        gbc.gridy = position + 1;
+        gbc.gridx = 0;
+        gbc.gridy = buttonYPosition;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 32, 0, 32);
         newButton.addActionListener(e -> controller.selectHeroAndShowGameProcess(hero));
-        root.add(newButton, gbc);
+        content.add(newButton, gbc);
     }
 }
