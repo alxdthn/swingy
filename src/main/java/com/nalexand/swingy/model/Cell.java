@@ -1,8 +1,10 @@
 package com.nalexand.swingy.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.nalexand.swingy.utils.TextureProvider;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 public class Cell {
 
@@ -14,6 +16,10 @@ public class Cell {
 
     @SerializedName("m")
     public boolean withMob = false;
+
+    @NotNull
+    @SerializedName("t")
+    public String texture = TextureProvider.GRASS;
 
     @Min(0)
     public int x;
@@ -27,6 +33,11 @@ public class Cell {
     public Cell(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public void initObstacle() {
+        isObstacle = true;
+        texture = TextureProvider.getRandomObstacleSprite();
     }
 
     public boolean isFree() {

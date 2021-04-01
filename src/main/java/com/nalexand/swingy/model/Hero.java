@@ -2,8 +2,8 @@ package com.nalexand.swingy.model;
 
 import com.nalexand.swingy.Swingy;
 import com.nalexand.swingy.model.items.Item;
-import com.nalexand.swingy.ui.gui.utils.IconResolver;
 import com.nalexand.swingy.utils.GameLogics;
+import com.nalexand.swingy.utils.IconResolver;
 import com.nalexand.swingy.utils.Utils;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;

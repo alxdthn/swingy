@@ -2,7 +2,7 @@ package com.nalexand.swingy.ui.console.output;
 
 import com.nalexand.swingy.controller.DialogController;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.ui.base.BaseConsoleOutput;
+import com.nalexand.swingy.ui.console.BaseConsoleOutput;
 import com.nalexand.swingy.ui.console.Command;
 
 import static com.nalexand.swingy.ui.console.output.OutputUtils.printDash;

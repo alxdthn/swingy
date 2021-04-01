@@ -81,18 +81,6 @@
             <border type="none"/>
             <children/>
           </grid>
-          <component id="b355f" class="javax.swing.JLabel" binding="title">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <font name="Phosphate" size="36"/>
-              <foreground color="-16777216"/>
-              <horizontalAlignment value="0"/>
-              <horizontalTextPosition value="0"/>
-              <text value="Battle"/>
-            </properties>
-          </component>
           <grid id="a550" binding="heroPanel" layout-manager="GridBagLayout">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
@@ -101,6 +89,15 @@
             <border type="none"/>
             <children/>
           </grid>
+          <component id="4d023" class="javax.swing.JLabel" binding="title">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Phosphate" size="36"/>
+              <text value="Label"/>
+            </properties>
+          </component>
         </children>
       </grid>
     </children>

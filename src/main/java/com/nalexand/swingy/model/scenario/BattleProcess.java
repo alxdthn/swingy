@@ -100,7 +100,7 @@ public class BattleProcess extends BaseScenarioStep implements BattleController 
         public void accept() {
             Battle battle = model.getBattle();
             if (battle.getLoot().isEmpty()) {
-                model.getSelectedHero().worldMap.getCells().get(battle.posY).get(battle.posX).battle = null;
+                model.getSelectedHero().worldMap.getCell(battle.posX, battle.posY).battle = null;
             } else {
                 battle.status = Battle.Status.LOOT;
             }

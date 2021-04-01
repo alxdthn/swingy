@@ -6,10 +6,11 @@ import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.WorldMap;
 import com.nalexand.swingy.model.items.Item;
-import com.nalexand.swingy.ui.base.BaseConsoleOutput;
+import com.nalexand.swingy.ui.console.BaseConsoleOutput;
 import com.nalexand.swingy.ui.console.Command;
 import com.nalexand.swingy.utils.Colors;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +26,14 @@ public class GameProcessOutput extends BaseConsoleOutput {
         Hero hero = model.getSelectedHero();
         WorldMap worldMap = hero.worldMap;
 
-        Iterator<List<Cell>> worldMapIterator = worldMap.getCells().iterator();
+        List<List<Cell>> cellsSpilt = new ArrayList<>();
+        for (int row = 0; row < worldMap.getSize(); row++) {
+            int startIndex = row * worldMap.getSize();
+            cellsSpilt.add(
+                    worldMap.getCells().subList(startIndex, startIndex + worldMap.getSize())
+            );
+        }
+        Iterator<List<Cell>> worldMapIterator = cellsSpilt.iterator();
 
         printLineWithMap(hero.name + ":", worldMapIterator);
 

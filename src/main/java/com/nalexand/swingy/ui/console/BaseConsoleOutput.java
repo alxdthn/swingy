@@ -1,6 +1,4 @@
-package com.nalexand.swingy.ui.base;
-
-import com.nalexand.swingy.ui.console.Command;
+package com.nalexand.swingy.ui.console;
 
 import java.util.HashMap;
 import java.util.Map;

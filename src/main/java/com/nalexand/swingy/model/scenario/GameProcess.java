@@ -43,7 +43,7 @@ public class GameProcess extends BaseScenarioStep implements GameProcessControll
             }
             model.calculateWorldMap();
         } else  {
-            Cell destinationCell = worldMap.getCells().get(toPosY).get(toPosX);
+            Cell destinationCell = worldMap.getCell(toPosX, toPosY);
             if (destinationCell.isFree()) {
                 model.moveHero(toPosX, toPosY);
             } else if (destinationCell.withMob) {

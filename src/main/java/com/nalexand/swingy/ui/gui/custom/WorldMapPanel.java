@@ -3,12 +3,11 @@ package com.nalexand.swingy.ui.gui.custom;
 import com.nalexand.swingy.model.Cell;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.WorldMap;
-import com.nalexand.swingy.ui.gui.utils.TextureProvider;
+import com.nalexand.swingy.utils.TextureProvider;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.List;
 
 public class WorldMapPanel extends JPanel {
 
@@ -34,38 +33,46 @@ public class WorldMapPanel extends JPanel {
 
     private void drawWordMap(Graphics graphics) throws IOException {
         int cellSize = Math.min(getWidth(), getHeight()) / worldMap.getSize();
-        int y = 0;
+        int drawY = 0;
         int startX = (getWidth() - cellSize * worldMap.getSize()) / 2;
-        for (List<Cell> row : worldMap.getCells()) {
-            int x = startX;
-            for (Cell cell : row) {
+
+        int y = 0;
+        while (y < worldMap.getSize()) {
+
+            int x = 0;
+            int drawX = startX;
+            while (x < worldMap.getSize()) {
+                Cell cell = worldMap.getCell(x, y);
                 Image texture;
-                if (cell.isFree()) {
-                    texture = TextureProvider.getImage(TextureProvider.GRASS);
-                } else if (cell.isObstacle) {
-                    texture = TextureProvider.getImage(TextureProvider.WATER);
-                } else if (cell.withMob) {
+                if (cell.withMob) {
                     texture = TextureProvider.getImageWith(
-                            TextureProvider.GRASS,
+                            cell.texture,
                             model.getMobWithPosition(cell.x, cell.y).iconSource
                     );
                 } else if (cell.withHero) {
                     texture = TextureProvider.getImageWith(
-                            TextureProvider.GRASS,
+                            cell.texture,
                             model.getSelectedHero().iconSource
                     );
                 } else if (cell.battle != null) {
                     texture = TextureProvider.getImageWith(
-                            TextureProvider.GRASS,
+                            cell.texture,
                             cell.battle.mob.getItem().iconSource
                     );
+                } else if (cell.isObstacle) {
+                    texture = TextureProvider.getImageWith(
+                            TextureProvider.GRASS,
+                            cell.texture
+                    );
                 } else {
-                    throw new IllegalStateException();
+                    texture = TextureProvider.getImage(cell.texture);
                 }
-                graphics.drawImage(texture, x, y, cellSize, cellSize, null);
-                x += cellSize;
+                graphics.drawImage(texture, drawX, drawY, cellSize, cellSize, null);
+                x++;
+                drawX += cellSize;
             }
-            y += cellSize;
+            y++;
+            drawY += cellSize;
         }
     }
 }

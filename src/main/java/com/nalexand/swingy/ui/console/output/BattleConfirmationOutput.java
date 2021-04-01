@@ -4,7 +4,7 @@ import com.nalexand.swingy.controller.DialogController;
 import com.nalexand.swingy.model.Battle;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.ui.base.BaseConsoleOutput;
+import com.nalexand.swingy.ui.console.BaseConsoleOutput;
 import com.nalexand.swingy.ui.console.Command;
 
 import java.util.Arrays;

@@ -59,20 +59,22 @@ public class FileInteractor {
         try {
             InputStreamReader fileReader = new FileReader(gameStateFile);
             GameState result = gson.fromJson(new JsonReader(fileReader), GameState.class);
-            Set<ConstraintViolation<GameState>> violations = validator.validate(result);
-            if (!violations.isEmpty()) {
-                System.err.println("Save loading error:");
-                for (ConstraintViolation<GameState> violation : violations) {
-                    System.err.printf("%s %s\n",
-                            violation.getPropertyPath(),
-                            violation.getMessage()
-                    );
-                }
-                result = null;
-            }
+
             if (result == null) {
                 return new GameState();
             } else {
+                Set<ConstraintViolation<GameState>> violations = validator.validate(result);
+
+                if (!violations.isEmpty()) {
+                    System.err.println("Save loading error:");
+                    for (ConstraintViolation<GameState> violation : violations) {
+                        System.err.printf("%s %s\n",
+                                violation.getPropertyPath(),
+                                violation.getMessage()
+                        );
+                    }
+                    return null;
+                }
                 return result;
             }
         } catch (FileNotFoundException e) {

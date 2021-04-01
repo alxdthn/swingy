@@ -6,9 +6,9 @@ import com.nalexand.swingy.controller.GameProcessController;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.items.Item;
-import com.nalexand.swingy.ui.base.KeyListenerForm;
+import com.nalexand.swingy.ui.gui.KeyListenerForm;
 import com.nalexand.swingy.ui.gui.custom.WorldMapPanel;
-import com.nalexand.swingy.ui.gui.utils.IconResolver;
+import com.nalexand.swingy.utils.IconResolver;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

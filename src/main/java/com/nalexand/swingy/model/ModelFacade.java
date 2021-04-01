@@ -3,7 +3,7 @@ package com.nalexand.swingy.model;
 import com.nalexand.swingy.model.file.FileInteractor;
 import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.model.scenario.Welcome;
-import com.nalexand.swingy.ui.base.View;
+import com.nalexand.swingy.ui.View;
 import com.nalexand.swingy.utils.GameLogics;
 
 import java.util.ArrayList;
@@ -93,9 +93,9 @@ public class ModelFacade {
 
     public void moveHero(int toPosX, int toPosY) {
         Hero hero = getSelectedHero();
-        Cell destinationCell = hero.worldMap.getCells().get(toPosY).get(toPosX);
+        Cell destinationCell = hero.worldMap.getCell(toPosX, toPosY);
 
-        hero.worldMap.getCells().get(hero.posY).get(hero.posX).withHero = false;
+        hero.worldMap.getCell(hero.posX, hero.posY).withHero = false;
         hero.posX = toPosX;
         hero.posY = toPosY;
         destinationCell.withHero = true;

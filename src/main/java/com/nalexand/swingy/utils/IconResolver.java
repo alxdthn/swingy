@@ -1,4 +1,4 @@
-package com.nalexand.swingy.ui.gui.utils;
+package com.nalexand.swingy.utils;
 
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.items.Item;

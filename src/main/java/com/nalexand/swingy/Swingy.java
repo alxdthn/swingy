@@ -4,7 +4,7 @@ import com.nalexand.swingy.model.Battle;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.scenario.BattleProcess;
-import com.nalexand.swingy.ui.base.View;
+import com.nalexand.swingy.ui.View;
 import com.nalexand.swingy.ui.console.ConsoleView;
 import com.nalexand.swingy.ui.gui.GuiView;
 import com.nalexand.swingy.utils.GameLogics;
@@ -15,7 +15,7 @@ public class Swingy {
 
     public static final boolean IGNORE_SAVED = false;
 
-    public static final int INITIAL_HERO_HP = 4;
+    public static final boolean DEBUG = true;
 
     public static final String[] MOB_NAMES = {"Ork", "Necromancer", "Bandit", "Wood Elf"};
 

@@ -1,6 +1,6 @@
-package com.nalexand.swingy.ui.gui.utils;
+package com.nalexand.swingy.utils;
 
-
+import com.nalexand.swingy.Swingy;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,8 +10,7 @@ import java.util.Map;
 
 public class TextureProvider {
 
-    public static final String GRASS = "/grass.png";
-    public static final String WATER = "/water.png";
+    public static final String GRASS = "/grass_2.png";
     public static final String VOID = "/void.png";
     public static final String NEVERMORE = "/nevermore.png";
     public static final String TRAXEX = "/traxex.png";
@@ -26,11 +25,22 @@ public class TextureProvider {
     public static final String DOMINATOR = "/dominator.png";
     public static final String BLADE_MAIL = "/blade_mail.png";
     public static final String RAPIER = "/rapier.png";
-    public static final String INVENTORY = "/inventory.png";
+
+    public static final String[] OBSTACLE_SPRITES = {
+            "/water_2.png",
+            "/tree_1.png",
+            "/tree_2.png",
+            "/tree_3.png",
+            "/tree_4.png",
+    };
 
     private static final Map<String, Image> cachedImages = new HashMap<>();
 
     private TextureProvider() {
+    }
+
+    public static String getRandomObstacleSprite() {
+        return OBSTACLE_SPRITES[Utils.randomBetween(0, OBSTACLE_SPRITES.length)];
     }
 
     public static Image getImageWith(String backgroundSource, String foregroundSource) throws IOException {
@@ -78,10 +88,11 @@ public class TextureProvider {
     private static Image readImage(String source) throws IOException {
         try {
             return ImageIO.read(TextureProvider.class.getResource(source));
-        } catch (IllegalArgumentException e) {
-            //TODO ERROR
-            System.err.println("bad resource "+ source);
-            e.printStackTrace();
+        } catch (RuntimeException e) {
+            System.err.println("bad resource " + source);
+            if (Swingy.DEBUG) {
+                e.printStackTrace();
+            }
             System.exit(1);
             return null;
         }

@@ -7,8 +7,8 @@ import com.nalexand.swingy.controller.BattleWinController;
 import com.nalexand.swingy.model.Battle;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.items.Item;
-import com.nalexand.swingy.ui.base.Form;
-import com.nalexand.swingy.ui.gui.utils.IconResolver;
+import com.nalexand.swingy.ui.gui.Form;
+import com.nalexand.swingy.utils.IconResolver;
 
 import javax.swing.*;
 import java.awt.*;

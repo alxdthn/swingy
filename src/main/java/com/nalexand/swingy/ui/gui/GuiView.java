@@ -4,8 +4,7 @@ import com.nalexand.swingy.Swingy;
 import com.nalexand.swingy.controller.*;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.scenario.BaseScenarioStep;
-import com.nalexand.swingy.ui.base.BaseView;
-import com.nalexand.swingy.ui.base.Form;
+import com.nalexand.swingy.ui.BaseView;
 import com.nalexand.swingy.ui.gui.forms.*;
 import com.nalexand.swingy.utils.Utils;
 

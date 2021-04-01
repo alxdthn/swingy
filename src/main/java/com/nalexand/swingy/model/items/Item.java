@@ -1,6 +1,6 @@
 package com.nalexand.swingy.model.items;
 
-import com.nalexand.swingy.ui.gui.utils.IconResolver;
+import com.nalexand.swingy.utils.IconResolver;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

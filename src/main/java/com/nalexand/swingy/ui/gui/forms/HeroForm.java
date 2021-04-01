@@ -3,8 +3,8 @@ package com.nalexand.swingy.ui.gui.forms;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.nalexand.swingy.model.Hero;
-import com.nalexand.swingy.ui.base.Form;
-import com.nalexand.swingy.ui.gui.utils.IconResolver;
+import com.nalexand.swingy.ui.gui.Form;
+import com.nalexand.swingy.utils.IconResolver;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,5 @@
 package com.nalexand.swingy.utils;
 
-import com.nalexand.swingy.Swingy;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.items.Item;
 import com.nalexand.swingy.model.items.ItemFactory;
@@ -14,6 +13,8 @@ public class GameLogics {
     private static final int BASE_DEFENCE_REDUCE_CHANCE_PERCENTAGE = 50;
 
     private static final int DEFENCE_REDUCE_CHANCE_PER_LEVEL_CHANGE_PERCENTAGE = 25;
+
+    private static final int INITIAL_HERO_HP = 4;
 
     private GameLogics() {}
 
@@ -71,7 +72,7 @@ public class GameLogics {
 
     public static void initAsHero(Hero hero) {
         hero.created = true;
-        hero.hitPoints = Swingy.INITIAL_HERO_HP;
+        hero.hitPoints = INITIAL_HERO_HP;
         hero.currentHitPoints = hero.hitPoints;
     }
 

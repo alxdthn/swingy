@@ -16,7 +16,7 @@ public class WorldMap {
 
     @Valid
     @NotNull
-    private List<List<Cell>> cells = null;
+    private List<Cell> cells = null;
 
     @Valid
     @NotNull
@@ -32,12 +32,16 @@ public class WorldMap {
         return size;
     }
 
-    public List<List<Cell>> getCells() {
+    public List<Cell> getCells() {
         return cells;
     }
 
+    public Cell getCell(int x, int y) {
+        return cells.get(y * size + x);
+    }
+
     public void removeMob(Hero mob) {
-        cells.get(mob.posY).get(mob.posX).withMob = false;
+        getCell(mob.posX, mob.posY).withMob = false;
         mobs.remove(mob);
     }
 
@@ -46,17 +50,15 @@ public class WorldMap {
         cells = new ArrayList<>(size);
 
         for (int y = 0; y < size; y++) {
-            List<Cell> rowList = new ArrayList<>(size);
-            cells.add(rowList);
             for (int x = 0; x < size; x++) {
-                rowList.add(new Cell(x, y));
+                cells.add(new Cell(x, y));
             }
         }
 
         int center = size / 2;
         hero.posX = center;
         hero.posY = center;
-        cells.get(center).get(center).withHero = true;
+        getCell(center, center).withHero = true;
     }
 
     private void generateMobs(Hero hero) {
@@ -65,7 +67,7 @@ public class WorldMap {
         while (needGenerateMobs != 0) {
             int randomX = Utils.randomBetween(0, size - 1);
             int randomY = Utils.randomBetween(0, size - 1);
-            Cell cell = cells.get(randomY).get(randomX);
+            Cell cell = getCell(randomX, randomY);
 
             if (!cell.isFree()) continue;
 
@@ -84,11 +86,11 @@ public class WorldMap {
         while (needGenerateObstacles > 0) {
             int randomX = Utils.randomBetween(0, size - 1);
             int randomY = Utils.randomBetween(0, size - 1);
-            Cell cell = cells.get(randomY).get(randomX);
+            Cell cell = getCell(randomX, randomY);
 
             if (!cell.isFree()) continue;
 
-            cell.isObstacle = true;
+            cell.initObstacle();
             needGenerateObstacles--;
         }
     }

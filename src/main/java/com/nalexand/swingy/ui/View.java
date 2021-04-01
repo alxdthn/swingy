@@ -1,4 +1,4 @@
-package com.nalexand.swingy.ui.base;
+package com.nalexand.swingy.ui;
 
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.scenario.BaseScenarioStep;

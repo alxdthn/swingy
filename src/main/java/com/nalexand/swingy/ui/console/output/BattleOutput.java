@@ -4,7 +4,7 @@ import com.nalexand.swingy.controller.BattleController;
 import com.nalexand.swingy.model.Battle;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.ui.base.BaseConsoleOutput;
+import com.nalexand.swingy.ui.console.BaseConsoleOutput;
 import com.nalexand.swingy.ui.console.Command;
 
 import static com.nalexand.swingy.ui.console.output.OutputUtils.printDash;

@@ -3,8 +3,8 @@ package com.nalexand.swingy.ui.gui.forms;
 import com.nalexand.swingy.controller.WelcomeController;
 import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.ui.base.Form;
-import com.nalexand.swingy.ui.gui.utils.IconResolver;
+import com.nalexand.swingy.ui.gui.Form;
+import com.nalexand.swingy.utils.IconResolver;
 import com.nalexand.swingy.utils.Utils;
 
 import javax.swing.*;
@@ -24,6 +24,7 @@ public class WelcomeForm implements Form {
         List<Hero> createdHeroes = model.getCreatedHeroes();
         createHeroButton.addActionListener(e -> controller.showCreateHero());
         int buttonYPosition = content.getComponentCount() + 1;
+        continueTitle.setVisible(!createdHeroes.isEmpty());
         for (Hero hero : createdHeroes) {
             addSelectHeroButton(hero, buttonYPosition++, controller);
         }

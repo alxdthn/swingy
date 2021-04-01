@@ -5,7 +5,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.nalexand.swingy.controller.DialogController;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.ui.base.Form;
+import com.nalexand.swingy.ui.gui.Form;
 
 import javax.swing.*;
 import java.awt.*;

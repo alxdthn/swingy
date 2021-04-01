@@ -3,8 +3,7 @@ package com.nalexand.swingy.ui.console;
 import com.nalexand.swingy.Swingy;
 import com.nalexand.swingy.controller.*;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.ui.base.BaseConsoleOutput;
-import com.nalexand.swingy.ui.base.BaseView;
+import com.nalexand.swingy.ui.BaseView;
 import com.nalexand.swingy.ui.console.output.*;
 
 import java.util.NoSuchElementException;
