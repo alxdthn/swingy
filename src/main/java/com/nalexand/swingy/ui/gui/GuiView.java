@@ -55,27 +55,27 @@ public final class GuiView extends BaseView {
 
     @Override
     protected void showGameProcess(ModelFacade model, GameProcessController controller) {
-        render(new GameProcessForm(model, controller));
+        render(new GameProcessForm(model, new WorldMapForm(model, controller)));
     }
 
     @Override
     protected void showBattleConfirmation(ModelFacade model, DialogController controller) {
-        render(new BattleConfirmationForm(model, controller));
+        render(new GameProcessForm(model, new BattleConfirmationForm(model, controller)));
     }
 
     @Override
     protected void showBattle(ModelFacade model, BattleController controller) {
-        render(new ShowBattleForm(model, controller));
+        render(new GameProcessForm(model, new ShowBattleForm(model, controller)));
     }
 
     @Override
     protected void showBattleWin(ModelFacade model, BattleWinController controller) {
-        render(new BattleWinForm(model, controller));
+        render(new GameProcessForm(model, new BattleWinForm(model, controller)));
     }
 
     @Override
     protected void showBattleLose(ModelFacade model, DialogController controller) {
-        render(new BattleLoseForm(model, controller));
+        render(new BattleLoseForm(controller));
     }
 
     private void render(Form form) {

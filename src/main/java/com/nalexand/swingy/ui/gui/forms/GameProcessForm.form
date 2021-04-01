@@ -121,7 +121,7 @@
           </component>
         </children>
       </grid>
-      <grid id="e652e" binding="map" layout-manager="BorderLayout" hgap="0" vgap="0">
+      <grid id="e652e" binding="gameStep" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="Center"/>
         <properties/>
         <border type="bevel-raised" title="World map" title-justification="2" title-position="3">
