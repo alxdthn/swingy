@@ -52,7 +52,6 @@ public class WelcomeForm implements Form {
         content.setAlignmentX(0.5f);
         content.setAlignmentY(0.5f);
         content.setAutoscrolls(false);
-        content.setBackground(new Color(-16777216));
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;

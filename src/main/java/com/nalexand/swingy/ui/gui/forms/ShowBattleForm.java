@@ -2,7 +2,6 @@ package com.nalexand.swingy.ui.gui.forms;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.intellij.uiDesigner.core.Spacer;
 import com.nalexand.swingy.controller.BattleController;
 import com.nalexand.swingy.model.Battle;
 import com.nalexand.swingy.model.ModelFacade;
@@ -39,10 +38,10 @@ public class ShowBattleForm implements Form {
         Battle battle = model.getBattle();
         heroLabel.setText(model.getSelectedHero().name);
         mobLabel.setText(battle.mob.name);
-        HeroForm heroForm = new HeroForm(model.getSelectedHero());
+        HeroForm heroForm = new HeroForm(model.getSelectedHero(), battle.heroStartHp);
         heroPanel.add(heroForm.getPanel());
-        HeroForm modHeroForm = new HeroForm(battle.mob);
-        mobPanel.add(modHeroForm.getPanel());
+        HeroForm mobHeroForm = new HeroForm(battle.mob, battle.mobStartHp);
+        mobPanel.add(mobHeroForm.getPanel());
 
         List<Battle.Step> steps = battle.getSteps();
 

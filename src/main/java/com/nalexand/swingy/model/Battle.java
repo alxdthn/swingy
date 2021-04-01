@@ -69,7 +69,7 @@ public class Battle {
     public static class Step {
 
         @NotNull
-        public String owner = null;
+        public String dealerName = null;
 
         @NotNull
         public String recipient = null;
@@ -83,14 +83,18 @@ public class Battle {
         @Min(0)
         public int recipientHpLeft = 0;
 
+        @Min(0)
+        public int recipientBlockedDamage = 0;
+
         public String getMessage() {
             return String.format(
-                    "%s attack %s: %d damage, %s %d HP remaining",
-                    owner,
+                    "%s attack %s: %d damage, %s %d HP remaining, blocked %d",
+                    dealerName,
                     recipient,
                     recipientDamage,
                     abstractRecipientIdentifier,
-                    recipientHpLeft
+                    recipientHpLeft,
+                    recipientBlockedDamage
             );
         }
     }

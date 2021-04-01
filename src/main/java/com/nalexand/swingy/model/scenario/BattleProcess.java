@@ -8,6 +8,7 @@ import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
 import com.nalexand.swingy.model.items.Item;
 import com.nalexand.swingy.utils.GameLogics;
+import com.nalexand.swingy.utils.Utils;
 
 public class BattleProcess extends BaseScenarioStep implements BattleController {
 
@@ -25,23 +26,12 @@ public class BattleProcess extends BaseScenarioStep implements BattleController 
         boolean isHeroTurn = true;
         while (hero.currentHitPoints > 0 && mob.currentHitPoints > 0) {
             Battle.Step step = new Battle.Step();
+            GameLogics.DamageResult damage;
 
             if (isHeroTurn) {
-                //  Mob get damage
-                step.owner = hero.name;
-                step.abstractRecipientIdentifier = "enemy";
-                step.recipient = mob.name;
-                step.recipientDamage = Math.max(0, hero.getAttack() - mob.getDefence());
-                mob.currentHitPoints -= step.recipientDamage;
-                step.recipientHpLeft = mob.currentHitPoints;
+                applyAttack(hero, mob, step, "enemy");
             } else {
-                //  Hero get damage
-                step.owner = mob.name;
-                step.abstractRecipientIdentifier = "  you";
-                step.recipient = hero.name;
-                step.recipientDamage = Math.max(0, mob.getAttack() - hero.getDefence());
-                hero.currentHitPoints -= step.recipientDamage;
-                step.recipientHpLeft = hero.currentHitPoints;
+                applyAttack(mob, hero, step, "  you");
             }
             isHeroTurn = !isHeroTurn;
             battle.addStep(step);
@@ -54,6 +44,18 @@ public class BattleProcess extends BaseScenarioStep implements BattleController 
             model.moveHeroToMob();
         }
         model.saveGameState();
+    }
+
+    private void applyAttack(Hero dealer, Hero recipient, Battle.Step step, String ident) {
+        GameLogics.DamageResult damage;
+        damage = GameLogics.calculateDamage(dealer, recipient);
+        step.dealerName = dealer.name;
+        step.abstractRecipientIdentifier = ident;
+        step.recipient = recipient.name;
+        step.recipientDamage = damage.damage;
+        step.recipientBlockedDamage = damage.blocked;
+        recipient.currentHitPoints -= step.recipientDamage;
+        step.recipientHpLeft = recipient.currentHitPoints;
     }
 
     @Override
@@ -79,8 +81,12 @@ public class BattleProcess extends BaseScenarioStep implements BattleController 
 
         @Override
         public void dismiss() {
-            model.clearBattle();
-            model.nextStep(new GameProcess(model));
+            if (Utils.randomByPercent(50)) {
+                model.clearBattle();
+                model.nextStep(new GameProcess(model));
+            } else  {
+                accept();
+            }
         }
     }
 

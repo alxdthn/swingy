@@ -11,6 +11,10 @@ public class GameLogics {
 
     private static final int ITEM_GENERATION_PERCENTAGE = 75;
 
+    private static final int BASE_DEFENCE_REDUCE_CHANCE_PERCENTAGE = 50;
+
+    private static final int DEFENCE_REDUCE_CHANCE_PER_LEVEL_CHANGE_PERCENTAGE = 25;
+
     private GameLogics() {}
 
     public static int calculateXP() {
@@ -27,6 +31,20 @@ public class GameLogics {
 
     public static int calculateLevelThreshold(int level) {
         return (level + 1) * 1000 + level * level * 450;
+    }
+
+    public static DamageResult calculateDamage(Hero dealer, Hero recipient) {
+        int defenceReduceChance = BASE_DEFENCE_REDUCE_CHANCE_PERCENTAGE +
+                (recipient.level - dealer.level) * DEFENCE_REDUCE_CHANCE_PER_LEVEL_CHANGE_PERCENTAGE;
+        int defenceReduceChanceClamp = Math.min(Math.max(defenceReduceChance, 0), 100);
+        int defenceReduce = (Utils.randomByPercent(defenceReduceChanceClamp)) ? recipient.getDefence() : 0;
+        return new DamageResult(
+                Math.max(
+                        0,
+                        dealer.getAttack() - defenceReduce
+                ),
+                defenceReduce
+        );
     }
 
     public static void increaseXP(Hero hero, int xp) {
@@ -77,5 +95,17 @@ public class GameLogics {
             }
         }
         mob.currentHitPoints = mob.getMaxHitPoints();
+    }
+
+    public static class DamageResult {
+
+        public int damage;
+
+        public int blocked;
+
+        public DamageResult(int damage, int blocked) {
+            this.damage = damage;
+            this.blocked = blocked;
+        }
     }
 }
