@@ -1,6 +1,5 @@
-package com.nalexand.swingy.model.items;
+package com.nalexand.swingy.model.models.items;
 
-import com.nalexand.swingy.utils.IconResolver;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -25,38 +24,56 @@ public class Item implements Serializable {
     @Min(0)
     public int hitPoints;
 
+    @Min(1)
+    public int level = 1;
+
     @NotNull
     @NotEmpty
     public String iconSource;
 
-    public Item(Type type, String name, int attack, int defence, int hitPoints) {
+    public Item(Type type, String name, int attack, int defence, int hitPoints, String iconSource) {
         this.type = type;
         this.name = name;
         this.attack = attack;
         this.defence = defence;
         this.hitPoints = hitPoints;
-        this.iconSource = IconResolver.getItemIcon(this);
+        this.iconSource = iconSource;
+    }
+
+    public void upLevel() {
+        level++;
+        switch (type) {
+            case WEAPON:
+                attack++;
+                break;
+            case ARMOR:
+                defence++;
+                break;
+            case HELMET:
+                hitPoints++;
+                break;
+        }
     }
 
     public String getFormattedString() {
         switch (type) {
             case WEAPON:
-                return String.format("weapon: %s (attack = %d)", name, attack);
+                return String.format("weapon: %s LVL %d attack = %d", name, level, attack);
             case ARMOR:
-                return String.format("armor: %s (defence = %d)", name, defence);
+                return String.format("armor: %s LVL %d defence = %d", name, level, defence);
             default:
-                return String.format("helmet: %s (hitPoints = %d)", name, hitPoints);
+                return String.format("helmet: %s LVL %d hitPoints = %d", name, level, hitPoints);
         }
     }
 
     public String getDisplayedString() {
         switch (type) {
             case WEAPON:
-                return String.format("Attack +%d", attack);
+                return String.format("<html>%s LVL %d<br/>Attack +%d<html/>", name, level, attack);
             case ARMOR:
-                return String.format("Defence +%d", defence);
+                return String.format("<html>%s LVL %d<br/>Defence +%d<html/>", name, level, defence);
             default:
-                return String.format("HP +%d", hitPoints);
+                return String.format("<html>%s LVL %d<br/>HP +%d<html/>", name, level, hitPoints);
         }
     }
 

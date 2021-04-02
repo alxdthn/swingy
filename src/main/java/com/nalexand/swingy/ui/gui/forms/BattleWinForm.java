@@ -4,9 +4,9 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.nalexand.swingy.controller.BattleWinController;
-import com.nalexand.swingy.model.Battle;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.model.items.Item;
+import com.nalexand.swingy.model.models.Battle;
+import com.nalexand.swingy.model.models.items.Item;
 import com.nalexand.swingy.ui.gui.Form;
 import com.nalexand.swingy.utils.IconResolver;
 
@@ -35,9 +35,7 @@ public class BattleWinForm implements Form {
         Item mobItem = battle.mob.getItem();
         if (mobItem != null) {
             IconResolver.setIcon(loot, mobItem.iconSource);
-            loot.setText(
-                    String.format("<html>%s<br/>%s<html>", mobItem.name, mobItem.getDisplayedString())
-            );
+            loot.setText(mobItem.getDisplayedString());
         } else {
             lootTitle.setVisible(false);
             loot.setVisible(false);

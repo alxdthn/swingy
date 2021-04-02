@@ -19,12 +19,6 @@ public class TextureProvider {
     public static final String NECROMANCER = "/necromancer.png";
     public static final String ORK = "/ork.png";
     public static final String WOOD_ELF = "/wood_elf.png";
-    public static final String DESOLATOR = "/desolator.png";
-    public static final String BUTTERFLY = "/butterfly.png";
-    public static final String SHIVA = "/shiva.png";
-    public static final String DOMINATOR = "/dominator.png";
-    public static final String BLADE_MAIL = "/blade_mail.png";
-    public static final String RAPIER = "/rapier.png";
 
     public static final String[] OBSTACLE_SPRITES = {
             "/water_2.png",

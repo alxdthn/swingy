@@ -1,6 +1,6 @@
-package com.nalexand.swingy.model;
+package com.nalexand.swingy.model.models;
 
-import com.nalexand.swingy.utils.GameLogics;
+import com.nalexand.swingy.model.GameLogics;
 import com.nalexand.swingy.utils.Utils;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -63,7 +63,7 @@ public class WorldMap implements Serializable {
     }
 
     private void generateMobs(Hero hero) {
-        int needGenerateMobs = 2;
+        int needGenerateMobs = GameLogics.calculateNumberOfMonsters(hero);
         mobs = new ArrayList<>(needGenerateMobs);
         while (needGenerateMobs != 0) {
             int randomX = Utils.randomBetween(0, size - 1);

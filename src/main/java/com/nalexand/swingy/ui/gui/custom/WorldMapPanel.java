@@ -1,8 +1,8 @@
 package com.nalexand.swingy.ui.gui.custom;
 
-import com.nalexand.swingy.model.Cell;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.model.WorldMap;
+import com.nalexand.swingy.model.models.Cell;
+import com.nalexand.swingy.model.models.WorldMap;
 import com.nalexand.swingy.utils.TextureProvider;
 
 import javax.swing.*;

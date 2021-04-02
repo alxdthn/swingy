@@ -1,11 +1,11 @@
 package com.nalexand.swingy.ui.console.output;
 
 import com.nalexand.swingy.controller.GameProcessController;
-import com.nalexand.swingy.model.Cell;
-import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.model.WorldMap;
-import com.nalexand.swingy.model.items.Item;
+import com.nalexand.swingy.model.models.Cell;
+import com.nalexand.swingy.model.models.Hero;
+import com.nalexand.swingy.model.models.WorldMap;
+import com.nalexand.swingy.model.models.items.Item;
 import com.nalexand.swingy.ui.console.BaseConsoleOutput;
 import com.nalexand.swingy.ui.console.Command;
 import com.nalexand.swingy.utils.Colors;

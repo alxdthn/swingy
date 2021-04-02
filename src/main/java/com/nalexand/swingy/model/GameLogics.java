@@ -1,18 +1,19 @@
-package com.nalexand.swingy.utils;
+package com.nalexand.swingy.model;
 
-import com.nalexand.swingy.model.Hero;
-import com.nalexand.swingy.model.items.Item;
-import com.nalexand.swingy.model.items.ItemFactory;
+import com.nalexand.swingy.model.models.Hero;
+import com.nalexand.swingy.model.models.items.Item;
+import com.nalexand.swingy.model.models.items.ItemFactory;
+import com.nalexand.swingy.utils.Utils;
 
 public class GameLogics {
 
     private static final double OBSTACLES_PERCENTAGE = 0.25;
 
-    private static final int ITEM_GENERATION_PERCENTAGE = 50;
+    private static final int ITEM_GENERATION_PERCENTAGE = 33;
 
     private static final int BASE_DEFENCE_REDUCE_CHANCE_PERCENTAGE = 50;
 
-    private static final int DEFENCE_REDUCE_CHANCE_PER_LEVEL_CHANGE_PERCENTAGE = 25;
+    private static final int DEFENCE_REDUCE_CHANCE_PER_LEVEL_CHANGE_PERCENTAGE = 13;
 
     private static final int INITIAL_HERO_HP = 4;
 
@@ -33,6 +34,8 @@ public class GameLogics {
     public static int calculateLevelThreshold(int level) {
         return (level + 1) * 1000 + level * level * 450;
     }
+
+    public static int calculateNumberOfMonsters(Hero hero) { return hero.level + 1; }
 
     public static DamageResult calculateDamage(Hero dealer, Hero recipient) {
         int defenceReduceChance = BASE_DEFENCE_REDUCE_CHANCE_PERCENTAGE +
@@ -56,9 +59,9 @@ public class GameLogics {
                 if (hero.level % 3 == 0) {
                     hero.hitPoints++;
                 } else if (hero.level % 2 == 0) {
-                    hero.attack++;
-                } else {
                     hero.defence++;
+                } else {
+                    hero.attack++;
                 }
                 hero.currentHitPoints = hero.getMaxHitPoints();
                 hero.xp += toNextLevel;

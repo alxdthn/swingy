@@ -1,5 +1,6 @@
 package com.nalexand.swingy.model;
 
+import com.nalexand.swingy.model.models.Hero;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

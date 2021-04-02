@@ -3,11 +3,14 @@ package com.nalexand.swingy.model;
 import com.nalexand.swingy.Swingy;
 import com.nalexand.swingy.model.database.DataBaseInteractor;
 import com.nalexand.swingy.model.file.FileInteractor;
+import com.nalexand.swingy.model.models.Battle;
+import com.nalexand.swingy.model.models.Cell;
+import com.nalexand.swingy.model.models.Hero;
+import com.nalexand.swingy.model.models.WorldMap;
 import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.model.scenario.Welcome;
 import com.nalexand.swingy.model.validator.GameStateValidator;
 import com.nalexand.swingy.ui.View;
-import com.nalexand.swingy.utils.GameLogics;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,6 @@
 package com.nalexand.swingy.utils;
 
-import com.nalexand.swingy.model.Hero;
-import com.nalexand.swingy.model.items.Item;
+import com.nalexand.swingy.model.models.Hero;
 
 import javax.swing.*;
 
@@ -35,25 +34,6 @@ public class IconResolver {
         }
         throw new IllegalStateException(String.format("No icon for %s %s", hero.type, hero.name));
     }
-
-    public static String getItemIcon(Item item) {
-        switch (item.name) {
-            case "Divine rapier":
-                return TextureProvider.RAPIER;
-            case "Desolator":
-                return TextureProvider.DESOLATOR;
-            case "Butterfly":
-                return TextureProvider.BUTTERFLY;
-            case "Shiva's guard":
-                return TextureProvider.SHIVA;
-            case "Blade mail":
-                return TextureProvider.BLADE_MAIL;
-            case "Dominator":
-                return TextureProvider.DOMINATOR;
-        }
-        throw new IllegalStateException(String.format("No icon for %s", item.name));
-    }
-
 
     public static void setIcon(JLabel label, String source) {
         label.setIcon(new ImageIcon(TextureProvider.getImage(source)));

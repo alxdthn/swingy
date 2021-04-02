@@ -2,9 +2,9 @@ package com.nalexand.swingy.ui.gui.forms;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.model.items.Item;
+import com.nalexand.swingy.model.models.Hero;
+import com.nalexand.swingy.model.models.items.Item;
 import com.nalexand.swingy.ui.gui.Form;
 import com.nalexand.swingy.ui.gui.KeyListenerForm;
 import com.nalexand.swingy.utils.IconResolver;
@@ -162,7 +162,7 @@ public class GameProcessForm extends KeyListenerForm {
     private void drawItemIcon(JLabel label, Item item) {
         if (item != null) {
             IconResolver.setIcon(label, item.iconSource);
-            label.setText(String.format("<html>%s<br/>%s</html>", item.name, item.getDisplayedString()));
+            label.setText(item.getDisplayedString());
         } else {
             label.setVisible(false);
         }

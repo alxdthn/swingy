@@ -1,7 +1,7 @@
-package com.nalexand.swingy.model;
+package com.nalexand.swingy.model.models;
 
-import com.nalexand.swingy.model.items.Item;
-import com.nalexand.swingy.utils.GameLogics;
+import com.nalexand.swingy.model.GameLogics;
+import com.nalexand.swingy.model.models.items.Item;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -78,13 +78,10 @@ public class Battle implements Serializable {
         @NotNull
         public String abstractRecipientIdentifier = null;
 
-        @Min(0)
         public int recipientDamage = 0;
 
-        @Min(0)
         public int recipientHpLeft = 0;
 
-        @Min(0)
         public int recipientBlockedDamage = 0;
 
         public String getMessage() {

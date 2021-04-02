@@ -3,8 +3,7 @@ package com.nalexand.swingy.model.database;
 import com.google.gson.Gson;
 import com.nalexand.swingy.Swingy;
 import com.nalexand.swingy.model.GameState;
-import com.nalexand.swingy.model.Hero;
-import com.nalexand.swingy.utils.GameLogics;
+import com.nalexand.swingy.model.models.Hero;
 
 import java.sql.*;
 
@@ -39,7 +38,6 @@ public class DataBaseInteractor {
                 Hero hero = gson.fromJson(resultSet.getString("state"), Hero.class);
                 if (hero == null) {
                     hero = new Hero(heroType);
-                    GameLogics.initAsHero(hero);
                 }
                 if (hero.selected) {
                     result.selectedHeroType = heroType;

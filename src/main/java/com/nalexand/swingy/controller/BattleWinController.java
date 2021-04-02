@@ -1,6 +1,6 @@
 package com.nalexand.swingy.controller;
 
-import com.nalexand.swingy.model.items.Item;
+import com.nalexand.swingy.model.models.items.Item;
 
 public interface BattleWinController {
 

@@ -1,8 +1,8 @@
 package com.nalexand.swingy.model.scenario;
 
 import com.nalexand.swingy.controller.CreateHeroController;
-import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
+import com.nalexand.swingy.model.models.Hero;
 
 public class CreateHero extends BaseScenarioStep implements CreateHeroController {
 

@@ -1,6 +1,6 @@
 package com.nalexand.swingy.controller;
 
-import com.nalexand.swingy.model.Hero;
+import com.nalexand.swingy.model.models.Hero;
 
 public interface WelcomeController {
 

@@ -1,7 +1,7 @@
 package com.nalexand.swingy.model.validator;
 
 import com.nalexand.swingy.model.GameState;
-import com.nalexand.swingy.model.Hero;
+import com.nalexand.swingy.model.models.Hero;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

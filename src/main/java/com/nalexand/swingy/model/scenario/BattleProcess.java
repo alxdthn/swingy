@@ -3,11 +3,11 @@ package com.nalexand.swingy.model.scenario;
 import com.nalexand.swingy.controller.BattleController;
 import com.nalexand.swingy.controller.BattleWinController;
 import com.nalexand.swingy.controller.DialogController;
-import com.nalexand.swingy.model.Battle;
-import com.nalexand.swingy.model.Hero;
+import com.nalexand.swingy.model.GameLogics;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.model.items.Item;
-import com.nalexand.swingy.utils.GameLogics;
+import com.nalexand.swingy.model.models.Battle;
+import com.nalexand.swingy.model.models.Hero;
+import com.nalexand.swingy.model.models.items.Item;
 import com.nalexand.swingy.utils.Utils;
 
 public class BattleProcess extends BaseScenarioStep implements BattleController {
@@ -116,6 +116,12 @@ public class BattleProcess extends BaseScenarioStep implements BattleController 
             Hero mob = model.getBattle().mob;
             Item currentItem = hero.takeItem(item);
             if (currentItem != null) {
+                if (currentItem.name.equals(item.name)) {
+                    mob.dropItem(item);
+                    currentItem.upLevel();
+                    accept();
+                    return;
+                }
                 mob.takeItem(currentItem);
                 model.saveGameState();
                 model.render();

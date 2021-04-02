@@ -1,8 +1,8 @@
 package com.nalexand.swingy.ui.gui.forms;
 
 import com.nalexand.swingy.controller.WelcomeController;
-import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
+import com.nalexand.swingy.model.models.Hero;
 import com.nalexand.swingy.ui.gui.Form;
 import com.nalexand.swingy.utils.IconResolver;
 import com.nalexand.swingy.utils.Utils;

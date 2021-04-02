@@ -1,4 +1,4 @@
-package com.nalexand.swingy.model;
+package com.nalexand.swingy.model.models;
 
 import com.google.gson.annotations.SerializedName;
 import com.nalexand.swingy.utils.TextureProvider;

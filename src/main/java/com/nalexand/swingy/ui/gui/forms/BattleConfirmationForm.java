@@ -4,9 +4,9 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.nalexand.swingy.controller.DialogController;
-import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.model.items.Item;
+import com.nalexand.swingy.model.models.Hero;
+import com.nalexand.swingy.model.models.items.Item;
 import com.nalexand.swingy.ui.gui.Form;
 import com.nalexand.swingy.utils.IconResolver;
 
@@ -36,12 +36,7 @@ public class BattleConfirmationForm implements Form {
 
         Item mobItem = mob.getItem();
         if (mobItem != null) {
-            this.mobItem.setText(
-                    String.format("<html>%s<br/>%s</html>",
-                            mobItem.name,
-                            mobItem.getDisplayedString()
-                    )
-            );
+            this.mobItem.setText(mobItem.getDisplayedString());
             IconResolver.setIcon(this.mobItem, mobItem.iconSource);
         } else {
             this.mobItem.setVisible(false);

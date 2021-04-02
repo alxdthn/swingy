@@ -1,9 +1,9 @@
 package com.nalexand.swingy.ui.console.output;
 
 import com.nalexand.swingy.controller.BattleWinController;
-import com.nalexand.swingy.model.Battle;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.model.items.Item;
+import com.nalexand.swingy.model.models.Battle;
+import com.nalexand.swingy.model.models.items.Item;
 import com.nalexand.swingy.ui.console.BaseConsoleOutput;
 import com.nalexand.swingy.ui.console.Command;
 

@@ -1,8 +1,8 @@
 package com.nalexand.swingy.model.scenario;
 
 import com.nalexand.swingy.controller.WelcomeController;
-import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
+import com.nalexand.swingy.model.models.Hero;
 
 public class Welcome extends BaseScenarioStep implements WelcomeController {
 

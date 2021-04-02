@@ -3,8 +3,8 @@ package com.nalexand.swingy.ui.gui.forms;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.nalexand.swingy.controller.BattleController;
-import com.nalexand.swingy.model.Battle;
 import com.nalexand.swingy.model.ModelFacade;
+import com.nalexand.swingy.model.models.Battle;
 import com.nalexand.swingy.ui.gui.Form;
 
 import javax.swing.*;

@@ -1,7 +1,11 @@
 package com.nalexand.swingy.model.scenario;
 
 import com.nalexand.swingy.controller.GameProcessController;
-import com.nalexand.swingy.model.*;
+import com.nalexand.swingy.model.ModelFacade;
+import com.nalexand.swingy.model.models.Battle;
+import com.nalexand.swingy.model.models.Cell;
+import com.nalexand.swingy.model.models.Hero;
+import com.nalexand.swingy.model.models.WorldMap;
 
 public class GameProcess extends BaseScenarioStep implements GameProcessController {
 

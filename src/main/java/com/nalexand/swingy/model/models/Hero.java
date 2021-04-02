@@ -1,8 +1,8 @@
-package com.nalexand.swingy.model;
+package com.nalexand.swingy.model.models;
 
 import com.nalexand.swingy.Swingy;
-import com.nalexand.swingy.model.items.Item;
-import com.nalexand.swingy.utils.GameLogics;
+import com.nalexand.swingy.model.GameLogics;
+import com.nalexand.swingy.model.models.items.Item;
 import com.nalexand.swingy.utils.IconResolver;
 import com.nalexand.swingy.utils.Utils;
 import jakarta.validation.Valid;
@@ -54,7 +54,6 @@ public class Hero implements Serializable {
     @Min(0)
     public int hitPoints = 0;
 
-    @Min(0)
     public int currentHitPoints = 0;
 
     @Min(0)
