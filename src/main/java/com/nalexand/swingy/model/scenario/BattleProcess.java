@@ -83,6 +83,7 @@ public class BattleProcess extends BaseScenarioStep implements BattleController 
         public void dismiss() {
             if (Utils.randomByPercent(50)) {
                 model.clearBattle();
+                model.saveGameState();
                 model.nextStep(new GameProcess(model));
             } else  {
                 accept();
@@ -105,6 +106,7 @@ public class BattleProcess extends BaseScenarioStep implements BattleController 
                 battle.status = Battle.Status.LOOT;
             }
             model.clearBattle();
+            model.saveGameState();
             model.nextStep(new GameProcess(model));
         }
 

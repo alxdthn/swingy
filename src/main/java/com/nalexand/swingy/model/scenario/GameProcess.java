@@ -9,6 +9,7 @@ public class GameProcess extends BaseScenarioStep implements GameProcessControll
         super(model);
         if (model.getSelectedHero().worldMap == null) {
             model.calculateWorldMap();
+            model.saveGameState();
         }
     }
 
@@ -42,19 +43,23 @@ public class GameProcess extends BaseScenarioStep implements GameProcessControll
                 hero.currentHitPoints++;
             }
             model.calculateWorldMap();
+            model.saveGameState();
         } else  {
             Cell destinationCell = worldMap.getCell(toPosX, toPosY);
             if (destinationCell.isFree()) {
                 model.moveHero(toPosX, toPosY);
+                model.saveGameState();
             } else if (destinationCell.withMob) {
                 Hero mob = model.getMobWithPosition(toPosX, toPosY);
                 destinationCell.battle = new Battle(hero, mob, toPosX, toPosY);
                 model.startBattle(destinationCell.battle);
+                model.saveGameState();
                 model.nextStep(new BattleProcess.Confirmation(model));
                 return;
             } else if (destinationCell.battle != null) {
                 hero.battle = destinationCell.battle;
                 model.moveHero(toPosX, toPosY);
+                model.saveGameState();
                 model.nextStep(new BattleProcess.Win(model));
                 return;
             }

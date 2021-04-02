@@ -87,7 +87,9 @@ public final class ConsoleView extends BaseView {
         try {
             result = scanner.nextLine();
         } catch (NoSuchElementException | IllegalStateException e) {
-            e.printStackTrace();
+            if (Swingy.DEBUG) {
+                e.printStackTrace();
+            }
         }
         return result;
     }

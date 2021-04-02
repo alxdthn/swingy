@@ -6,12 +6,13 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.nalexand.swingy.utils.Utils.listOfNotNull;
 
-public class Battle {
+public class Battle implements Serializable {
 
     @Valid
     @NotNull
@@ -66,7 +67,7 @@ public class Battle {
 
     public enum Status { CONFIRMATION, WIN, LOOT }
 
-    public static class Step {
+    public static class Step implements Serializable {
 
         @NotNull
         public String dealerName = null;

@@ -8,7 +8,7 @@ public class GameLogics {
 
     private static final double OBSTACLES_PERCENTAGE = 0.25;
 
-    private static final int ITEM_GENERATION_PERCENTAGE = 75;
+    private static final int ITEM_GENERATION_PERCENTAGE = 50;
 
     private static final int BASE_DEFENCE_REDUCE_CHANCE_PERCENTAGE = 50;
 
@@ -77,10 +77,10 @@ public class GameLogics {
     }
 
     public static void initAsMob(Hero mob, Hero hero) {
-        mob.level = Math.max(1, hero.level + Utils.randomBetween(-1, 1));
-        mob.attack = Math.max(1, hero.attack + Utils.randomBetween(-2, 2));
-        mob.defence = Math.max(0, hero.defence + Utils.randomBetween(-1, 1));
-        mob.hitPoints = Math.max(2, hero.hitPoints + Utils.randomBetween(-3, 3));
+        mob.level = Math.max(1, hero.level + Utils.randomBetween(-1, 2));
+        mob.attack = Math.max(1, hero.attack + Utils.randomBetween(-2, 3));
+        mob.defence = Math.max(0, hero.defence + Utils.randomBetween(-1, 2));
+        mob.hitPoints = Math.max(2, hero.hitPoints + Utils.randomBetween(-2, 3));
         if (Utils.randomByPercent(ITEM_GENERATION_PERCENTAGE)) {
             Item randomItem = ItemFactory.randomItem();
             switch (randomItem.type) {

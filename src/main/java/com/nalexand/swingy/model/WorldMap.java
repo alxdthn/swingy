@@ -6,10 +6,11 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorldMap {
+public class WorldMap implements Serializable {
 
     @Min(0)
     private int size = 0;

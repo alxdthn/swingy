@@ -12,11 +12,8 @@ public class CreateHero extends BaseScenarioStep implements CreateHeroController
 
     @Override
     public void createHero(Hero hero) {
-        Hero currentlySelectedHero = model.getSelectedHero();
-        if (currentlySelectedHero != null && hero.type == currentlySelectedHero.type) {
-            model.satisfyHero();
-        }
-        model.setSelectedHero(hero.type);
+        model.setSelectedHero(hero, true);
+        model.saveGameState();
         model.nextStep(new GameProcess(model));
     }
 }

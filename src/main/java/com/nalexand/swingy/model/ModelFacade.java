@@ -1,8 +1,11 @@
 package com.nalexand.swingy.model;
 
+import com.nalexand.swingy.Swingy;
+import com.nalexand.swingy.model.database.DataBaseInteractor;
 import com.nalexand.swingy.model.file.FileInteractor;
 import com.nalexand.swingy.model.scenario.BaseScenarioStep;
 import com.nalexand.swingy.model.scenario.Welcome;
+import com.nalexand.swingy.model.validator.GameStateValidator;
 import com.nalexand.swingy.ui.View;
 import com.nalexand.swingy.utils.GameLogics;
 
@@ -14,11 +17,27 @@ public class ModelFacade {
 
     private View view = null;
 
-    private FileInteractor fileInteractor = new FileInteractor();
+    private FileInteractor fileInteractor;
 
-    private GameState gameState = fileInteractor.loadGameState();
+    private DataBaseInteractor dataBaseInteractor;
+
+    private GameState gameState;
 
     private BaseScenarioStep currentStep = new Welcome(this);
+
+    public ModelFacade() {
+        switch (Swingy.SAVE_METHOD) {
+            case DATA_BASE:
+                dataBaseInteractor = new DataBaseInteractor();
+                gameState = dataBaseInteractor.loadGameState();
+                break;
+            case FILE:
+                fileInteractor = new FileInteractor();
+                gameState = fileInteractor.loadGameState();
+                break;
+        }
+        gameState = new GameStateValidator().validate(gameState);
+    }
 
     //region Process
     public void render() {
@@ -66,25 +85,32 @@ public class ModelFacade {
 
     public void satisfyHero() {
         Hero currentHero = getSelectedHero();
+        Hero.Type heroType = currentHero.type;
         gameState.heroes.put(currentHero.type, new Hero(currentHero.type));
         gameState.selectedHeroType = null;
-        saveGameState();
+        saveGameState(heroType);
     }
     //endregion
 
     //region State interactions
-    public void setSelectedHero(Hero.Type selectedHeroType) {
-        gameState.selectedHeroType = selectedHeroType;
-        Hero selectedHero = getSelectedHero();
+    public void setSelectedHero(Hero selectedHero, boolean createNew) {
+        Hero currentHero = getSelectedHero();
+        if (createNew) {
+            currentHero = new Hero(selectedHero.type);
+            GameLogics.initAsHero(currentHero);
+            gameState.heroes.put(selectedHero.type, currentHero);
+        } else if (currentHero != null) {
+            currentHero.selected = false;
+        }
+        gameState.selectedHeroType = selectedHero.type;
+        selectedHero.selected = true;
         GameLogics.initAsHero(selectedHero);
-        saveGameState();
     }
 
     public void calculateWorldMap() {
         Hero selectedHero = getSelectedHero();
         selectedHero.worldMap = new WorldMap();
         selectedHero.worldMap.generateWorld(selectedHero);
-        saveGameState();
     }
 
     public void moveHeroToMob() {
@@ -100,23 +126,30 @@ public class ModelFacade {
         hero.posY = toPosY;
         destinationCell.withHero = true;
         destinationCell.withMob = false;
-        saveGameState();
     }
-
 
     public void startBattle(Battle battle) {
         getSelectedHero().battle = battle;
-        saveGameState();
     }
 
     public void clearBattle() {
         Hero selectedHero = getSelectedHero();
         selectedHero.battle = null;
-        saveGameState();
     }
 
     public void saveGameState() {
-        fileInteractor.saveGameState(gameState);
+        saveGameState(gameState.selectedHeroType);
+    }
+
+    private void saveGameState(Hero.Type heroType) {
+        switch (Swingy.SAVE_METHOD) {
+            case DATA_BASE:
+                dataBaseInteractor.saveGameState(gameState, heroType);
+                break;
+            case FILE:
+                fileInteractor.saveGameState(gameState);
+                break;
+        }
     }
     //endregion
 

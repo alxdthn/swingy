@@ -17,7 +17,8 @@ public class Welcome extends BaseScenarioStep implements WelcomeController {
 
     @Override
     public void selectHeroAndShowGameProcess(Hero hero) {
-        model.setSelectedHero(hero.type);
+        model.setSelectedHero(hero, false);
+        model.saveGameState();
         model.nextStep(new GameProcess(model));
     }
 }

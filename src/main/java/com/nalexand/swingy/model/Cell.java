@@ -6,7 +6,9 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
-public class Cell {
+import java.io.Serializable;
+
+public class Cell implements Serializable {
 
     @SerializedName("h")
     public boolean withHero = false;

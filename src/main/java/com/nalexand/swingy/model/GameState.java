@@ -4,10 +4,11 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameState {
+public class GameState implements Serializable {
 
     public Hero.Type selectedHeroType = null;
 

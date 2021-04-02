@@ -1,13 +1,10 @@
 package com.nalexand.swingy;
 
-import com.nalexand.swingy.model.Battle;
-import com.nalexand.swingy.model.Hero;
 import com.nalexand.swingy.model.ModelFacade;
-import com.nalexand.swingy.model.scenario.BattleProcess;
+import com.nalexand.swingy.model.SaveMethod;
 import com.nalexand.swingy.ui.View;
 import com.nalexand.swingy.ui.console.ConsoleView;
 import com.nalexand.swingy.ui.gui.GuiView;
-import com.nalexand.swingy.utils.GameLogics;
 
 public class Swingy {
 
@@ -16,6 +13,8 @@ public class Swingy {
     public static final boolean IGNORE_SAVED = false;
 
     public static final boolean DEBUG = true;
+
+    public static final SaveMethod SAVE_METHOD = SaveMethod.DATA_BASE;
 
     public static final String[] MOB_NAMES = {"Ork", "Necromancer", "Bandit", "Wood Elf"};
 
@@ -54,34 +53,5 @@ public class Swingy {
             currentView = guiView;
         }
         currentView.start(model);
-    }
-
-    private static void DEBUG_runBattleConfirmation() {
-        model.setSelectedHero(Hero.Type.URSA);
-        Hero hero = model.getSelectedHero();
-        model.calculateWorldMap();
-        Hero mob = hero.worldMap.mobs.get(0);
-        GameLogics.initAsMob(mob, hero);
-        model.startBattle(new Battle(hero, mob, 0, 0));
-        model.nextStep(new BattleProcess.Confirmation(model));
-    }
-
-    private static void DEBUG_runBattleProcess() {
-        model.setSelectedHero(Hero.Type.URSA);
-        Hero hero = model.getSelectedHero();
-        model.calculateWorldMap();
-        Hero mob = hero.worldMap.mobs.get(0);
-
-        hero.hitPoints = 2;
-        hero.currentHitPoints = 2;
-        hero.attack = 1;
-
-        mob.hitPoints = 2;
-        mob.currentHitPoints = 2;
-        mob.attack = 1;
-        mob.dropItem(mob.getItem());
-
-        model.startBattle(new Battle(hero, mob, 0, 0));
-        model.nextStep(new BattleProcess(model));
     }
 }
