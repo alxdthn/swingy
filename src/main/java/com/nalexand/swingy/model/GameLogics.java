@@ -77,6 +77,7 @@ public class GameLogics {
         hero.created = true;
         hero.hitPoints = INITIAL_HERO_HP;
         hero.currentHitPoints = hero.hitPoints;
+        hero.takeItem(ItemFactory.randomItem());
     }
 
     public static void initAsMob(Hero mob, Hero hero) {

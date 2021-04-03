@@ -124,6 +124,10 @@ public final class ConsoleView extends BaseView {
                 break;
             case "gui":
                 result = Command.GUI;
+                break;
+            case "unstuck":
+                result = Command.UNSTUCK;
+                break;
         }
         return result;
     }

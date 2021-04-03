@@ -70,4 +70,11 @@ public class GameProcess extends BaseScenarioStep implements GameProcessControll
         }
         model.render();
     }
+
+    @Override
+    public void unstuck() {
+        model.calculateWorldMap();
+        model.saveGameState();
+        model.render();
+    }
 }

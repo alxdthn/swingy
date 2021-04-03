@@ -23,6 +23,7 @@ public class WorldMapForm extends KeyListenerForm {
         listenKey(KeyEvent.VK_A, () -> controller.moveHero(-1, 0));
         listenKey(KeyEvent.VK_S, () -> controller.moveHero(0, 1));
         listenKey(KeyEvent.VK_D, () -> controller.moveHero(1, 0));
+        listenKey(KeyEvent.VK_U, controller::unstuck);
 
         WorldMapPanel worldMapPanel = new WorldMapPanel(model);
         worldMapPanel.setLayout(new GridBagLayout());

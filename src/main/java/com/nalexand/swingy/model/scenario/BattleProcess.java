@@ -26,7 +26,6 @@ public class BattleProcess extends BaseScenarioStep implements BattleController 
         boolean isHeroTurn = true;
         while (hero.currentHitPoints > 0 && mob.currentHitPoints > 0) {
             Battle.Step step = new Battle.Step();
-            GameLogics.DamageResult damage;
 
             if (isHeroTurn) {
                 applyAttack(hero, mob, step, "enemy");
@@ -111,22 +110,23 @@ public class BattleProcess extends BaseScenarioStep implements BattleController 
         }
 
         @Override
-        public void takeLootItem(Item item) {
+        public void takeLootItem(Item mobItem) {
             Hero hero = model.getSelectedHero();
             Hero mob = model.getBattle().mob;
-            Item currentItem = hero.takeItem(item);
-            if (currentItem != null) {
-                if (currentItem.name.equals(item.name)) {
-                    mob.dropItem(item);
-                    currentItem.upLevel();
-                    accept();
-                    return;
-                }
-                mob.takeItem(currentItem);
+            Item heroItem = hero.takeItem(mobItem);
+            mob.dropItem(mobItem);
+
+            if (heroItem != null && heroItem.name.equals(mobItem.name)) {
+                mobItem.upLevel();
+                accept();
+                return;
+            }
+
+            if (heroItem != null) {
+                mob.takeItem(heroItem);
                 model.saveGameState();
                 model.render();
             } else {
-                mob.dropItem(item);
                 accept();
             }
         }

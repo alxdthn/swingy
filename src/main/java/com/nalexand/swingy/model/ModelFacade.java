@@ -97,17 +97,19 @@ public class ModelFacade {
 
     //region State interactions
     public void setSelectedHero(Hero selectedHero, boolean createNew) {
-        Hero currentHero = getSelectedHero();
         if (createNew) {
-            currentHero = new Hero(selectedHero.type);
-            GameLogics.initAsHero(currentHero);
-            gameState.heroes.put(selectedHero.type, currentHero);
-        } else if (currentHero != null) {
+            Hero newHero = new Hero(selectedHero.type);
+            GameLogics.initAsHero(newHero);
+            gameState.heroes.put(selectedHero.type, newHero);
+            gameState.selectedHeroType = selectedHero.type;
+            return;
+        }
+        Hero currentHero = getSelectedHero();
+        if (currentHero != null) {
             currentHero.selected = false;
         }
         gameState.selectedHeroType = selectedHero.type;
-        selectedHero.selected = true;
-        GameLogics.initAsHero(selectedHero);
+        getSelectedHero().selected = true;
     }
 
     public void calculateWorldMap() {

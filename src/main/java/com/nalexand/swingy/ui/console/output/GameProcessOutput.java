@@ -77,6 +77,7 @@ public class GameProcessOutput extends BaseConsoleOutput {
         listenCommand(Command.KEY_A, () -> controller.moveHero(-1, 0));
         listenCommand(Command.KEY_S, () -> controller.moveHero(0, 1));
         listenCommand(Command.KEY_D, () -> controller.moveHero(1, 0));
+        listenCommand(Command.UNSTUCK, controller::unstuck);
     }
 
     private void printMapLine(Iterator<List<Cell>> worldMapIterator) {
